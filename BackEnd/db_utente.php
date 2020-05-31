@@ -29,6 +29,16 @@ class db_utente{
 		$conn->close();
 	}
 
+	//DELETE QUERY
+
+	public function deleteAccount($mail){
+        $conn = $this->getConnection();
+           $sql = "DELETE FROM utente WHERE mail LIKE '".$mail."'";
+        if($conn->query($sql) === TRUE){
+            //successfully updated
+        }
+    }
+
 	//UPDATE QUERIES
 	public function updateMail($oldMail, $newMail){
 		$conn = $this->getConnection();
