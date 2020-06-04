@@ -18,6 +18,16 @@ if(isset($_GET["code"])){
 
         $data = $google_service->userinfo->get();
 
+        //registrazione nel database
+        require "../BackEnd/db_utente.php";
+        $array = array("mail" => $data['email'],
+                    "nome" => $data['given_name'],
+                    "cognome" => $data['family_name'],
+                    "password" => "NULL",
+                    "descrizione" => "");
+        $utente = new db_utente();
+        $utente->register($array);
+
         //isset: Determina se una variabile è dichiarata ed è diversa da NULL 
         if(!isset($data['given_name'])){
             $_SESSION['user_first_name'] = $data['given_name'];
@@ -30,18 +40,20 @@ if(isset($_GET["code"])){
         if(!isset($data['email'])){
             $_SESSION['user_email_address'] = $data['email'];
         }
-
-        //registrazione nel database
-        require "../BackEnd/db_utente.php";
-        $array = array("mail" => $data['email'],
-                    "nome" => $data['given_name'],
-                    "cognome" => $data['family_name'],
-                    "password" => "NULL",
-                    "descrizione" => "");
-        $utente = new db_utente();
-        $utente->register($array);
     }
 }
+
+require "../BackEnd/db_utente.php";
+//test funzione register()
+   $array = array("mail" => $data['email'],
+                  "password" => "",
+                  "nome" => $data['given_name'],
+                  "cognome" => $data['family_name'],
+                  "descrizione" => "");
+
+  $interface = new db_utente();
+  $interface->register($array);
+
 
 if(!isset($_SESSION['access_token'])){
 
@@ -67,6 +79,14 @@ if(!isset($_SESSION['access_token'])){
 
             if($login_btn == ''){
 
+                echo  '<div class = "panel-heading"> Welcome User </div> <div class = "panel-body">';
+
+                echo  '<img src"'.$_SESSION["user_image"].'"class = "img-responsive img-circle img-thumbnail" />';
+
+                echo  '<h3><b> Name: </b>'.$_SESSION["user_first_name"].''.$_SESSION["user_last_name"].'</h3';
+
+                echo  '<h3><b> Email: </b>'.$_SESSION["user_email_address"].'</h3>';
+
                 echo  '<h3><a href = "Logout.php"> Logout </h3></div>';
             }else{
 
@@ -74,6 +94,7 @@ if(!isset($_SESSION['access_token'])){
             }
 
             ?>
+
         </div>
     </div>
 </body>

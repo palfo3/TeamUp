@@ -11,7 +11,7 @@ class db_utente{
 	private function getConnection(){
 			$servername = "localhost";
 			$username = "root";
-			$password = "Admin";
+			$password = "";
 			$dbname = "db_ing";
 
 			// Create connection
@@ -22,8 +22,8 @@ class db_utente{
 	public function register($user){
 		$this->utente = new utente($user);
 		$conn = $this->getConnection();
-		$sql = "INSERT INTO utente (E-mail, password, nome, cognome, descrizione) VALUES ".
-		"('".$this->utente->mail."', '".$this->utente->password."', '".$this->utente->nome."', '".$this->utente->cognome."', '".$this->utente->descrizione."')";
+		$sql = "INSERT INTO utente (mail, password, nome, cognome, descrizione) VALUES ".
+		"('".$this->utente->getMail()."', '".$this->utente->getPassword()."', '".$this->utente->getNome()."', '".$this->utente->getCognome()."', '".$this->utente->getDescrizione()."')";
 		$conn->query($sql);
 
 		$conn->close();
@@ -122,7 +122,7 @@ class db_utente{
 
 }
 
-/*	Testing della classe
+	/*Testing della classe
 	//test funzione register()
 	{
 			$array = array( "mail" => "gaetano@mail.it",
@@ -133,10 +133,10 @@ class db_utente{
 
 			$interface = new db_utente();
 			$interface->register($array);
-	}
+	}*/
 
 	
 
-*/
+
 
 ?>

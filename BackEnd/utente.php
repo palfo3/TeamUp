@@ -30,35 +30,35 @@ class utente{
 	}
 
 	public function getMail(){
-		return $this->utente->mail;
+		return $this->mail;
 	}
 
 	public function getPassword(){
-		return $this->utente->password;
+		return $this->password;
 	}
 
 	public function getNome(){
-		return $this->utente->nome;
+		return $this->nome;
 	}
 
 	public function getCognome(){
-		return $this->utente->cognome;
+		return $this->cognome;
 	}
 
 	public function getDescrizione(){
-		return $this->utente->descrizione;
+		return $this->descrizione;
 	}
 
 	public function getNascita(){
-		return $this->utente->nascita;
+		return $this->nascita;
 	}
 
 	public function getImmagine(){
-		return $this->utente->immagine;
+		return $this->immagine;
 	}
 
 	public function getCurriculum(){
-		return $this->utente->curriculum;
+		return $this->curriculum;
 	}
 
 
