@@ -40,6 +40,8 @@ if(isset($_GET["code"])){
 			"descrizione" => "");
 		$utente = new db_utente();
 		$utente->register($array);
+
+		header('Location: Homepage.php');
 	}
 }
 
