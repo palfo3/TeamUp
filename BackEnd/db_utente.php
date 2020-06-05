@@ -105,7 +105,18 @@ class db_utente{
 	}
 	//END UPDATE QUERIES
 
+	public function checkUtente($mail){
+		$conn = $this->getConnection();
+		$sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."'";
+		$result = $conn->query($sql);
 
+		if($result->num_rows == 1) {
+		  // output data of each row
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 	public function setUtente($mail){
 		$conn = $this->getConnection();
@@ -118,20 +129,14 @@ class db_utente{
 		  
 		  $this->utente = new utente($row);
 		}
-
 		$this->utente = new utente($row);
 		$conn->close();
-		
 	}
 
 	public function getUtente(){
 		return $this->utente;
 	}
-
-
-
 }
-
 	/*Testing della classe
 	//test funzione register()
 	{
@@ -144,9 +149,4 @@ class db_utente{
 			$interface = new db_utente();
 			$interface->register($array);
 	}*/
-
-	
-
-
-
 ?>

@@ -31,15 +31,17 @@ if(isset($_GET["code"])){
             $_SESSION['user_email_address'] = $data['email'];
         }
 
-        //registrazione nel database
         require "../BackEnd/db_utente.php";
-        $array = array("mail" => $data['email'],
-                    "nome" => $data['given_name'],
-                    "cognome" => $data['family_name'],
-                    "password" => "NULL",
-                    "descrizione" => "");
-        $utente = new db_utente();
-        $utente->register($array);
+        $utente = new db_utente(); 
+        if($utente->checkUtente($data['email'])){       
+            $array = array("mail" => $data['email'],
+            "nome" => $data['given_name'],
+            "cognome" => $data['family_name'],
+            "password" => "NULL",
+            "descrizione" => "");
+            $utente = new db_utente();
+            $utente->register($array);           
+        }
     }
 }
 
