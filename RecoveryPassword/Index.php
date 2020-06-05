@@ -23,5 +23,10 @@ require "../BackEnd/db_utente.php";
 $utente = new db_utente(); 
 $utente->updatePassword($mail, $pass_app);
 
+//Togliere di default la mia email
+//Dopo aver mandato all'utente la nuova password, egli può decidere se CAMBIARE PASSWORD inserendo quella attuale e quella nuova. (Sono due item diversi??) 
+
 ?>
+
+
 
