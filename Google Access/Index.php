@@ -31,13 +31,15 @@ if(isset($_GET["code"])){
             $_SESSION['user_email_address'] = $data['email'];
         }
 
-        if(!isset($data['gender'])){
-            $_SESSION['user_gender'] = $data['gender'];
-        }
-
-        if(!isset($data['picture'])){
-            $_SESSION['user_image'] = $data['picture'];
-        }
+        //registrazione nel database
+        require "../BackEnd/db_utente.php";
+        $array = array("mail" => $data['email'],
+                    "nome" => $data['given_name'],
+                    "cognome" => $data['family_name'],
+                    "password" => "NULL",
+                    "descrizione" => "");
+        $utente = new db_utente();
+        $utente->register($array);
     }
 }
 
@@ -65,14 +67,6 @@ if(!isset($_SESSION['access_token'])){
 
             if($login_btn == ''){
 
-                echo  '<div class = "panel-heading"> Welcome User </div> <div class = "panel-body">';
-
-                echo  '<img src"'.$_SESSION["user_image"].'"class = "img-responsive img-circle img-thumbnail" />';
-
-                echo  '<h3><b> Name: </b>'.$_SESSION["user_first_name"].''.$_SESSION["user_last_name"].'</h3';
-
-                echo  '<h3><b> Email: </b>'.$_SESSION["user_email_address"].'</h3>';
-
                 echo  '<h3><a href = "Logout.php"> Logout </h3></div>';
             }else{
 
@@ -80,7 +74,6 @@ if(!isset($_SESSION['access_token'])){
             }
 
             ?>
-
         </div>
     </div>
 </body>

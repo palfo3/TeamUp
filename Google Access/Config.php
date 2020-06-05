@@ -8,7 +8,7 @@ $google_client->setClientId('953839603005-j6b0j5flahopjnb72n39chicm0r17dqg.apps.
 
 $google_client->setClientSecret('nvgtNsxqMWgCLlW5TtVK9Fy-');
 
-$google_client->setRedirectUri('http://localhost/Progetto/Index.php');
+$google_client->setRedirectUri('http://localhost/Progetto/TeamUp/Google%20Access/Index.php');
 
 $google_client->addScope('email');
 

@@ -6,6 +6,6 @@ $google_client->revokeToken();
 
 session_destroy();
 
-header('location: Index.php');
+header('location: ../Google%20Access/Test/Login.html');
 
 ?>
