@@ -1,10 +1,10 @@
 
 function Registrati() {
-	window.location.href = "Registrazione.html";
+	window.location.href = "Registrazione.php";
 }
 
 function login() {
-	window.location.href = "index.html";
+	window.location.href = "index.php";
 }
 
 

@@ -1,3 +1,24 @@
+<?php
+
+$nome = $_POST['nome'];
+$cognome = $_POST['cognome'];
+$email = $_POST['email'];
+$password = $_POST['hashedPassword'];
+
+require "BackEnd/db_utente.php";
+$utente = new db_utente(); 
+if($utente->checkUtente($email)){       
+	$array = array("mail" => $email,
+		"nome" => $nome,
+		"cognome" => $cognome,
+		"password" => $password,
+		"descrizione" => "");
+	$utente = new db_utente();
+	$utente->register($array); 
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -17,11 +38,13 @@
 			
 			var password = document.getElementById("password").value;
 			var conferma = document.getElementById("confermaPassword").value;
-			if(password == conferma)
+			if(password == conferma){
+
+				document.getElementById("hashedPassword").value = sha256(password);
+				//document.getElementById("password").pattern = "^[^]*$";
 				return true;
-			else{
+			}else{
 				document.getElementById("confermaPassword").classList.add("is-invalid");
-				document.getElementById("confermaPassword").popover();
 				return false;
 			}
 		}
@@ -36,7 +59,7 @@
 				TeamUp
 			</div>
 		</div>
-			<button class="btn btn-outline-light my-2 my-sm-0 btn-sm" type="submit" onclick="login()">Accedi</button>
+		<button class="btn btn-outline-light my-2 my-sm-0 btn-sm" type="submit" onclick="login()">Accedi</button>
 	</nav>
 
 	<br>
@@ -100,7 +123,7 @@
 						<td width="10rem"></td>
 						<td>
 							<label for="password">Password</label>
-							<input type="password" class="form-control" id="password" name="password" placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+							<input type="password" class="form-control" id="password" placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
 						</td>
 						<td width="10rem"></td>
 						<td>
@@ -119,7 +142,7 @@
 					<tr>
 						<td colspan="5">
 							<div style="text-align: center;">
-								<button type="submit" class="btn btn-primary" onclick="controllo()">Registrati</button>
+								<button type="submit" class="btn btn-primary" id="hashedPassword" name="hashedPassword" onclick="controllo()">Registrati</button>
 							</div>
 						</td>
 					</tr>

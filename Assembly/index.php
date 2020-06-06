@@ -22,15 +22,15 @@ if(isset($_GET["code"])){
 
         //isset: Determina se una variabile è dichiarata ed è diversa da NULL 
 		if(!isset($data['given_name'])){
-			$_SESSION['user_first_name'] = $data['given_name'];
+			$_SESSION['name'] = $data['given_name'];
 		}
 
 		if(!isset($data['family_name'])){
-			$_SESSION['user_last_name'] = $data['family_name'];
+			$_SESSION['cognome'] = $data['family_name'];
 		}
 
 		if(!isset($data['email'])){
-			$_SESSION['user_email_address'] = $data['email'];
+			$_SESSION['mail'] = $data['email'];
 		}
 
 
