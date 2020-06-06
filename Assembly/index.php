@@ -2,6 +2,10 @@
 
 include "Config.php";
 
+if(isset($_SESSION['access_token'])){
+	header('Location: Homepage.php');
+}
+
 if(isset($_GET["code"])){
 
 	$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
@@ -33,13 +37,16 @@ if(isset($_GET["code"])){
 
         //registrazione nel database
 		require "BackEnd/db_utente.php";
-		$array = array("mail" => $data['email'],
-			"nome" => $data['given_name'],
-			"cognome" => $data['family_name'],
-			"password" => "NULL",
-			"descrizione" => "");
-		$utente = new db_utente();
-		$utente->register($array);
+		$utente = new db_utente(); 
+		if($utente->checkUtente($data['email'])){       
+			$array = array("mail" => $data['email'],
+				"nome" => $data['given_name'],
+				"cognome" => $data['family_name'],
+				"password" => "NULL",
+				"descrizione" => "");
+			$utente = new db_utente();
+			$utente->register($array); 
+		}
 
 		header('Location: Homepage.php');
 	}
@@ -61,7 +68,7 @@ if(isset($_GET["code"])){
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 
 </head>
 
@@ -87,7 +94,7 @@ if(isset($_GET["code"])){
 
 					<tr>
 						<td height="10rem">
-							
+
 						</td>
 					</tr>
 
@@ -113,7 +120,7 @@ if(isset($_GET["code"])){
 
 					<tr>
 						<td height="10rem">
-							
+
 						</td>
 					</tr>
 
@@ -131,7 +138,7 @@ if(isset($_GET["code"])){
 
 					<tr>
 						<td height="10rem">
-							
+
 						</td>
 					</tr>					
 
@@ -143,16 +150,16 @@ if(isset($_GET["code"])){
 						</td>
 
 						<td>
-							
+
 						</td>
 
 						<td colspan="2">
 							<div style="text-align: center;">
-								
+
 								<?php
-									if(!isset($_SESSION['access_token'])){
-										echo'<a href = "'.$google_client->createAuthUrl().'" class="btn btn-primary">Google</a>';
-									}
+								if(!isset($_SESSION['access_token'])){
+									echo'<a href = "'.$google_client->createAuthUrl().'" class="btn btn-primary">Google</a>';
+								}
 								?>
 
 							</div>
@@ -161,13 +168,13 @@ if(isset($_GET["code"])){
 
 					<tr>
 						<td height="10rem">
-							
+
 						</td>
 					</tr>
 
 				</table>
 			</div>
-			
+
 		</form>
 	</center>
 

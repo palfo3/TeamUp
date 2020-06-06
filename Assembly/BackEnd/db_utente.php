@@ -9,14 +9,14 @@ class db_utente{
 
 	//Definizione Metodi
 	private function getConnection(){
-			$servername = "localhost";
-			$username = "root";
-			$password = "";
-			$dbname = "db_ing";
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "db_ing";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
-			return $conn;
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		return $conn;
 	}
 
 	public function register($user){
@@ -32,12 +32,12 @@ class db_utente{
 	//DELETE QUERY
 
 	public function deleteAccount($mail){
-        $conn = $this->getConnection();
-           $sql = "DELETE FROM utente WHERE mail LIKE '".$mail."'";
-        if($conn->query($sql) === TRUE){
+		$conn = $this->getConnection();
+		$sql = "DELETE FROM utente WHERE mail LIKE '".$mail."'";
+		if($conn->query($sql) === TRUE){
             //successfully updated
-        }
-    }
+		}
+	}
 
 	//UPDATE QUERIES
 	public function updateMail($oldMail, $newMail){
@@ -105,6 +105,19 @@ class db_utente{
 	}
 	//END UPDATE QUERIES
 
+	public function checkUtente($mail){
+		$conn = $this->getConnection();
+		$sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."'";
+		$result = $conn->query($sql);
+
+		if($result->num_rows == 1) {
+		  // output data of each row
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 
 
 	public function setUtente($mail){
@@ -114,9 +127,9 @@ class db_utente{
 
 		if ($result->num_rows == 1) {
 		  // output data of each row
-		  $row = $result->fetch_assoc();
-		  
-		  $this->utente = new utente($row);
+			$row = $result->fetch_assoc();
+			
+			$this->utente = new utente($row);
 		}
 
 		$this->utente = new utente($row);
@@ -143,10 +156,10 @@ class db_utente{
 
 			$interface = new db_utente();
 			$interface->register($array);
-	}*/
+		}*/
 
-	
+		
 
 
 
-?>
+		?>
