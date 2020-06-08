@@ -11,7 +11,7 @@ class db_progetto{
 	private function getConnection(){
 			$servername = "localhost";
 			$username = "root";
-			$password = "Admin";
+			$password = "";
 			$dbname = "db_ing";
 
 			// Create connection
@@ -23,9 +23,8 @@ class db_progetto{
 		$this->progetto = new progetto($project);
 		$conn = $this->getConnection();
 		$sql = "INSERT INTO progetto (leader, nome, descrizione, data_scadenza, data_creazione) VALUES ".
-		"('".$this->progetto->leader."', '".$this->progetto->nome."', '".$this->progetto->descrizione."', '".$this->progetto->data_scadenza."', '".$this->progetto->data_creazione."')";
+		"('".$this->progetto->getLeader()."', '".$this->progetto->getNome()."', '".$this->progetto->getDescrizione()."', '".$this->progetto->getData_scadenza()."', '".$this->progetto->getData_creazione()."')";
 		$conn->query($sql);
-
 		$conn->close();
 	}
 
