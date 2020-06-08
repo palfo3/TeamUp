@@ -145,7 +145,7 @@ if(isset($_GET["code"])){
 					<tr>
 						<td height="10rem" colspan="5">
 							<center>
-								<a href="">Hai dimenticato la password?</a>
+								<a href="recovery_password.php">Hai dimenticato la password?</a>
 							</center>
 						</td>
 					</tr>	
