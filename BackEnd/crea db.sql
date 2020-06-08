@@ -19,8 +19,11 @@ CREATE TABLE tag (nome varchar(60) PRIMARY KEY);
 ALTER TABLE candidato ADD CONSTRAINT FKcandidato524966 FOREIGN KEY (Progetto) REFERENCES progetto (ID);
 ALTER TABLE candidato ADD CONSTRAINT FKcandidato918278 FOREIGN KEY (utente) REFERENCES utente (Mail);
 ALTER TABLE progetto ADD CONSTRAINT FKProgetto579424 FOREIGN KEY (Leader) REFERENCES Utente (Mail);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 >>>>>>> Dev
 >>>>>>> Stashed changes
+=======
+>>>>>>> Dev
 ALTER TABLE associaTag ADD CONSTRAINT limitToFive CHECK (posizione < 5 AND posizione >= 0);
