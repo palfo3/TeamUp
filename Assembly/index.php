@@ -4,12 +4,10 @@ include "Config.php";
 
 $flag = false;
 
-if(!isset($_SESSION)){
-
+if(!isset($_SESSION['mail'])){
 	session_start();
 } else {
 	header('Location: Homepage.php');
-
 }
 
 if(isset($_GET["code"])){
@@ -85,7 +83,7 @@ if(isset($_POST['email']) || isset($_POST['password'])){
 		$row = mysqli_fetch_assoc($query);
 		$_SESSION['nome'] = $row['nome'];
 		$_SESSION['cognome'] = $row['cognome'];
-		$_SESSION['email'] = $row['mail'];
+		$_SESSION['mail'] = $row['mail'];
 		header('Location: Homepage.php');
 	} else {
 		$flag = true;

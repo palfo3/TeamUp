@@ -1,7 +1,8 @@
 <?php
 
-session_start();
-
+if(!isset($_SESSION['mail'])){
+		header('Location: index.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +22,7 @@ session_start();
 </head>
 
 <body>
+
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
