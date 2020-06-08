@@ -27,5 +27,4 @@ INSERT INTO tag (nome) VALUES
 INSERT INTO associaTag (progetto, tag, posizione) VALUES
 (1, 'sport', 0),
 (1, 'scialare', 1),
-(1, 'università', 2),
-(2, 'scialare', 0);
+(1, 'università', 2);
