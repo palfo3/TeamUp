@@ -51,7 +51,6 @@ if(isset($_POST['hashedPassword'])) {
 			if(password == conferma){
 
 				document.getElementById("hashedPassword").value = sha256(password);
-				//document.getElementById("password").pattern = "^[^]*$";
 				return true;
 			}else{
 				document.getElementById("confermaPassword").classList.add("is-invalid");

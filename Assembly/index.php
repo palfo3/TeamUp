@@ -2,8 +2,14 @@
 
 include "Config.php";
 
-if(isset($_SESSION['access_token'])){
+$flag = false;
+
+if(!isset($_SESSION)){
+
+	session_start();
+} else {
 	header('Location: Homepage.php');
+
 }
 
 if(isset($_GET["code"])){
@@ -52,6 +58,40 @@ if(isset($_GET["code"])){
 	}
 }
 
+if(isset($_POST['email']) || isset($_POST['password'])){
+
+	$link = mysqli_connect('localhost', 'root', '', 'db_ing');
+
+// Check connection
+	if(mysqli_connect_errno()){
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+
+	$email = stripcslashes($email);
+	$password = stripcslashes($password);	
+
+	$email = mysqli_real_escape_string($link, $_POST['email']);
+	$password = mysqli_real_escape_string($link, $_POST['password']);
+
+	$passhash = hash('sha256', $password);
+
+	$query = mysqli_query($link, "SELECT * FROM Utente where Mail = '".$email."' && Password = '".$passhash."'")
+	or die("Query non eseguita!".mysqli_error($link));
+
+	if(mysqli_num_rows($query) > 0){
+		$row = mysqli_fetch_assoc($query);
+		$_SESSION['nome'] = $row['nome'];
+		$_SESSION['cognome'] = $row['cognome'];
+		$_SESSION['email'] = $row['mail'];
+		header('Location: Homepage.php');
+	} else {
+		$flag = true;
+	} 
+}
+
 
 ?>
 
@@ -88,7 +128,7 @@ if(isset($_GET["code"])){
 	<br>
 
 	<center>
-		<form style="color: white;">
+		<form style="color: white;" action="index.php" method="POST">
 			<div class="form-group">
 				<table style="background-color: #343a40;">
 
@@ -110,8 +150,16 @@ if(isset($_GET["code"])){
 						<td width="10rem"></td>
 						<td colspan="3">
 							<div class="container">
-								<label for="email">Email</label>
-								<input type="email" class="form-control" id="email" placeholder="Email">								
+								<label for="email" style="color: white;">Email</label>
+								<?php
+
+								if($flag) {
+									echo "<input type=\"email\" class=\"form-control is-invalid\" id=\"email\" name=\"email\" placeholder=\"Email\">";
+								} else {
+									echo "<input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Email\">";
+								}
+
+								?>								
 							</div>
 
 						</td>
@@ -128,8 +176,16 @@ if(isset($_GET["code"])){
 						<td width="10rem"></td>
 						<td colspan="3">
 							<div class="container-fluid">
-								<label for="email">Password</label>
-								<input type="password" class="form-control" id="password" placeholder="Password">								
+								<label for="email" style="color: white;">Password</label>
+								<?php
+
+								if($flag) {
+									echo "<input type=\"password\" class=\"form-control is-invalid\" id=\"password\" name=\"password\" placeholder=\"password\">";
+								} else {
+									echo "<input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" placeholder=\"password\">";
+								}
+
+								?>							
 							</div>
 
 						</td>
@@ -138,7 +194,7 @@ if(isset($_GET["code"])){
 
 					<tr>
 						<td height="10rem">
-							
+
 						</td>
 					</tr>
 
@@ -152,7 +208,7 @@ if(isset($_GET["code"])){
 
 					<tr>
 						<td height="10rem">
-							
+
 						</td>
 					</tr>				
 
