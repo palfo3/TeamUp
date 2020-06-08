@@ -1,16 +1,31 @@
 <?php
 
-$mail = $_POST['mail'];
-$nome = $_POST['nome']; 
-$descrizione = $_POST['descrizione'];
-$data_scadenza = $_POST['data_scadenza'];
-$data_creazione = $_POST['data_creazione'];
+$mail = "";
+$nome = "";
+$descrizione = "";
+$data_scadenza = "";
+$data_creazione = "";
 
-if(isset($_POST['mail']) && isset($_POST['nome']) && isset($_POST['descrizione']) 
-	&& isset($_POST['data_scadenza']) && isset($_POST['data_creazione'])){
-
-	echo "ciao";
+if(isset($_POST['mail'])){
+    $mail = $_POST['mail'];
 }
+
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome']; 
+}
+
+if(isset($_POST['descrizione'])){
+    $descrizione = $_POST['descrizione'];
+}
+
+if(isset($_POST['data_scadenza'])){
+    $data_scadenza = $_POST['data_scadenza'];
+}
+
+if(isset($_POST['data_creazione'])){
+   	$data_creazione = $_POST['data_creazione'];
+}
+
 
 require "BackEnd/db_progetto.php";
 
@@ -23,7 +38,7 @@ $array = array("leader" => $mail,
 	    "data_creazione" => $data_creazione);
 
 $interface = new db_progetto();
-$interface->register($array);         
+$interface->register($array);    
 
 ?>
 
@@ -34,7 +49,6 @@ $interface->register($array);
 	<title></title>
 </head>
 <body>
-
 	   <center>
            <form  ACTION="InserimentoProgetto.php" METHOD = POST>
              <table border="1" align="center"> <br>

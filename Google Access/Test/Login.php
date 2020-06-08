@@ -12,8 +12,8 @@ else{
 
 session_start();
 
-if(isset($_POST['email']) || isset($_POST['password'])){
-    $email = $_POST['email'];
+if(isset($_POST['mail']) || isset($_POST['password'])){
+    $mail = $_POST['mail'];
     $password = $_POST['password'];
 
     $email = stripcslashes($email);
@@ -24,13 +24,13 @@ if(isset($_POST['email']) || isset($_POST['password'])){
     $email = mysqli_real_escape_string($link, $_POST['email']);
     $password = mysqli_real_escape_string($link, $_POST['password']);
 
-    $query = mysqli_query($link, "SELECT * FROM Utente where Email = '$email' && Password = '$password'")
+    $query = mysqli_query($link, "SELECT * FROM Utente where mail = '$,mail' && Password = '$password'")
     or die("Query non eseguita!".mysqli_error($link));
 
     if($query){
         if(mysqli_num_rows($query) == 1){
             $row = mysqli_fetch_assoc($query);
-            $_SESSION['email'] = $row['email'];
+            $_SESSION['email'] = $row['mail'];
             $_SESSION['password'] = $row['password'];
             header('Location: Profilo.html');
             exit();

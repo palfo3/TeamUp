@@ -24,6 +24,7 @@ class db_utente{
         $conn = $this->getConnection();
         $sql = "INSERT INTO utente (mail, password, nome, cognome, descrizione) VALUES ".
         "('".$this->utente->getMail()."', '".$this->utente->getPassword()."', '".$this->utente->getNome()."', '".$this->utente->getCognome()."', '".$this->utente->getDescrizione()."')";
+        
         $conn->query($sql);
         $conn->close();
     }
