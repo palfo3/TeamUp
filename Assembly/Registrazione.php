@@ -1,21 +1,31 @@
 <?php
 
-$nome = $_POST['nome'];
-$cognome = $_POST['cognome'];
-$email = $_POST['email'];
-$password = $_POST['hashedPassword'];
+$flag = false;
 
-require "BackEnd/db_utente.php";
-$utente = new db_utente(); 
-if($utente->checkUtente($email)){       
-	$array = array("mail" => $email,
-		"nome" => $nome,
-		"cognome" => $cognome,
-		"password" => $password,
-		"descrizione" => "");
-	$utente = new db_utente();
-	$utente->register($array); 
-}
+if(isset($_POST['hashedPassword'])) {
+	$nome = $_POST['nome'];
+	$cognome = $_POST['cognome'];
+	$email = $_POST['email'];
+	$password = $_POST['hashedPassword'];
+
+	require "BackEnd/db_utente.php";
+	$utente = new db_utente(); 
+	if($utente->checkUtente($email)){       
+		$array = array("mail" => $email,
+			"nome" => $nome,
+			"cognome" => $cognome,
+			"password" => $password,
+			"descrizione" => "");
+		$utente = new db_utente();
+		$utente->register($array); 
+
+		$flag = false;
+	} else {
+		$flag = true;
+	}
+} 
+
+
 
 ?>
 
@@ -106,7 +116,15 @@ if($utente->checkUtente($email)){
 						<td colspan="3">
 							<div class="container-fluid">
 								<label for="email">Email</label>
-								<input type="email" class="form-control" id="email" name="email" placeholder="Email">								
+								<?php
+
+								if($flag) {
+									echo "<input type=\"email\" class=\"form-control is-invalid\" id=\"email\" name=\"email\" placeholder=\"Email\">";
+								} else {
+									echo "<input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Email\">";
+								}
+
+								?>							
 							</div>
 
 						</td>

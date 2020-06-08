@@ -21,15 +21,15 @@ if(isset($_GET["code"])){
 		$data = $google_service->userinfo->get();
 
         //isset: Determina se una variabile è dichiarata ed è diversa da NULL 
-		if(!isset($data['given_name'])){
-			$_SESSION['name'] = $data['given_name'];
+		if(isset($data['given_name'])){
+			$_SESSION['nome'] = $data['given_name'];
 		}
 
-		if(!isset($data['family_name'])){
+		if(isset($data['family_name'])){
 			$_SESSION['cognome'] = $data['family_name'];
 		}
 
-		if(!isset($data['email'])){
+		if(isset($data['email'])){
 			$_SESSION['mail'] = $data['email'];
 		}
 
@@ -138,9 +138,23 @@ if(isset($_GET["code"])){
 
 					<tr>
 						<td height="10rem">
-
+							
 						</td>
-					</tr>					
+					</tr>
+
+					<tr>
+						<td height="10rem" colspan="5">
+							<center>
+								<a href="">Hai dimenticato la password?</a>
+							</center>
+						</td>
+					</tr>	
+
+					<tr>
+						<td height="10rem">
+							
+						</td>
+					</tr>				
 
 					<tr>
 						<td colspan="2">
