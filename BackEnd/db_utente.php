@@ -111,6 +111,20 @@ class db_utente{
             //successfully updated
         }
     }
+
+    public function access_User($mail, $password){
+        $conn = $this->getConnection();
+        $sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."' AND password LIKE '".$password."'";
+        $result = $conn->query($sql);
+
+        if($result->num_rows == 1){
+          // output data of each row
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     //END UPDATE QUERIES
 
     public function checkUtente($mail){
