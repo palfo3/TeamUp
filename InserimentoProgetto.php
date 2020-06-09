@@ -38,6 +38,9 @@ $array = array("leader" => $mail,
 	    "data_creazione" => $data_creazione);
 
 $interface = new db_progetto();
+echo "la data creazione è: ".$data_creazione."<br><br>";
+echo "la data creazione è: ".$array['data_creazione']."<br><br>";
+
 $interface->register($array);    
 
 ?>
@@ -47,6 +50,7 @@ $interface->register($array);
 <html>
 <head>
 	<title></title>
+
 </head>
 <body>
 	   <center>
@@ -58,10 +62,10 @@ $interface->register($array);
              	<input type="text" id="nome" name="nome" size="30" placeholder="Nome"> <br><br>
 
                 <input type="text" id="descrizione" name="descrizione" size="30" placeholder="Descrizione"> <br> <br>
-           
-                <input type="date" id="date" name="date" placeholder="Data scadenza"> <br><br>
-
-                <input type="date" id="date" name="date" placeholder="Data creazione"> <br><br>
+           		data creazione del progetto
+                <input type="date" id="date" name="data_creazione" min="" placeholder="Data scadenza"> <br><br>
+                data scadenza del progetto
+                <input type="date" id="date" name="data_scadenza" placeholder="Data creazione"> <br><br>
    
                 <input  type="submit" align="right" id="login_btn" value="Inserisci"> <br><br>
         	

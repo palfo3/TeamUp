@@ -9,11 +9,6 @@ if(isset($_POST['mail'])){
 if(isset($_POST['password'])){
     $password = $_POST['password']; 
 }
-
-    echo $_POST['mail']; 
-    echo "----";
-    echo $_POST['password']; 
-
     require "../BackEnd/db_utente.php";
     
     $utente = new db_utente(); 
