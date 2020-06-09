@@ -15,7 +15,7 @@ class db_progetto{
 			$dbname = "db_ing";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
+			$conn = new mysqli($servername, $username, $password, $dbname);	
 			return $conn;
 	}
 
@@ -24,7 +24,7 @@ class db_progetto{
 		$conn = $this->getConnection();
 		$sql = "INSERT INTO progetto (leader, nome, descrizione, data_scadenza, data_creazione) VALUES ".
 		"('".$this->progetto->getLeader()."', '".$this->progetto->getNome()."', '".$this->progetto->getDescrizione()."', '".$this->progetto->getData_scadenza()."', '".$this->progetto->getData_creazione()."')";
-	
+		
 		$conn->query($sql);
 		$conn->close();
 	}
@@ -102,7 +102,6 @@ class db_progetto{
 		}
 	}
 	//END UPDATE QUERIES
-
 
 	public function setProgetto($id){
 		$conn = $this->getConnection();

@@ -51,7 +51,7 @@ if(isset($_GET["code"])){
 			$utente = new db_utente();
 			$utente->register($array); 
 		}
-
+		
 		header('Location: Homepage.php');
 	}
 }
