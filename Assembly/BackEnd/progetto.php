@@ -32,41 +32,40 @@ class progetto{
 				$this->ricercabile = $array['ricercabile'];
 	}
 
-
 	public function getId(){
-		return $progetto->id;
+		return $this->id;
 	}
 
 	public function getLeader(){
-		return $progetto->leader;
+		return $this->leader;
 	}
 
 	public function getNome(){
-		return $progetto->nome;
+		return $this->nome;
 	}
 
 	public function getDescrizione(){
-		return $progetto->descrizione;
+		return $this->descrizione;
 	}
 
 	public function getData_scadenza(){
-		return $progetto->data_scadenza;
+		return $this->data_scadenza;
 	}
 
 	public function getData_creazione(){
-		return $progetto->data_creazione;
+		return $this->data_creazione;
 	}
 
 	public function getCandidatura(){
-		return $progetto->candidatura;
+		return $this->candidatura;
 	}
 
 	public function getNumero_candidati(){
-		return $progetto->numero_candidati;
+		return $this->numero_candidati;
 	}
 
 	public function getRicercabile(){
-		return $progetto->ricercabile;
+		return $this->ricercabile;
 	}
 }
 

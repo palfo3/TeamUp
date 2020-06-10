@@ -2,12 +2,12 @@
 
 include "Config.php";
 
+session_start();
+
 $flag = false;
 
-if(!isset($_SESSION)){
-	session_start();
-} else {
-	header('Location: Homepage.php');
+if(isset($_SESSION['mail'])){
+		header('Location: Homepage.php');
 }
 
 if(isset($_GET["code"])){
