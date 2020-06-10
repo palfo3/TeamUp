@@ -15,7 +15,7 @@ class db_progetto{
 			$dbname = "db_ing";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
+			$conn = new mysqli($servername, $username, $password, $dbname);	
 			return $conn;
 	}
 
@@ -24,85 +24,91 @@ class db_progetto{
 		$conn = $this->getConnection();
 		$sql = "INSERT INTO progetto (leader, nome, descrizione, data_scadenza, data_creazione) VALUES ".
 		"('".$this->progetto->getLeader()."', '".$this->progetto->getNome()."', '".$this->progetto->getDescrizione()."', '".$this->progetto->getData_scadenza()."', '".$this->progetto->getData_creazione()."')";
-	
+		
+		$conn->query($sql);
+		$conn->close();
+	}
+
+	public function delete($id){
+		$conn = $this->getConnection();
+		$sql = "DELETE FROM progetto WHERE id = ".$id;
 		$conn->query($sql);
 		$conn->close();
 	}
 
 	//UPDATE QUERIES
-	public function updateID($oldID, $newID){
+	public function updateid($oldid, $newid){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET ID = '".$newID."' WHERE ID LIKE '".$oldID."'";
+		$sql = "UPDATE progetto SET id = '".$newid."' WHERE id LIKE '".$oldid."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateLeader($mail, $newLeader){
+	public function updateLeader($id, $newLeader){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET Leader = '".$newLeader."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE progetto SET Leader = '".$newLeader."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateNome($mail, $newNome){
+	public function updateNome($id, $newNome){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET nome = '".$newNome."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE progetto SET nome = '".$newNome."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateDescrizione($mail, $newDescrizione){
+	public function updateDescrizione($id, $newDescrizione){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET Descrizione = '".$newDescrizione."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE progetto SET Descrizione = '".$newDescrizione."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateData_scadenza($mail, $newData_scadenza){
+	public function updateData_scadenza($id, $newData_scadenza){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET Data_scadenza = '".$newData_scadenza."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE progetto SET Data_scadenza = '".$newData_scadenza."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateData_creazione($mail, $newData_creazione){
+	public function updateData_creazione($id, $newData_creazione){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET Data_creazione = '".$newData_creazione."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE progetto SET Data_creazione = '".$newData_creazione."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updateds
 		}
 	}
 
-	public function updateCandidatura($mail, $newCandidatura){
+	public function updateCandidatura($id, $newCandidatura){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET Candidatura = '".$newCandidatura."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE progetto SET Candidatura = '".$newCandidatura."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateNumero_candidati($mail, $newNumero_candidati){
+	public function updateNumero_candidati($id, $newNumero_candidati){
 		$conn = $this->getConnection();
-		$sql = "UPDATE progetto SET Numero_candidati = '".$newNumero_candidati."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE progetto SET Numero_candidati = '".$newNumero_candidati."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateRicercabile($mail, $newRicercabile){
+	public function updateRicercabile($id, $newRicercabile){
 		$conn = $this->getConnection();
-		$sql = "UPDATE utente SET Ricercabile = '".$newRicercabile."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE utente SET Ricercabile = '".$newRicercabile."' WHERE id LIKE '".$id."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 	//END UPDATE QUERIES
-
 
 	public function setProgetto($id){
 		$conn = $this->getConnection();
@@ -116,7 +122,6 @@ class db_progetto{
 		  $progetto = new progetto($row);
 		}
 
-		$progetto = new progetto($row);
 		$conn->close();
 		
 	}

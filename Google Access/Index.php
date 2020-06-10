@@ -33,13 +33,13 @@ if(isset($_GET["code"])){
 
         require "../BackEnd/db_utente.php";
         $utente = new db_utente(); 
+        
         if($utente->checkUtente($data['email'])){       
             $array = array("mail" => $data['email'],
             "nome" => $data['given_name'],
             "cognome" => $data['family_name'],
             "password" => "NULL",
             "descrizione" => "");
-            $utente = new db_utente();
             $utente->register($array);           
         }
     }

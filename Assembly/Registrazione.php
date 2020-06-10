@@ -19,6 +19,8 @@ if(isset($_POST['hashedPassword'])) {
 		$utente = new db_utente();
 		$utente->register($array); 
 
+		header('Location: index.php');
+
 		$flag = false;
 	} else {
 		$flag = true;
