@@ -4,7 +4,7 @@ include "Config.php";
 
 $flag = false;
 
-if(!isset($_SESSION['mail'])){
+if(!isset($_SESSION)){
 	session_start();
 } else {
 	header('Location: Homepage.php');
@@ -24,18 +24,15 @@ if(isset($_GET["code"])){
 
 		$data = $google_service->userinfo->get();
 
-        //isset: Determina se una variabile è dichiarata ed è diversa da NULL 
-		if(isset($data['given_name'])){
-			$_SESSION['nome'] = $data['given_name'];
-		}
 
-		if(isset($data['family_name'])){
-			$_SESSION['cognome'] = $data['family_name'];
-		}
+		$_SESSION['nome'] = $data['given_name'];
+		
 
-		if(isset($data['email'])){
-			$_SESSION['mail'] = $data['email'];
-		}
+		$_SESSION['cognome'] = $data['family_name'];
+		
+
+		$_SESSION['mail'] = $data['email'];
+		
 
 
 
@@ -225,9 +222,7 @@ if(isset($_POST['email']) || isset($_POST['password'])){
 							<div style="text-align: center;">
 
 								<?php
-								if(!isset($_SESSION['access_token'])){
-									echo'<a href = "'.$google_client->createAuthUrl().'" class="btn btn-primary">Google</a>';
-								}
+								echo'<a href = "'.$google_client->createAuthUrl().'" class="btn btn-primary">Google</a>';
 								?>
 
 							</div>

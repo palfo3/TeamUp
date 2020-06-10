@@ -1,8 +1,11 @@
 <?php
 
-if(!isset($_SESSION['mail'])){
-		header('Location: index.php');
+if(!isset($_SESSION)){
+	session_start();
+} else {
+	header('Location: index.php');
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -40,30 +43,35 @@ if(!isset($_SESSION['mail'])){
 				</form>
 			</div>
 			<div class="col-0">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link " href="#">
+				<ul>
+					<li>
+						<a href="#">
 							<div class="d-none d-sm-block">
 								
-								<?php
+								<div class="dropdown">
+									<br>
+									<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+										<?php
 
-								echo $_SESSION['nome']." ".$_SESSION['cognome'];
+										echo $_SESSION['nome']." ".$_SESSION['cognome'];
 
-								?>
+										?>
 
-								<img src="Img/profile.png" class="imgprofile">	
+										<img src="Img/profile.png" class="imgprofile">	
+									</a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="#">Profilo</a>
+										<a class="dropdown-item" href="#">Progetti</a>
+										<a class="dropdown-item" href="Logout.php">Logout</a>
+									</div>
+								</div>
 							</div>
-							<div class="d-xl-none">
-								<img src="Img/profile.png" class="imgprofile">	
-							</div>	
 						</a>						
 					</li>
 				</ul>	
 			</div>
 		</div>
 	</nav>
-
-
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
