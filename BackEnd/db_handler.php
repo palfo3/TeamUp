@@ -20,7 +20,7 @@ class db_handler{
 	public function getConnection(){
 		$servername = "localhost";
 		$username = "root";
-		$password = "Admin";
+		$password = "";
 		$dbname = "db_ing";
 
 		// Create connection

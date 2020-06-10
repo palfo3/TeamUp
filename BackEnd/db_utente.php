@@ -116,9 +116,12 @@ class db_utente{
         $conn = $this->getConnection();
         $sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."' AND password LIKE '".$password."'";
         $result = $conn->query($sql);
+        $conta = mysqli_num_rows($result);
 
         if($result->num_rows == 1){
-          // output data of each row
+            $row = $result->fetch_assoc();
+            $_SESSION['nome'] = $row['nome'];
+            $_SESSION['cognome'] = $row['cognome'];
             return true;
         }else{
             return false;
