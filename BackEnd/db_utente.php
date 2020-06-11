@@ -111,7 +111,8 @@ class db_utente{
             //successfully updated
         }
     }
-
+ 
+    //In base all'email e la password inserita ricavo nome e cognome dell'utente
     public function access_User($mail, $password){
         $conn = $this->getConnection();
         $sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."' AND password LIKE '".$password."'";
@@ -127,9 +128,9 @@ class db_utente{
             return false;
         }
     }
-
     //END UPDATE QUERIES
 
+    //Controllo che l'email sia presente nel database
     public function checkUtente($mail){
         $conn = $this->getConnection();
         $sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."'";
@@ -143,11 +144,11 @@ class db_utente{
         }
     }
  
-
+    // Funzione per la modifica della password
     public function checkUtentePass($mail, $oldpassword, $newpassword){
-    $conn = $this->getConnection();
-    $sql = "SELECT password FROM utente WHERE mail LIKE '".$mail."'";
-    $result = $conn->query($sql);
+        $conn = $this->getConnection();
+        $sql = "SELECT password FROM utente WHERE mail LIKE '".$mail."'";
+        $result = $conn->query($sql);
 
         if($result->num_rows == 1) {
                 $utente = new db_utente(); 
@@ -155,10 +156,10 @@ class db_utente{
                 if($oldpassword == $row['password']){
                     $utente->updatePassword($mail, $newpassword);   
                 }else{
-                    echo "sei trimone, password sbagliata";
+                    echo "password sbagliata";
                 }
             }else{
-                    echo "sei trimone, mail sbagliata";
+                    echo "mail sbagliata";
                 }
         }
 
@@ -167,10 +168,11 @@ class db_utente{
         $sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."'";
         $result = $conn->query($sql);
 
-        if ($result->num_rows == 1) {
-          // output data of each row
+        if($result->num_rows == 1) {
+          //fetch_assoc recupera la riga dal database come un array associativo.
+          //Tale è un array i cui elementi sono accessibili mediante nomi, quindi stringhe anziché indici puramente numerici.
+          //$row è il vettore associativo
           $row = $result->fetch_assoc();
-          
           $this->utente = new utente($row);
         }
         $this->utente = new utente($row);
@@ -190,8 +192,6 @@ class db_utente{
                             "nome" => "gaetano",
                             "cognome" => "cassano",
                             "descrizione" => "I\'m gay");
-
- 
 
             $interface = new db_utente();
             $interface->register($array);

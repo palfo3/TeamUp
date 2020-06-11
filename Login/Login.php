@@ -2,7 +2,6 @@
 
 session_start();
 
-
 if(isset($_POST['mail'])){
     $mail = $_POST['mail'];
 }
@@ -12,14 +11,13 @@ if(isset($_POST['password'])){
 }
 
 require "../BackEnd/db_utente.php";
-
 $utente = new db_utente(); 
-if($utente->access_User($mail, $password) == TRUE){
 
-    
+if($utente->access_User($mail, $password) == TRUE){
+	header("location: Profilo.html");
 }else{
     echo '<script type="text/javascript">
-    alert("Username o password non corretti. Premi OK per inserirli nuovamente");
+    alert("Email o password non corretti. Premi OK per re-inserirli");
     window.location= "Login.html";
     </script>';
 }   

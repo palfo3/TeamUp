@@ -34,6 +34,7 @@ if(isset($_GET["code"])){
         require "../BackEnd/db_utente.php";
         $utente = new db_utente(); 
         
+        //Se l'email esiste nel datavase allora non la fase di registrazione non viene effettuata
         if($utente->checkUtente($data['email'])){       
             $array = array("mail" => $data['email'],
             "nome" => $data['given_name'],
