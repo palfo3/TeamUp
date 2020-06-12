@@ -2,10 +2,25 @@
 
 session_start();
 
-if(empty($_SESSION)) {
-    ;// session isn't started
-    header('Location: index.php');
+$link = mysqli_connect('localhost', 'root', '', 'db_ing');
+
+	// Check connection
+if(mysqli_connect_errno()){
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
+
+$query = "SELECT * FROM utente WHERE mail ='".$_SESSION['mail']."'";
+
+$link = mysqli_connect('localhost', 'root', '', 'db_ing');
+
+	// Check connection
+if(mysqli_connect_errno()){
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+$row = mysqli_fetch_assoc($query);
+
+
 
 ?>
 
@@ -61,7 +76,7 @@ if(empty($_SESSION)) {
 										<img src="Img/profile.png" class="imgprofile">	
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="profilo.php">Profilo</a>
+										<a class="dropdown-item" href="#">Profilo</a>
 										<a class="dropdown-item" href="#">Progetti</a>
 										<a class="dropdown-item" href="Logout.php">Logout</a>
 									</div>
@@ -74,6 +89,56 @@ if(empty($_SESSION)) {
 		</div>
 	</nav>
 
+	<br>
+	<br>
+	<br>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-4">
+				<?php
+
+				echo $_SESSION['nome']." ".$_SESSION['cognome'];
+
+				?>
+				<br>
+				<br>
+				<br>
+				<label for="password">Password</label><br>
+				<a href="changepassword.php" class="btn btn-primary">password</a>
+				
+			</div>
+			<div class="col-8">
+				<br>
+				<br>
+				<form>
+					<div class="form-group">
+						<label for="Nome">Nome</label>
+						<input type="text" class="form-control" id="Nome" aria-describedby="Nome">
+					</div>
+					<div class="form-group">
+						<label for="Cognome">Cognome</label>
+						<input type="text" class="form-control" id="Cognome">
+					</div>
+					<div class="form-group">
+						<label for="Email">Email</label>
+						<input type="email" class="form-control" id="Email">
+					</div>
+					<div class="form-group">
+						<label for="data">Data di nascita</label>
+						<input type="date" class="form-control" id="data">
+					</div>
+					<div class="form-group">
+						<label for="descrizione">Descrizione</label>
+						<textarea class="form-control" id="descrizione" rows="3" maxlength="255"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Salva</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 	</script>
@@ -85,4 +150,3 @@ if(empty($_SESSION)) {
 </body>
 
 </html>
-

@@ -6,9 +6,11 @@ session_start();
 
 $flag = false;
 
-if(isset($_SESSION['mail'])){
-		header('Location: Homepage.php');
+if(!empty($_SESSION)) {
+    // session isn't started
+	header('Location: Homepage.php');
 }
+
 
 if(isset($_GET["code"])){
 
@@ -55,36 +57,25 @@ if(isset($_GET["code"])){
 
 if(isset($_POST['email']) || isset($_POST['password'])){
 
-	$link = mysqli_connect('localhost', 'root', '', 'db_ing');
-
-// Check connection
-	if(mysqli_connect_errno()){
-		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	if(isset($_POST['mail'])){
+		$mail = $_POST['mail'];
 	}
 
-	$email = $_POST['email'];
-	$password = $_POST['password'];
+	if(isset($_POST['password'])){
+		$password = $_POST['password']; 
+	}
 
-	$email = stripcslashes($email);
-	$password = stripcslashes($password);	
+	require "../BackEnd/db_utente.php";
+	$utente = new db_utente(); 
 
-	$email = mysqli_real_escape_string($link, $_POST['email']);
-	$password = mysqli_real_escape_string($link, $_POST['password']);
-
-	$passhash = hash('sha256', $password);
-
-	$query = mysqli_query($link, "SELECT * FROM Utente where Mail = '".$email."' && Password = '".$passhash."'")
-	or die("Query non eseguita!".mysqli_error($link));
-
-	if(mysqli_num_rows($query) > 0){
-		$row = mysqli_fetch_assoc($query);
-		$_SESSION['nome'] = $row['nome'];
-		$_SESSION['cognome'] = $row['cognome'];
-		$_SESSION['mail'] = $row['mail'];
-		header('Location: Homepage.php');
-	} else {
-		$flag = true;
-	} 
+	if($utente->access_User($mail, $password) == TRUE){
+		header("location: Homepage.php");
+	}else{
+		echo '<script type="text/javascript">
+		alert("Email o password non corretti. Premi OK per re-inserirli");
+		window.location= "index.php";
+		</script>';
+	}   
 }
 
 
@@ -123,7 +114,7 @@ if(isset($_POST['email']) || isset($_POST['password'])){
 	<br>
 
 	<center>
-		<form style="color: white;" action="index.php" method="POST">
+		<form style="color: white;" action="index.php" method="POST" onsubmit="return hashlogin();">
 			<div class="form-group">
 				<table style="background-color: #343a40;">
 

@@ -1,6 +1,5 @@
 <?php
 
-
 require 'db_utente.php'
 $modifica = new utente($_POST);
 $utente = new db_utente();
