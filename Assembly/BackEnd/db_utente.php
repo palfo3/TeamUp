@@ -123,6 +123,7 @@ class db_utente{
             $row = $result->fetch_assoc();
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];
+            $_SESSION['mail'] = $row['mail'];
             return true;
         }else{
             return false;

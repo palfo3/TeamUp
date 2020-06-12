@@ -55,15 +55,11 @@ if(isset($_GET["code"])){
 	}
 }
 
-if(isset($_POST['email']) || isset($_POST['password'])){
+if(isset($_POST['email']) && isset($_POST['password'])){
 
-	if(isset($_POST['mail'])){
-		$mail = $_POST['mail'];
-	}
+	$mail = $_POST['email'];
 
-	if(isset($_POST['password'])){
-		$password = $_POST['password']; 
-	}
+	$password =  $_POST['hashedPassword']; 
 
 	require "../BackEnd/db_utente.php";
 	$utente = new db_utente(); 
@@ -95,6 +91,11 @@ if(isset($_POST['email']) || isset($_POST['password'])){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<script type="text/javascript">
+		function hashlogin(){
+			document.getElementById("hashedPassword").value = sha256(document.getElementById("password").value);
+		}
+	</script>
 
 </head>
 
@@ -114,7 +115,7 @@ if(isset($_POST['email']) || isset($_POST['password'])){
 	<br>
 
 	<center>
-		<form style="color: white;" action="index.php" method="POST" onsubmit="return hashlogin();">
+		<form style="color: white;" action="index.php" method="POST">
 			<div class="form-group">
 				<table style="background-color: #343a40;">
 
@@ -201,7 +202,7 @@ if(isset($_POST['email']) || isset($_POST['password'])){
 					<tr>
 						<td colspan="2">
 							<div style="text-align: center;">
-								<button type="submit" class="btn btn-primary">Accedi</button>
+								<button type="submit" class="btn btn-primary" id="hashedPassword" name="hashedPassword" onclick="hashlogin()">Accedi</button>
 							</div>
 						</td>
 
