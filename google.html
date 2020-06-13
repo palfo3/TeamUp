@@ -1,0 +1,63 @@
+<?php
+
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome']; 
+}
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome']; 
+}
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome']; 
+}
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome']; 
+}
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome']; 
+}
+
+
+?>
+
+<html lang="en">
+  <head>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="953839603005-j6b0j5flahopjnb72n39chicm0r17dqg">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </head>
+  <body>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
+    <input type = "hidden" id = "nome">
+        <input type = "hidden" id = "nome">
+    <input type = "hidden" id = "nome">
+    <input type = "hidden" id = "nome">
+    <input type = "hidden" id = "nome">
+
+
+    <script>
+      function onSignIn(googleUser){
+
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+
+        document.getelementbyid('nome').value = profile.getName();
+        document.getelementbyid('nome').value = profile.getName();
+        document.getelementbyid('nome').value = profile.getName();
+        document.getelementbyid('nome').value = profile.getName();
+        document.getelementbyid('nome').value = profile.getName();
+
+      }
+    </script>
+  </body>
+</html>
