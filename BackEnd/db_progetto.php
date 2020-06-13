@@ -119,7 +119,7 @@ class db_progetto{
 		  // output data of each row
 		  $row = $result->fetch_assoc();
 		  
-		  $progetto = new progetto($row);
+		  $this->progetto = new progetto($row);
 		}
 
 		$conn->close();
