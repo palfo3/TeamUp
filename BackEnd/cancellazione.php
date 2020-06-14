@@ -1,37 +1,55 @@
 <!-- Idea bottone cancella
 -->
 
-
-
 <?php
 
-echo "la mail inserita è: ".$_POST['mail'];
-echo "<br>la password è: ".$_POST['password'];
+$mail = "";
+$password = "";
+
+ if(isset($_POST['mail'])){
+    $mail = $_POST['mail'];
+}
+
+if(isset($_POST['password'])){
+    $password = $_POST['password']; 
+}
 
 $conn = mysqli_connect('localhost', 'root', '', 'db_ing');
-$sql = "SELECT * FROM utente WHERE mail LIKE '".$_POST['mail']."'";
+$sql = "SELECT * FROM utente WHERE mail LIKE '".$mail."'";
 $result= $conn->query($sql);
 if($result->num_rows > 0){
-	$row = $result->fetch_assoc();
-	echo"<br><br> i dati sono:<br>mail: ".$row['mail']."<br>pass: ".$row['password']."<br> nome e cognome: ".$row['Nome']."  ".$row['Cognome'];
+    $row = $result->fetch_assoc();
+
+    if($_POST['password']==$row['password']){
+
+		//$sql = "DELETE FROM utente WHERE mail LIKE '".$_POST['mail']."'";
+    	require "../BackEnd/db_utente.php";
+    	$utente = new db_utente();
+    	$utente->deleteAccount($mail);
+	}
 }
-if($_POST['password']==$row['password']){
-
-	//$sql = "DELETE FROM utente WHERE mail LIKE '".$_POST['mail']."'";
-	require "../BackEnd/db_utente.php";
-        $array = array("mail" => "",
-                  //  "nome" => $data['given_name'],
-                   // "cognome" => $data['family_name'],
-                    "password" => "");
-                   // "descrizione" => "");
-        $utente = new db_utente();
-        $utente->delete_Account($array);
-	if($conn->query($sql) === TRUE){
-		echo"<br> <hr> account eliminato";
-	}
-}else{
-		header("location: elimina.html");
-	}
-
-
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+</head>
+<body>
+	   <center>
+           <form  ACTION="cancellazione.php" METHOD = POST>
+             <table border="1" align="center"> <br>
+             	
+ 				<input  type="text" id="mail" name="mail" size="30"  placeholder="Email"> <br> <br>
+               
+                <input  type="password" id="password" name="password" size="30" placeholder="Password"> 
+                <br> <br>
+                             
+                <input  type="submit" align="right" id="login_btn" value="Elimina"> <br><br>
+
+        	</table>
+           </form>
+       </center>
+</body>
+</html>

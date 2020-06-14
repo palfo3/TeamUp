@@ -1,15 +1,27 @@
 <?php
 
+require 'associaTag.php';
+
 class db_associaTag{
-	
+
 	//Dichiarazione Attributi
 	private $associaTag;
 
+    private function getConnection(){
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "db_ing";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            return $conn;
+    }
 
 	public function register($array){
-		$this->associaTag = new associaTag($array);
+		$this->associaTag = new associaTag($array1);
 		$conn = $this->getConnection();
-		$sql = "INSERT INTO associaTag (progetto, tag, posizione) VALUES (".$array['progetto'].", '".$array['tag']."', ".$array['posizione'].")";
+		$sql = "INSERT INTO associaTag (progetto, tag, posizione) VALUES (".$array1['progetto'].", '".$array1['tag']."', ".$array1['posizione'].")";
 		$conn->query($sql);
 		$conn->close();
 	}

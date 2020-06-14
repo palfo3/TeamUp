@@ -1,7 +1,20 @@
 <?php
 
+require 'tag.php';
+
 class db_tag{
 	private $tag;
+
+    private function getConnection(){
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "db_ing";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            return $conn;
+    }
 
 	public function register($nome){
 		$this->tag = new tag($nome);
@@ -32,7 +45,7 @@ class db_tag{
 		$sql = "SELECT * FROM tag WHERE nome LIKE ".$nome;
 		$result = $conn->query($sql);
 
-		if ($result->num_rows == 1) {
+		if($result->num_rows == 1){
 		  // output data of each row
 		  $row = $result->fetch_assoc();
 		  

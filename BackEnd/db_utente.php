@@ -31,14 +31,17 @@ class db_utente{
 
     //DELETE QUERY
 
-    public function deleteAccount($mail){
+   public function deleteAccount($mail){
         $conn = $this->getConnection();
-           $sql = "DELETE FROM utente WHERE mail LIKE '".$mail."'";
-        if($conn->query($sql) === TRUE){
-            //successfully updated
+        $sql = "DELETE FROM utente WHERE mail = '".$mail."'";
+        if(($conn->query($sql)) !== FALSE){
+            echo "query success";           
+        }
+        else{
+            echo "mamt fasc";
         }
     }
- 
+
 
     //UPDATE QUERIES
     public function updateMail($oldMail, $newMail){
@@ -124,7 +127,11 @@ class db_utente{
             session_start();
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];
+<<<<<<< Updated upstream
             $_SESSION['mail'] = $row['mail'];
+=======
+            echo $_SESSION['nome'];
+>>>>>>> Stashed changes
             return true;
         }else{
             return false;
@@ -198,4 +205,4 @@ class db_utente{
             $interface = new db_utente();
             $interface->register($array);
     }*/
-    ?>
+?>

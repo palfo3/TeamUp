@@ -12,9 +12,6 @@ class tag{
 	public function getTag(){
 		return $this->tag;
 	}
-
-
 }
-
 
 ?>
