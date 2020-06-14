@@ -117,7 +117,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
 
 			<div class="form-group">
-				<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;"">
+				<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;">
 
 					<tr>
 						<td height="10rem">
