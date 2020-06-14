@@ -1,7 +1,5 @@
 <?php
 
-include "Config.php";
-
 session_start();
 
 $flag = false;
@@ -12,47 +10,28 @@ if(!empty($_SESSION)) {
 }
 
 
-if(isset($_GET["code"])){
+if(isset($_POST['password']) && empty($_POST['password'])){
 
-	$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
-
-	if(!isset($token['error'])){
-
-		$google_client->setAccessToken($token['access_token']);
-
-		$_SESSION['access_token'] = $token['access_token'];
-
-		$google_service = new Google_Service_Oauth2($google_client);
-
-		$data = $google_service->userinfo->get();
-
-
-		$_SESSION['nome'] = $data['given_name'];
-		
-
-		$_SESSION['cognome'] = $data['family_name'];
-		
-
-		$_SESSION['mail'] = $data['email'];
-		
-
+	$_SESSION['nome'] = $_POST['google_nome'];
+	$_SESSION['cognome'] = $_POST['google_cognome'];
+	$_SESSION['mail'] = $_POST['google_mail'];
+	$_SESSION['img'] = $_POST['google_img'];
 
 
         //registrazione nel database
-		require "BackEnd/db_utente.php";
-		$utente = new db_utente(); 
-		if($utente->checkUtente($data['email'])){       
-			$array = array("mail" => $data['email'],
-				"nome" => $data['given_name'],
-				"cognome" => $data['family_name'],
-				"password" => "NULL",
-				"descrizione" => "");
-			$utente = new db_utente();
-			$utente->register($array); 
-		}
-		
-		header('Location: Homepage.php');
+	require "BackEnd/db_utente.php";
+	$utente = new db_utente(); 
+	if($utente->checkUtente($_POST['google_mail'])){       
+		$array = array("mail" => $_POST['google_mail'],
+			"nome" => $_POST['google_nome'],
+			"cognome" => $_POST['google_cognome'],
+			"password" => "NULL",
+			"descrizione" => "");
+		$utente = new db_utente();
+		$utente->register($array); 
 	}
+
+	header('Location: Homepage.php');
 }
 
 if(isset($_POST['email']) && isset($_POST['password'])){
@@ -67,10 +46,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 	if($utente->access_User($mail, $password) == TRUE){
 		header("location: Homepage.php");
 	}else{
-		echo '<script type="text/javascript">
-		alert("Email o password non corretti. Premi OK per re-inserirli");
-		window.location= "index.php";
-		</script>';
+		$flag = true;
 	}   
 }
 
@@ -91,17 +67,34 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<meta name="google-signin-scope" content="profile email">
+	<meta name="google-signin-client_id" content="953839603005-j6b0j5flahopjnb72n39chicm0r17dqg.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 	<script type="text/javascript">
 		function hashlogin(){
 			document.getElementById("hashedPassword").value = sha256(document.getElementById("password").value);
 		}
 	</script>
 
+	<script>
+		function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        document.getElementById("google_mail").value = profile.getEmail();
+        document.getElementById("google_nome").value = profile.getGivenName();
+        document.getElementById("google_cognome").value = profile.getFamilyName();
+        document.getElementById("google_img").value = profile.getImageUrl();
+
+        document.getElementById("google").submit();
+    }
+</script>
+
 </head>
 
 <body style="background-color: #9BA4AF;">
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 		<div class="container">
 			<div class="titolo navbar-brand" style="font-size: 2.25rem !important;">
 				TeamUp
@@ -115,9 +108,16 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 	<br>
 
 	<center>
-		<form style="color: white;" action="index.php" method="POST">
+		<form style="color: white;" action="index.php" method="POST" id="google">
+
+			<input type="hidden" name="google_mail" id="google_mail">
+			<input type="hidden" name="google_nome" id="google_nome">
+			<input type="hidden" name="google_cognome" id="google_cognome">
+			<input type="hidden" name="google_img" id="google_img">
+
+
 			<div class="form-group">
-				<table style="background-color: #343a40;">
+				<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;"">
 
 					<tr>
 						<td height="10rem">
@@ -211,13 +211,9 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 						</td>
 
 						<td colspan="2">
-							<div style="text-align: center;">
-
-								<?php
-								echo'<a href = "'.$google_client->createAuthUrl().'" class="btn btn-primary">Google</a>';
-								?>
-
-							</div>
+							<center>
+								<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+							</center>
 						</td>
 					</tr>
 

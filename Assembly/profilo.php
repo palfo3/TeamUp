@@ -43,10 +43,10 @@ $row = mysqli_fetch_assoc($query);
 <body>
 
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 		<div class="container-fluid">
 			<div class="col-4"> 
-				<a class="navbar-brand" href="#">
+				<a class="navbar-brand" href="index.php">
 					<div class="titolo">
 						TeamUp
 					</div>
@@ -71,9 +71,15 @@ $row = mysqli_fetch_assoc($query);
 
 										echo $_SESSION['nome']." ".$_SESSION['cognome'];
 
-										?>
+										if(isset($_SESSION['img'])){
+											echo "<img src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
+										} else {
+											echo "<img src=\"Img/profile.png\" class=\"imgprofile\">";
+										}
 
-										<img src="Img/profile.png" class="imgprofile">	
+										
+
+										?>
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<a class="dropdown-item" href="#">Profilo</a>

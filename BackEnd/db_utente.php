@@ -121,8 +121,10 @@ class db_utente{
 
         if($result->num_rows == 1){
             $row = $result->fetch_assoc();
+            session_start();
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];
+            $_SESSION['mail'] = $row['mail'];
             return true;
         }else{
             return false;
