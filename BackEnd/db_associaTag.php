@@ -19,9 +19,9 @@ class db_associaTag{
     }
 
 	public function register($array){
-		$this->associaTag = new associaTag($array1);
+		$this->associaTag = new associaTag($array);
 		$conn = $this->getConnection();
-		$sql = "INSERT INTO associaTag (progetto, tag, posizione) VALUES (".$array1['progetto'].", '".$array1['tag']."', ".$array1['posizione'].")";
+		$sql = "INSERT INTO associaTag (progetto, tag, posizione) VALUES ('".$this->associaTag->getProgetto()."', '".$this->associaTag->getTag()."', '".$this->associaTag->getPosizione()."')";
 		$conn->query($sql);
 		$conn->close();
 	}

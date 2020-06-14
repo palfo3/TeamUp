@@ -18,7 +18,6 @@ class associaTag{
 		return $this->progetto;
 	}
 
-
 	public function getTag(){
 		return $this->tag;
 	}

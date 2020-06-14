@@ -22,15 +22,8 @@ class db_progetto{
 	public function register($project){
 		$this->progetto = new progetto($project);
 		$conn = $this->getConnection();
-
-		$sql = "INSERT INTO progetto (leader, nome, descrizione, data_scadenza, data_creazione) VALUES ".
-		"('".$this->progetto->getLeader()."', '".$this->progetto->getNome()."', '".$this->progetto->getDescrizione()."', '".$this->progetto->getData_scadenza()."', '".$this->progetto->getData_creazione()."')";
-
-		if($conn->query($sql) === TRUE){
-			echo "query eseguita";
-		}else{
-			echo "query non eseguita";
-		}
+		$sql = "INSERT INTO progetto (leader, nome, descrizione, data_scadenza, data_creazione) VALUES ('".$this->progetto->getLeader()."', '".$this->progetto->getNome()."', '".$this->progetto->getDescrizione()."', '".$this->progetto->getData_scadenza()."', '".$this->progetto->getData_creazione()."')";
+		$conn->query($sql);
 		$conn->close();
 	}
 

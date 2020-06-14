@@ -19,8 +19,8 @@ class db_tag{
 	public function register($nome){
 		$this->tag = new tag($nome);
 		$conn = $this->getConnection();
-		$sql = "INSERT INTO tag (nome) VALUES ('".$nome."')";
-		$conn->query($sql);
+		$sql = "INSERT INTO tag (nome) VALUES ('".$this->tag->getTag()."')";		
+	    $conn->query($sql);
 		$conn->close();
 	}
 
