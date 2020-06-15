@@ -2,11 +2,6 @@
 
 $_SESSION['mail'] = "emanuele@mail.it";
 
-
-$str1 = "";
-$str2 = "";
-$str3 = "";
-
 $nome = "";
 $descrizione = "";
 $data_scadenza = "";
