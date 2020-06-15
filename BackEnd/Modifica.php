@@ -1,5 +1,6 @@
 <?php
 
+//require 'upload.php';
 require 'db_utente.php'
 $modifica = new utente($_POST);
 $utente = new db_utente();
@@ -26,9 +27,14 @@ if($utente->getUtente()->getNascita() != $modifica->getNascita())
     $utente->updateNascita($utente->getUtente()->getMail(), $modifica->getNascita());
 }
 
+if($utente->getUtente()->getImmagine() != $modifica->getImmagine())
+{
+    uploadFile($utente->getUtente()->getMail(), $_FILES['userfile']);
+}
+
 if($utente->getUtente()->getPassword() != $modifica->getPassword())
 {
-    $utente->updatePassword($utente->getUtente()->getMail(), $modifica->getPassword());
+    $utente->checkUtentePass($utente->getUtente()->getMail(), $modifica->getPassword());
 }
 
 if($utente->getUtente()->getMail() != $modifica->getMail())

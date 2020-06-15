@@ -127,11 +127,11 @@ class db_utente{
             session_start();
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];
-<<<<<<< Updated upstream
+
             $_SESSION['mail'] = $row['mail'];
-=======
+
             echo $_SESSION['nome'];
->>>>>>> Stashed changes
+
             return true;
         }else{
             return false;
