@@ -106,6 +106,15 @@ class db_progetto{
 			//successfully updated
 		}
 	}
+
+	public function search_id($mail, $data_creazione){
+		$conn = $this->getConnection();
+		$sql = "SELECT id FROM progetto WHERE leader LIKE '".$mail."' AND data_creazione = '".$data_creazione."' ORDER BY id DESC";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['id'];
+
+	}
 	//END UPDATE QUERIES
 
 	public function setProgetto($id){

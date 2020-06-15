@@ -34,11 +34,8 @@ class db_utente{
    public function deleteAccount($mail){
         $conn = $this->getConnection();
         $sql = "DELETE FROM utente WHERE mail = '".$mail."'";
-        if(($conn->query($sql)) !== FALSE){
-            echo "query success";           
-        }
-        else{
-            echo "mamt fasc";
+        if($conn->query($sql) === TRUE){
+            //successfully updated
         }
     }
 

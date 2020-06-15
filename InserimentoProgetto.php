@@ -2,6 +2,8 @@
 
 $_SESSION['mail'] = "emanuele@mail.it";
 
+
+$id = "";
 $nome = "";
 $descrizione = "";
 $data_scadenza = "";
@@ -13,34 +15,10 @@ $scadenza_date = "";
 if(isset($_POST["tag1"]) && isset($_POST["tag2"]) && isset($_POST["tag3"]))
   $tag = array("tag1" => $_POST["tag1"], "tag2" => $_POST["tag2"], "tag3" => $_POST["tag3"]);
 
-  require "BackEnd/db_tag.php";
-  $tag = new db_tag();
-
-  //Registrazione tag
-
-  if($_POST["tag1"] != "")
-
-  $tag->register($_POST["tag1"]);
-
-  if($_POST["tag2"] != "")
-
-  $tag->register($_POST["tag2"]);
-
-  if($_POST["tag3"] != "")
-  $tag->register($_POST["tag3"]);
-
-  
-  /*require "BackEnd/db_associaTag.php";
-  $associaTag = new db_associaTag();
-
-  $array = array("progetto" => $nome,
-           "tag" => "ciao",
-           "posizione" => "1");
-  $associaTag->register($array); */
-
 
 if(isset($_POST['nome']))
-    $nome = $_POST['nome']; 
+    $nome = $_POST['nome'];
+
 
 if(isset($_POST['descrizione']))
     $descrizione = $_POST['descrizione'];
@@ -78,6 +56,46 @@ if($creazione_date > $scadenza_date){
     $progetto->register($array); 
   }
 }
+
+  require "BackEnd/db_tag.php";
+  $db_tag = new db_tag();
+
+  //Registrazione tag
+  if($_POST["tag1"] != "")
+
+  $db_tag->register($_POST["tag1"]);
+
+  if($_POST["tag2"] != "")
+
+  $db_tag->register($_POST["tag2"]);
+
+  if($_POST["tag3"] != "")
+  $db_tag->register($_POST["tag3"]);
+
+
+  require "BackEnd/db_associaTag.php";
+  $associaTag = new db_associaTag();  
+
+    $array = array("progetto" => $progetto->search_id($_SESSION['mail'], $data_creazione),
+             "tag" => $_POST["tag1"],
+             "posizione" => "0");
+
+    echo "l'id progetto è: ".$array['progetto'];
+    echo "<br>il tag è: ".$array['tag'];
+    echo "<br>la posizione è: ".$array['posizione']."<br><br>";
+
+    $associaTag->register($array);
+
+    $array = array("progetto" =>$progetto->search_id($_SESSION['mail'], $data_creazione),
+             "tag" => $_POST["tag2"],
+             "posizione" => "1");
+    $associaTag->register($array); 
+
+    $array = array("progetto" => $progetto->search_id($_SESSION['mail'], $data_creazione),
+             "tag" => $_POST["tag3"],
+             "posizione" => "2");
+    $associaTag->register($array); 
+  
 ?>
 
 
@@ -89,7 +107,7 @@ if($creazione_date > $scadenza_date){
 </head>
 <body>
 	   <center>
-           <form  ACTION="InserimentoProgetto.php" onsubmit = "return Prova()" METHOD = POST>
+           <form  ACTION="InserimentoProgetto.php" onsubmit = "return Prova()" METHOD = "POST">
              <table border="1" align="center"> <br>
              	
               <input type="text" id="nome" name="nome" size="30" placeholder="Nome"> <br><br>
