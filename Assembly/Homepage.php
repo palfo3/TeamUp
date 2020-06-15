@@ -1,9 +1,9 @@
-<?php
+	<?php
 
 session_start();
 
 if(empty($_SESSION)) {
-    ;// session isn't started
+    // session isn't started
     header('Location: index.php');
 }
 
@@ -25,7 +25,7 @@ if(empty($_SESSION)) {
 
 </head>
 
-<body>
+<body style="background-color: #9BA4AF;">
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 		<div class="container-fluid">

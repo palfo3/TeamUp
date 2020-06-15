@@ -35,19 +35,24 @@ if(isset($_POST['password']) && empty($_POST['password'])){
 }
 
 if(isset($_POST['email']) && isset($_POST['password'])){
-
+	
 	$mail = $_POST['email'];
 
 	$password =  $_POST['hashedPassword']; 
 
 	require "../BackEnd/db_utente.php";
+
 	$utente = new db_utente(); 
 
-	if($utente->access_User($mail, $password) == TRUE){
+	if($utente->access_User($mail, $password)){
 		header("location: Homepage.php");
 	}else{
 		$flag = true;
+		session_destroy();
 	}   
+	
+
+	
 }
 
 

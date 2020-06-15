@@ -106,7 +106,7 @@ class db_utente{
  
     public function updateCurriculum($mail, $newCurriculum){
         $conn = $this->getConnection();
-        $sql = "UPDATE utente SET curriculum = '".$newCurriculum."' WHERE mail LIKE '".$mail."'";
+         $sql = "UPDATE utente SET curriculum = '".$newCurriculum."' WHERE mail LIKE '".$mail."'";
         if($conn->query($sql) === TRUE){
             //successfully updated
         }
@@ -119,7 +119,7 @@ class db_utente{
         $result = $conn->query($sql);
         $conta = mysqli_num_rows($result);
 
-        if($result->num_rows == 1){
+        if($result->num_rows == 1 && $mail != '' && $password != ''){
             $row = $result->fetch_assoc();
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];

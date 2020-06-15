@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+if(!empty($_SESSION)) {
+    // session isn't started
+	header('Location: Homepage.php');
+}
+
 $flag = false;
 
 if(isset($_POST['hashedPassword'])) {

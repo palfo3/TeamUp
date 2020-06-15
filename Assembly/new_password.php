@@ -4,29 +4,14 @@ session_start();
 
 if(empty($_SESSION)) {
     // session isn't started
-    header('Location: index.php');
+	header('Location: index.php');
 }
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "db_ing";
-
-            // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-$query = "SELECT * FROM utente WHERE mail ='".$_SESSION['mail']."'";
-
-$result = $conn->query($query);
-
-$row = mysqli_fetch_assoc($result);
-
 
 ?>
 
+
 <!DOCTYPE html>
 <html>
-
 <head>
 
 	<title>TeamUp</title>
@@ -36,17 +21,16 @@ $row = mysqli_fetch_assoc($result);
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 
 </head>
 
 <body style="background-color: #9BA4AF;">
 
-
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 		<div class="container-fluid">
 			<div class="col-4"> 
-				<a class="navbar-brand" href="index.php">
+				<a class="navbar-brand" href="#">
 					<div class="titolo">
 						TeamUp
 					</div>
@@ -82,8 +66,9 @@ $row = mysqli_fetch_assoc($result);
 										?>
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">Profilo</a>
+										<a class="dropdown-item" href="profilo.php">Profilo</a>
 										<a class="dropdown-item" href="#">Progetti</a>
+										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="Logout.php">Logout</a>
 									</div>
 								</div>
@@ -95,55 +80,85 @@ $row = mysqli_fetch_assoc($result);
 		</div>
 	</nav>
 
+
 	<br>
 	<br>
 	<br>
 
+	<center>
+		<form  ACTION="recovery_password.php" METHOD = POST>
+			<div class="form-group">
+				<table style="background-color: #343a40;background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;">
+					
+					<tr>
+						<td height="10rem">
 
-	<div class="container">
-		<div class="row">
-			<div class="col-4">
-				<?php
+						</td>
+					</tr>
 
-				echo $_SESSION['nome']." ".$_SESSION['cognome'];
+					<tr>
+						<td colspan="5">
+							<div class="titolo" style="text-align: center;">
+								Cambia password
+							</div>
+						</td>
+					</tr>
 
-				?>
-				<br>
-				<br>
-				<br>
-				<label for="password">Password</label><br>
-				<a href="new_password.php" class="btn btn-primary">password</a>
+					<tr>
+						<td height="10rem">
+
+						</td>
+					</tr>
+
+					<tr>
+						<td width="10rem"></td>
+						<td>
+							<label for="password" style="color: white;">Password</label>
+							<input type="password" class="form-control" id="password" placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+						</td>
+						<td width="10rem"></td>
+					</tr>
+					
+					<tr>
+						<td height="10rem">
+
+						</td>
+					</tr>
+
+					<tr>
+						<td width="10rem"></td>
+						<td>
+							<label for="password" style="color: white;">Conferma password</label>
+							<input type="password" class="form-control" id="confermaPassword" placeholder="Conferma password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+						</td>
+						<td width="10rem"></td>
+					</tr>
+					
+					<tr>
+						<td height="10rem">
+
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="5">
+							<div style="text-align: center;">
+								<button  type="submit" class="btn btn-primary" id="login_btn" value="submit">Cambia</button>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td height="10rem">
+
+						</td>
+					</tr>
+				</table>
 				
 			</div>
-			<div class="col-8">
-				<br>
-				<br>
-				<form>
-					<div class="form-group">
-						<label for="Nome">Nome</label>
-						<input type="text" class="form-control" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row['nome']."\""; ?>>
-					</div>
-					<div class="form-group">
-						<label for="Cognome">Cognome</label>
-						<input type="text" class="form-control" id="Cognome" <?php echo "value=\"".$row['cognome']."\""; ?>>
-					</div>
-					<div class="form-group">
-						<label for="Email">Email</label>
-						<input type="email" class="form-control" id="Email" <?php echo "value=\"".$row['mail']."\""; ?>>
-					</div>
-					<div class="form-group">
-						<label for="data">Data di nascita</label>
-						<input type="date" class="form-control" id="data" <?php echo "value=\"".$row['nascita']."\""; ?>>
-					</div>
-					<div class="form-group">
-						<label for="descrizione">Descrizione</label>
-						<textarea class="form-control" id="descrizione" rows="3" maxlength="255"><?php echo $row['descrizione']; ?></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary">Salva</button>
-				</form>
-			</div>
-		</div>
-	</div>
+		</form>
+	</center>
+
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
@@ -152,7 +167,7 @@ $row = mysqli_fetch_assoc($result);
 	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 	</script>
+	<script type="text/javascript" src="Script.js"></script>
 
 </body>
-
 </html>

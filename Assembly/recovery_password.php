@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+if(!empty($_SESSION)) {
+    // session isn't started
+	header('Location: Homepage.php');
+}
+
 if (isset($_POST['mail'])) {
 	# code...
 
@@ -53,7 +60,7 @@ function generaStringaRandom($lunghezza) {
 
 <body style="background-color: #9BA4AF;">
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 		<div class="container">
 			<div class="titolo navbar-brand" style="font-size: 2.25rem !important;">
 				TeamUp
@@ -70,7 +77,7 @@ function generaStringaRandom($lunghezza) {
 	<center>
 		<form  ACTION="recovery_password.php" METHOD = POST>
 			<div class="form-group">
-				<table style="background-color: #343a40;">
+				<table style="background-color: #343a40;background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;">
 					
 					<tr>
 						<td height="10rem">
