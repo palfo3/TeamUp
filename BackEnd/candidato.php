@@ -8,7 +8,6 @@ class candidato{
 	private $curriculum;
 
 
-
 	//Definizione Metodi
 	public function __construct($array){
 		$this->mailUtente = $array['mailUtente'];
@@ -20,24 +19,21 @@ class candidato{
 			$this->curriculum = $array['curriculum'];
 	}
 
-
 	public function getMail(){
-		return $candidato->mailUtente;
+		return $this->mailUtente;
 	}
 
 	public function getID(){
-		return $candidato->progettoID;
+		return $this->progettoID;
 	}
 
 	public function getAccettato(){
-		return $candidato->accettato;
+		return $this->accettato;
 	}
 
 	public function getCurriculum(){
-		return $candidato->curriculum;
+		return $this->curriculum;
 	}
-
 }
-
 
 ?>

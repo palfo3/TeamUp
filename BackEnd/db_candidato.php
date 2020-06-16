@@ -11,7 +11,7 @@ class db_candidato{
 	private function getConnection(){
 			$servername = "localhost";
 			$username = "root";
-			$password = "Admin";
+			$password = "";
 			$dbname = "db_ing";
 
 			// Create connection
@@ -23,9 +23,17 @@ class db_candidato{
 		$this->candidato = new candidato($candidate);
 		$conn = $this->getConnection();
 		$sql = "INSERT INTO candidato (MailUtente, ProgettoID) VALUES ".
-		"('".$this->candidato->mailUtente."', '".$this->candidato->progettoID."')";
-		$conn->query($sql);
+		"('".$this->candidato->getMail()."', '".$this->candidato->getID()."')";
 
+		$conn->query($sql);
+	}
+
+	public function Insert_Curriculum($file){
+		$this->candidato = new candidato($candidate);
+		$conn = $this->getConnection();
+		$sql = "INSERT INTO candidato (curriculum) VALUES ('".$file."')";
+		
+		$conn->query($sql);
 		$conn->close();
 	}
 
@@ -74,27 +82,19 @@ class db_candidato{
 		  
 		  $candidato = new candidato($row);
 		}
-
 		$candidato = new candidato($row);
-		$conn->close();
-		
+		$conn->close();		
 	}
 
 	public function getCandidato(){
 		return $this->candidato;
 	}
+}	
 
 
-
-}
-
-	
 	$array = array( "mailUtente" => "gaetaano@mail.it",
 					"progettoID" => "2");
 
 	$interface = new db_candidato();
 	$interface->register($array);
-
-
-
 ?>

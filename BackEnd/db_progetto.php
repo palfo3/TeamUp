@@ -115,7 +115,14 @@ class db_progetto{
         return $row['id'];
 
 	}
-	//END UPDATE QUERIES
+
+	public function Ricerca_Progetto($nome_p){
+		$conn = $this->getConnection();
+		$sql = "SELECT nome FROM progetto WHERE nome = '".$nome_p."'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['nome'];
+	}
 
 	public function setProgetto($id){
 		$conn = $this->getConnection();
@@ -128,9 +135,7 @@ class db_progetto{
 		  
 		  $this->progetto = new progetto($row);
 		}
-
 		$conn->close();
-		
 	}
 
 	public function getProgetto(){

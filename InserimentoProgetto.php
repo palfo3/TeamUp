@@ -56,7 +56,6 @@ if($creazione_date > $scadenza_date){
     $progetto->register($array); 
   }
 }
-
   require "BackEnd/db_tag.php";
   $db_tag = new db_tag();
 
