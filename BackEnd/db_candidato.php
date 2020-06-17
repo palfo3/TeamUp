@@ -22,19 +22,10 @@ class db_candidato{
 	public function register($candidate){
 		$this->candidato = new candidato($candidate);
 		$conn = $this->getConnection();
-		$sql = "INSERT INTO candidato (MailUtente, ProgettoID) VALUES ".
-		"('".$this->candidato->getMail()."', '".$this->candidato->getID()."')";
+		$sql = "INSERT INTO candidato (utente, progetto, accettato, curriculum) VALUES ".
+		"('".$this->candidato->getMail()."', '".$this->candidato->getID()."', '".$this->candidato->getAccettato()."', '".$this->candidato->getCurriculum()."')";
 
-		$conn->query($sql);
-	}
-
-	public function Insert_Curriculum($file){
-		$this->candidato = new candidato($candidate);
-		$conn = $this->getConnection();
-		$sql = "INSERT INTO candidato (curriculum) VALUES ('".$file."')";
-		
-		$conn->query($sql);
-		$conn->close();
+		$result = mysqli_query($conn, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($conn), E_USER_ERROR);
 	}
 
 	//UPDATE QUERIES
@@ -91,10 +82,4 @@ class db_candidato{
 	}
 }	
 
-
-	$array = array( "mailUtente" => "gaetaano@mail.it",
-					"progettoID" => "2");
-
-	$interface = new db_candidato();
-	$interface->register($array);
 ?>

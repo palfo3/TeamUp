@@ -119,10 +119,16 @@ class db_progetto{
 	public function Ricerca_Progetto($nome_p){
 		$conn = $this->getConnection();
 		$sql = "SELECT nome FROM progetto WHERE nome = '".$nome_p."'";
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
-        return $row['nome'];
+		$result = $conn->query($sql);
+
+		if($result->num_rows == 1){
+		  // output data of each row
+		  $row = $result->fetch_assoc();
+          echo $row['nome'];
+          return TRUE;
+      	}
 	}
+	
 
 	public function setProgetto($id){
 		$conn = $this->getConnection();
