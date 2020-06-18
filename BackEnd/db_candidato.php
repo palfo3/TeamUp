@@ -89,6 +89,21 @@ class db_candidato{
 		$conn->close();		
 	}
 
+	public function EliminaTeammate($utente, $id){
+		$conn = $this->getConnection();
+		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto LIKE '".$id."'";
+		$result = $conn->query($sql);
+		
+		if($result->num_rows == 1){
+		  $row = $result->fetch_assoc();
+		  echo $row['utente'];
+		  return TRUE;
+		}
+		$conn->close();		
+	}
+
+
+
 	public function Licenziato($utente){
 		$conn = $this->getConnection();
 		$sql = "UPDATE candidato SET accettato = '0' WHERE utente LIKE '".$utente."'";

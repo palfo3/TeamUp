@@ -29,10 +29,12 @@ if(isset($_POST['save'])) { // if save button on the form is clicked
 
 	    //Registrazione progetto
 	    $array = array("mailUtente" => $_SESSION['mail'],
-	            "progettoID" => , $progetto, 
+	            "progettoID" => $progetto, 
 	            "accettato" => "0",
 	            "curriculum" => $filename);
 	    $candidato->register($array); 
+
+      $_SESSION ['id_progetto'] = 
 	}
 }
 
