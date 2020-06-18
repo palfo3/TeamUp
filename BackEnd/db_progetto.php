@@ -113,7 +113,6 @@ class db_progetto{
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         return $row['id'];
-
 	}
 
 	public function Ricerca_Progetto($nome_p){
@@ -128,7 +127,6 @@ class db_progetto{
           return TRUE;
       	}
 	}
-	
 
 	public function setProgetto($id){
 		$conn = $this->getConnection();
@@ -147,20 +145,5 @@ class db_progetto{
 	public function getProgetto(){
 		return $this->progetto;
 	}
-
 }
-
-/*	Testing della classe
-
-	$array = array( "leader" => "gaetano@mail.it",
-					"nome" => "The simp king",
-					"descrizione" => "sciam a femmn",
-					"data_scadenza" => "2020-05-29",
-					"data_creazione" => "2020-05-24");
-
-	$interface = new db_progetto();
-	$interface->register($array);
-
-*/
-
 ?>

@@ -24,9 +24,12 @@ if(isset($_POST['save'])) { // if save button on the form is clicked
     	require "../BackEnd/db_candidato.php";
   		$candidato = new db_candidato();
 
+      require "../BackEnd/db_progetto.php";
+      $progetto = new db_progetto();
+
 	    //Registrazione progetto
 	    $array = array("mailUtente" => $_SESSION['mail'],
-	            "progettoID" => $_SESSION['id'],
+	            "progettoID" => , $progetto, 
 	            "accettato" => "0",
 	            "curriculum" => $filename);
 	    $candidato->register($array); 

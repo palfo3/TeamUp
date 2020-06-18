@@ -2,7 +2,6 @@
 
 $_SESSION['mail'] = "emanuele@mail.it";
 
-
 $id = "";
 $nome = "";
 $descrizione = "";
@@ -123,7 +122,7 @@ if($creazione_date > $scadenza_date){
               <input type="text" id="tag2" name="tag2" placeholder="Tag2"> <br><br>
               <input type="text" id="tag3" name="tag3" placeholder="Tag3"> <br><br> 
 
-              <input  type="submit" align="right" id="login_btn" value="Inserisci"> <br><br>
+              <input  type="submit" align="right" value="Inserisci"> <br><br>
 
               <script type="text/javascript">
               
