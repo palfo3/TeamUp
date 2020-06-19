@@ -124,10 +124,18 @@ class db_utente{
             session_start();
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+
+>>>>>>> Stashed changes
             $_SESSION['mail'] = $row['mail'];
 
             echo $_SESSION['nome'];
 
+=======
+            $_SESSION['mail'] = $row['mail'];
+>>>>>>> Stashed changes
             return true;
         }else{
             return false;
