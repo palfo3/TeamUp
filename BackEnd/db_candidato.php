@@ -31,31 +31,31 @@ class db_candidato{
 	//UPDATE QUERIES
 	public function updateMail($oldMail, $newMail){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET mail = '".$newMail."' WHERE mail LIKE '".$oldMail."'";
+		$sql = "UPDATE candidato SET utente = '".$newMail."' WHERE utente LIKE '".$oldMail."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateID($mail, $newID){
+	public function updateID($mail, $id, $newID){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET ID = '".$newID."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE candidato SET progetto = '".$newID."' WHERE utente LIKE '".$mail."' AND progetto = ".$id;
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateAccettato($mail, $newAccettato){
+	public function updateAccettato($mail, $id, $newAccettato){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET Accettato = '".$newAccettato."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE candidato SET accettato = '".$newAccettato."' WHERE utente LIKE '".$mail."' AND progetto = ".$id;
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateCurriculum($mail, $newCurriculum){
+	public function updateCurriculum($mail, $id, $newCurriculum){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET Curriculum = '".$newCurriculum."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE candidato SET curriculum = '".$newCurriculum."' WHERE utente LIKE '".$mail."' AND progetto = ".$id;
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
@@ -64,7 +64,7 @@ class db_candidato{
 
 	public function setCandidato($mail, $id){
 		$conn = $this->getConnection();
-		$sql = "SELECT * FROM candidato WHERE mailutente LIKE '".$mail."' AND progettoid = ".$id;
+		$sql = "SELECT * FROM candidato WHERE utente LIKE '".$mail."' AND progetto = ".$id;
 		$result = $conn->query($sql);
 
 		if ($result->num_rows == 1) {
@@ -76,9 +76,9 @@ class db_candidato{
 		$conn->close();		
 	}
 
-	public function RicercaTeammate($utente){
+	public function RicercaTeammate($utente, $id){
 		$conn = $this->getConnection();
-		$sql = "SELECT utente FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '1'";
+		$sql = "SELECT utente FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '1' AND progetto = ".$id;
 		$result = $conn->query($sql);
 		
 		if($result->num_rows == 1){
@@ -91,7 +91,7 @@ class db_candidato{
 
 	public function EliminaTeammate($utente, $id){
 		$conn = $this->getConnection();
-		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto LIKE '".$id."'";
+		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto = '".$id."'";
 		$result = $conn->query($sql);
 		
 		if($result->num_rows == 1){
@@ -104,9 +104,9 @@ class db_candidato{
 
 
 
-	public function Licenziato($utente){
+	public function Licenziato($utente, $id){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET accettato = '0' WHERE utente LIKE '".$utente."'";
+		$sql = "UPDATE candidato SET accettato = '0' WHERE utente LIKE '".$utente."'AND progetto = ".$id;
 		$result = $conn->query($sql);
 			//successfully updated
 		
