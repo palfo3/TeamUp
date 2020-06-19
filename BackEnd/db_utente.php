@@ -31,12 +31,12 @@ class db_utente{
 
     //DELETE QUERY
 
-   public function deleteAccount($mail){
+   public function deleteAccount($mail, $password){
         $conn = $this->getConnection();
-        $sql = "DELETE FROM utente WHERE mail = '".$mail."'";
-        if($conn->query($sql) === TRUE){
-            //successfully updated
-        }
+        $sql = "DELETE FROM utente WHERE mail = '".$mail."' AND password LIKE '".$password."' ";
+        $conn->query($sql);
+
+        $result = mysqli_query($conn, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($conn), E_USER_ERROR);       
     }
 
 
@@ -124,7 +124,6 @@ class db_utente{
             session_start();
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];
-
             $_SESSION['mail'] = $row['mail'];
 
             echo $_SESSION['nome'];

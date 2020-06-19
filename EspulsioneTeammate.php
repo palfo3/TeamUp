@@ -1,19 +1,13 @@
 <?php
 
-//Ricerca teammate in candidato vedendo se accettato  == 1
-//Imposta accettato = 0
-
-$mail = "";
-
-if(isset($_POST['mail']))
-  $mail = $_POST['mail'];
+$_SESSION['mail'] = "daniele@mail.it";
 
 //Ricerca in canidato
 require "BackEnd/db_candidato.php";
 $candidato = new db_candidato();
 
-if($candidato->RicercaTeammate($mail) == TRUE){
-    $candidato->Licenziato($mail);
+if($candidato->RicercaTeammate($_SESSION['mail']) == TRUE){
+    $candidato->EliminaTeammate($_SESSION['mail']);
 }else{
   echo "non trovato";
 }

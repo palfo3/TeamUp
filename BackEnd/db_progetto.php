@@ -123,7 +123,6 @@ class db_progetto{
 		if($result->num_rows == 1){
 		  // output data of each row
 		  $row = $result->fetch_assoc();
-          echo $row['nome'];
           return TRUE;
       	}
 	}

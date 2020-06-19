@@ -33,8 +33,7 @@ if(isset($_POST['save'])) { // if save button on the form is clicked
 	            "accettato" => "0",
 	            "curriculum" => $filename);
 	    $candidato->register($array); 
-
-      $_SESSION ['id_progetto'] = 
+ 
 	}
 }
 

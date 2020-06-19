@@ -4,15 +4,13 @@
 
 $mail = "";
 
-$_SESSION['id'] = "2";
-
 if(isset($_POST['mail']))
   $mail = $_POST['mail'];
 
 require "BackEnd/db_candidato.php";
 $candidato = new db_candidato();
 
-if($candidato->EliminaTeammate($mail, $_SESSION['id']) == TRUE){
+if($candidato->EliminaCandidatura($mail)){
   header("location: ../FrontEnd/Homepage.html");
 }else{
   echo "non esiste";

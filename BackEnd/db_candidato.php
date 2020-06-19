@@ -83,34 +83,38 @@ class db_candidato{
 		
 		if($result->num_rows == 1){
 		  $row = $result->fetch_assoc();
-		  echo $row['utente'];
 		  return TRUE;
 		}
 		$conn->close();		
 	}
 
-	public function EliminaTeammate($utente, $id){
+	// Controllo che il campo accettato sia 0, se è uguale a 
+	public function EliminaCandidatura($utente){
 		$conn = $this->getConnection();
+<<<<<<< Updated upstream
 		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto = '".$id."'";
+=======
+		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0'";
+>>>>>>> Stashed changes
 		$result = $conn->query($sql);
-		
-		if($result->num_rows == 1){
-		  $row = $result->fetch_assoc();
-		  echo $row['utente'];
-		  return TRUE;
-		}
+
 		$conn->close();		
 	}
 
+<<<<<<< Updated upstream
 
 
 	public function Licenziato($utente, $id){
+=======
+	// Abbandono progetto o Espulsione teammate
+	// Viene modificato il campo accettato nella tabaella candidato (uguale a 1) e modificato a 0
+	public function EliminaTeammate($utente){
+>>>>>>> Stashed changes
 		$conn = $this->getConnection();
 		$sql = "UPDATE candidato SET accettato = '0' WHERE utente LIKE '".$utente."'AND progetto = ".$id;
 		$result = $conn->query($sql);
-			//successfully updated
 		
-		$result = mysqli_query($conn, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($conn), E_USER_ERROR);
+		//$result = mysqli_query($conn, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($conn), E_USER_ERROR);
 	}
 
 	public function getCandidato(){
