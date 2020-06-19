@@ -65,15 +65,6 @@ $result = $conn->query($query);
 
 $row = mysqli_fetch_assoc($result);
 
-if(isset($_POST['delete'])) {
-	require "BackEnd/db_utente.php";
-	$utente->deleteAccount($_SESSION['mail']);
-	session_destroy();
-	header("location: index.php");
-}
-
-
-
 ?>
 
 
@@ -176,7 +167,7 @@ if(isset($_POST['delete'])) {
 
 				<form action="profilo.php" method="POST">
 					<label for="password">Elimina profilo</label><br>
-					<button type="submit" class="btn btn-dark" name="delete">Cancella</button>
+					<a href="EliminaProfilo.php" class="btn btn-dark">Cancella</a>
 				</form>
 			</div>
 			<div class="col-8">

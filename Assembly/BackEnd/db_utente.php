@@ -9,14 +9,14 @@ class db_utente{
 
     //Definizione Metodi
     private function getConnection(){
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "db_ing";
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "db_ing";
 
             // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            return $conn;
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        return $conn;
     }
 
     public function register($user){
@@ -31,14 +31,6 @@ class db_utente{
 
     //DELETE QUERY
 
-    public function deleteAccount($mail){
-        $conn = $this->getConnection();
-           $sql = "DELETE FROM utente WHERE mail LIKE '".$mail."'";
-        if($conn->query($sql) === TRUE){
-            //successfully updated
-        }
-    }
- 
 
     //UPDATE QUERIES
     public function updateMail($oldMail, $newMail){
@@ -49,7 +41,7 @@ class db_utente{
         }
     }
 
- 
+    
     public function updatePassword($mail, $newPassword){
         $conn = $this->getConnection();
         $sql = "UPDATE utente SET password = '".$newPassword."' WHERE mail LIKE '".$mail."'";
@@ -58,7 +50,7 @@ class db_utente{
         }
     }
 
- 
+    
     public function updateNome($mail, $newNome){
         $conn = $this->getConnection();
         $sql = "UPDATE utente SET nome = '".$newNome."' WHERE mail LIKE '".$mail."'";
@@ -67,7 +59,23 @@ class db_utente{
         }
     }
 
- 
+    public function deleteAccount($mail, $password){ 
+        $conn = $this->getConnection(); 
+        $sql = "DELETE FROM utente WHERE mail = '".$mail."' AND password LIKE '".$password."' "; 
+        $risultato = mysqli_query($conn, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($conn), E_USER_ERROR);
+        $result = mysqli_affected_rows($conn);
+
+        if($result == 1) { 
+             
+            return true;
+        } else {
+            return false;
+        }
+
+              
+    } 
+
+    
     public function updateCognome($mail, $newCognome){
         $conn = $this->getConnection();
         $sql = "UPDATE utente SET cognome = '".$newCognome."' WHERE mail LIKE '".$mail."'";
@@ -94,7 +102,7 @@ class db_utente{
         }
     }
 
- 
+    
     public function updateImmagine($mail, $newImmagine){
         $conn = $this->getConnection();
         $sql = "UPDATE utente SET immagine = '".$newImmagine."' WHERE mail LIKE '".$mail."'";
@@ -103,15 +111,15 @@ class db_utente{
         }
     }
 
- 
+    
     public function updateCurriculum($mail, $newCurriculum){
         $conn = $this->getConnection();
-         $sql = "UPDATE utente SET curriculum = '".$newCurriculum."' WHERE mail LIKE '".$mail."'";
+        $sql = "UPDATE utente SET curriculum = '".$newCurriculum."' WHERE mail LIKE '".$mail."'";
         if($conn->query($sql) === TRUE){
             //successfully updated
         }
     }
- 
+    
     //In base all'email e la password inserita ricavo nome e cognome dell'utente
     public function access_User($mail, $password){
         $conn = $this->getConnection();
@@ -144,7 +152,7 @@ class db_utente{
             return true;
         }
     }
- 
+    
     // Funzione per la modifica della password
     public function checkUtentePass($mail, $oldpassword, $newpassword){
         $conn = $this->getConnection();
@@ -152,17 +160,17 @@ class db_utente{
         $result = $conn->query($sql);
 
         if($result->num_rows == 1) {
-                $utente = new db_utente(); 
-                $row = $result->fetch_assoc();
-                if($oldpassword == $row['password']){
-                    $utente->updatePassword($mail, $newpassword);   
-                }else{
-                    echo "password sbagliata";
-                }
+            $utente = new db_utente(); 
+            $row = $result->fetch_assoc();
+            if($oldpassword == $row['password']){
+                $utente->updatePassword($mail, $newpassword);   
             }else{
-                    echo "mail sbagliata";
-                }
+                echo "password sbagliata";
+            }
+        }else{
+            echo "mail sbagliata";
         }
+    }
 
     public function setUtente($mail){
         $conn = $this->getConnection();
@@ -175,14 +183,14 @@ class db_utente{
           //$row è il vettore associativo
           $row = $result->fetch_assoc();
           $this->utente = new utente($row);
-        }
-        $this->utente = new utente($row);
-        $conn->close();
-    }
+      }
+      $this->utente = new utente($row);
+      $conn->close();
+  }
 
-    public function getUtente(){
-        return $this->utente;
-    }
+  public function getUtente(){
+    return $this->utente;
+}
 
 }
     /*Testing della classe
@@ -196,5 +204,5 @@ class db_utente{
 
             $interface = new db_utente();
             $interface->register($array);
-    }*/
-    ?>
+        }*/
+        ?>
