@@ -9,29 +9,30 @@ if(!empty($_SESSION)) {
 	header('Location: Homepage.php');
 }
 
+if(isset($_POST['google_mail'])) {
+	if($_POST['google_mail'] != "" ){
 
-if(isset($_POST['password']) && empty($_POST['password'])){
-
-	$_SESSION['nome'] = $_POST['google_nome'];
-	$_SESSION['cognome'] = $_POST['google_cognome'];
-	$_SESSION['mail'] = $_POST['google_mail'];
-	$_SESSION['img'] = $_POST['google_img'];
+		$_SESSION['nome'] = $_POST['google_nome'];
+		$_SESSION['cognome'] = $_POST['google_cognome'];
+		$_SESSION['mail'] = $_POST['google_mail'];
+		$_SESSION['img'] = $_POST['google_img'];
 
 
         //registrazione nel database
-	require "BackEnd/db_utente.php";
-	$utente = new db_utente(); 
-	if($utente->checkUtente($_POST['google_mail'])){       
-		$array = array("mail" => $_POST['google_mail'],
-			"nome" => $_POST['google_nome'],
-			"cognome" => $_POST['google_cognome'],
-			"password" => "NULL",
-			"descrizione" => "");
-		$utente = new db_utente();
-		$utente->register($array); 
-	}
+		require "BackEnd/db_utente.php";
+		$utente = new db_utente(); 
+		if($utente->checkUtente($_POST['google_mail'])){       
+			$array = array("mail" => $_POST['google_mail'],
+				"nome" => $_POST['google_nome'],
+				"cognome" => $_POST['google_cognome'],
+				"password" => "NULL",
+				"descrizione" => "");
+			$utente = new db_utente();
+			$utente->register($array); 
+		}
 
-	header('Location: Homepage.php');
+		header('Location: Homepage.php');
+	}
 }
 
 if(isset($_POST['email']) && isset($_POST['password'])){
@@ -40,7 +41,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
 	$password =  $_POST['hashedPassword']; 
 
-	require "../BackEnd/db_utente.php";
+	require "BackEnd/db_utente.php";
 
 	$utente = new db_utente(); 
 
@@ -217,7 +218,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
 						<td colspan="2">
 							<center>
-								<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+								<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" name="google"></div>
 							</center>
 						</td>
 					</tr>

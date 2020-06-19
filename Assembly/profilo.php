@@ -4,7 +4,7 @@ session_start();
 
 if(empty($_SESSION)) {
     // session isn't started
-    header('Location: index.php');
+	header('Location: index.php');
 }
 
 $servername = "localhost";
@@ -17,12 +17,58 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 $query = "SELECT * FROM utente WHERE mail ='".$_SESSION['mail']."'";
 
+if(isset($_POST['save'])) {
+
+	require 'BackEnd/db_utente.php';
+
+	$array = array(
+		"mail" => $_POST['mail'],
+		"nome" => $_POST['nome'],
+		"cognome" => $_POST['cognome'],
+		"nascita" => $_POST['nascita'],
+		"password" => "NULL",
+		"descrizione" => $_POST['descrizione']);
+
+	$modifica = new utente($array);
+
+	$utente = new db_utente();
+	$utente->setUtente($_SESSION['mail']);
+
+
+	if($utente->getUtente()->getNome() != $modifica->getNome())
+	{
+		$utente->updateNome($utente->getUtente()->getMail(), $modifica->getNome());
+	}
+
+	if($utente->getUtente()->getCognome() != $modifica->getCognome())
+	{
+		$utente->updateCognome($utente->getUtente()->getMail(), $modifica->getCognome());
+	}
+
+	if($utente->getUtente()->getDescrizione() != $modifica->getDescrizione())
+	{
+		$utente->updateDescrizione($utente->getUtente()->getMail(), $modifica->getDescrizione());
+	}
+
+	if($utente->getUtente()->getNascita() != $modifica->getNascita())
+	{
+		$utente->updateNascita($utente->getUtente()->getMail(), $modifica->getNascita());
+	}
+
+	if($utente->getUtente()->getMail() != $modifica->getMail())
+	{
+		$utente->updateMail($utente->getUtente()->getMail(), $modifica->getMail());
+	}
+}
+
 $result = $conn->query($query);
 
 $row = mysqli_fetch_assoc($result);
 
 
+
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -50,7 +96,7 @@ $row = mysqli_fetch_assoc($result);
 					<div class="titolo">
 						TeamUp
 					</div>
-				</a>
+				</a> 
 			</div>
 			<div class="col-6"> 
 				<form class="form-inline my-2 my-lg-0">
@@ -112,34 +158,44 @@ $row = mysqli_fetch_assoc($result);
 				<br>
 				<br>
 				<label for="password">Password</label><br>
-				<a href="new_password.php" class="btn btn-primary">password</a>
+				<a href="new_password.php" class="btn btn-dark">password</a>
+
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+
+				<label for="password">Elimina profilo</label><br>
+				<a href="new_password.php" class="btn btn-dark">Cancella</a>
 				
 			</div>
 			<div class="col-8">
 				<br>
 				<br>
-				<form>
+				<form action="profilo.php" method="POST">
 					<div class="form-group">
 						<label for="Nome">Nome</label>
-						<input type="text" class="form-control" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row['nome']."\""; ?>>
+						<input type="text" class="form-control" name="nome" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row['nome']."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="Cognome">Cognome</label>
-						<input type="text" class="form-control" id="Cognome" <?php echo "value=\"".$row['cognome']."\""; ?>>
+						<input type="text" class="form-control" name="cognome" id="Cognome" <?php echo "value=\"".$row['cognome']."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="Email">Email</label>
-						<input type="email" class="form-control" id="Email" <?php echo "value=\"".$row['mail']."\""; ?>>
+						<input type="email" class="form-control" name ="mail" id="Email" <?php echo "value=\"".$row['mail']."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="data">Data di nascita</label>
-						<input type="date" class="form-control" id="data" <?php echo "value=\"".$row['nascita']."\""; ?>>
+						<input type="date" class="form-control" name="nascita" id="data" <?php echo "value=\"".$row['nascita']."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="descrizione">Descrizione</label>
-						<textarea class="form-control" id="descrizione" rows="3" maxlength="255"><?php echo $row['descrizione']; ?></textarea>
+						<textarea class="form-control" id="descrizione" name="descrizione" rows="3" maxlength="255"><?php echo $row['descrizione']; ?></textarea>
 					</div>
-					<button type="submit" class="btn btn-primary">Salva</button>
+					<button type="submit" class="btn btn-primary" name="save">Salva</button>
 				</form>
 			</div>
 		</div>
