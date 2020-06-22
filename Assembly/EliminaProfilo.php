@@ -9,17 +9,19 @@ if(empty($_SESSION)) {
   header('Location: index.php');
 }
 
-if(isset($_POST['password'])){
+if(isset($_POST['hashedPassword'])){
   $password = "";
-  $password = $_POST['password'];
+  $password = $_POST['hashedPassword'];
   require "BackEnd/db_utente.php";
 
   $utente = new db_utente();
 
   if($utente->deleteAccount($_SESSION['mail'], $password)) {
+    session_destroy();
     header('Location: index.php');
   } else {
     $flag = false;
+    echo $password;
   }
 }
 
@@ -34,6 +36,12 @@ if(isset($_POST['password'])){
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script type="text/javascript">
+  function hashlogin(){
+    document.getElementById("hashedPassword").value = sha256(document.getElementById("password").value);
+  }
+</script>
 
 
 </head>
@@ -60,7 +68,7 @@ if(isset($_POST['password'])){
           <li>
             <a href="#">
               <div class="d-none d-sm-block">
-                
+
                 <div class="dropdown">
                   <br>
                   <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
@@ -130,9 +138,9 @@ if(isset($_POST['password'])){
                 <label for="password" style="color: white;">Password</label><br>
                 <?php 
                 if($flag) {
-                  echo "<input type=\"password\"  class=\"form-control\"name=\"password\" size=\"30\" placeholder=\"Password\">";    
+                  echo "<input type=\"password\"  class=\"form-control\"name=\"password\" id=\"password\" size=\"30\" placeholder=\"Password\">";    
                 } else {
-                  echo "<input type=\"password\"  class=\"form-control is-invalid\"name=\"password\" size=\"30\" placeholder=\"Password\">";    
+                  echo "<input type=\"password\"  class=\"form-control is-invalid\"name=\"password\" id=\"password\" size=\"30\" placeholder=\"Password\">";    
                 }
                 ?>
                 
@@ -153,7 +161,7 @@ if(isset($_POST['password'])){
           <tr>
             <td colspan="5">
               <div style="text-align: center;">
-                <input  type="submit" class="btn btn-primary" align="right" value="Elimina">
+                <button type="submit" class="btn btn-primary" id="hashedPassword" name="hashedPassword" onclick="hashlogin()">Elimina</button>
               </div>
             </td>
           </tr>
