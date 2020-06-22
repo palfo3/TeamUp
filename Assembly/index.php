@@ -245,5 +245,10 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
 </body>
 
+<!--       _
+       .__(.)< (MIT U TRENT)
+        \___)   
+ ~~~~~~~~~~~~~~~~~~-->
+
 </html>
 

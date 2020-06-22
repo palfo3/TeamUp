@@ -7,6 +7,14 @@ if(empty($_SESSION)) {
 	header('Location: index.php');
 }
 
+echo $_POST['vecchiahash'];
+echo "<br>";
+echo $_POST['nuovahash'];
+echo "<br>";
+echo $_POST['confermaPasswordhash'];
+
+
+
 ?>
 
 
@@ -22,6 +30,14 @@ if(empty($_SESSION)) {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
+	<script type="text/javascript">
+		function hashlogin(){
+			document.getElementById("vecchiahash").value = sha256(document.getElementById("vecchia").value);
+			document.getElementById("nuovahash").value = sha256(document.getElementById("nuova").value);
+			document.getElementById("confermaPasswordhash").value = sha256(document.getElementById("confermaPassword").value);
+		}
+	</script>
 
 </head>
 
@@ -86,7 +102,7 @@ if(empty($_SESSION)) {
 	<br>
 
 	<center>
-		<form  ACTION="recovery_password.php" METHOD = POST>
+		<form  ACTION="new_password.php" METHOD = POST>
 			<div class="form-group">
 				<table style="background-color: #343a40;background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;">
 					
@@ -113,8 +129,25 @@ if(empty($_SESSION)) {
 					<tr>
 						<td width="10rem"></td>
 						<td>
+							<label for="password" style="color: white;">vecchia password</label>
+							<input type="password" class="form-control" id="vecchia" name="vecchia" placeholder="Vecchia password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+							<input type="hidden" name="vecchiahash" id="vecchiahash">
+						</td>
+						<td width="10rem"></td>
+					</tr>
+
+					<tr>
+						<td height="10rem">
+
+						</td>
+					</tr>
+
+					<tr>
+						<td width="10rem"></td>
+						<td>
 							<label for="password" style="color: white;">Password</label>
-							<input type="password" class="form-control" id="password" placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+							<input type="password" class="form-control" id="nuova" name="nuova" placeholder="Nuova password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+							<input type="hidden" name="nuovahash" id="nuovahash">
 						</td>
 						<td width="10rem"></td>
 					</tr>
@@ -129,7 +162,8 @@ if(empty($_SESSION)) {
 						<td width="10rem"></td>
 						<td>
 							<label for="password" style="color: white;">Conferma password</label>
-							<input type="password" class="form-control" id="confermaPassword" placeholder="Conferma password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+							<input type="password" class="form-control" id="confermaPassword" name="confermaPassword" placeholder="Conferma password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
+							<input type="hidden" name="confermaPasswordhash" id="confermaPasswordhash">
 						</td>
 						<td width="10rem"></td>
 					</tr>
@@ -143,7 +177,7 @@ if(empty($_SESSION)) {
 					<tr>
 						<td colspan="5">
 							<div style="text-align: center;">
-								<button  type="submit" class="btn btn-primary" id="login_btn" value="submit">Cambia</button>
+								<button  type="submit" class="btn btn-primary" id="login_btn" onclick="hashlogin()">Cambia</button>
 							</div>
 						</td>
 					</tr>

@@ -8,9 +8,7 @@ if(!empty($_SESSION)) {
 }
 
 if (isset($_POST['mail'])) {
-	# code...
-
-
+	
 	$mail = $_POST['mail'];
 
 // use wordwrap() if lines are longer than 70 characters

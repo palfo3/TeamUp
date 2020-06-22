@@ -147,33 +147,41 @@ $row = mysqli_fetch_assoc($result);
 	<div class="container">
 		<div class="row">
 			<div class="col-4">
-				<?php
+				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
+					<?php
 
-				echo $_SESSION['nome']." ".$_SESSION['cognome'];
+					if(isset($_SESSION['img'])){
+						echo "<img src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
+					} else {
+						echo "<img src=\"Img/profile.png\" class=\"imgprofile\">";
+					}
+					echo $_SESSION['nome']." ".$_SESSION['cognome'];
 
-				?>
-				<br>
-				<br>
-				<br>
-				<label for="password">Password</label><br>
-				<a href="new_password.php" class="btn btn-dark">password</a>
-
-				<br>
-				<br>
+					?>
+				</div>
 				<br>
 				<br>
 				<br>
 				<br>
 
-				<form action="profilo.php" method="POST">
+				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
+					<label for="password">Password</label><br>
+					<a href="new_password.php" class="btn btn-primary">password</a>
+				</div>
+				
+
+				<br>
+
+				
+
+				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
 					<label for="password">Elimina profilo</label><br>
-					<a href="EliminaProfilo.php" class="btn btn-dark">Cancella</a>
+					<a href="EliminaProfilo.php" class="btn btn-primary">Cancella</a>
 				</form>
 			</div>
 			<div class="col-8">
-				<br>
-				<br>
-				<form action="profilo.php" method="POST">
+				
+				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
 					<div class="form-group">
 						<label for="Nome">Nome</label>
 						<input type="text" class="form-control" name="nome" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row['nome']."\""; ?>>
@@ -199,6 +207,9 @@ $row = mysqli_fetch_assoc($result);
 			</div>
 		</div>
 	</div>
+
+	<br>
+	<br>
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
