@@ -66,13 +66,13 @@ class db_utente{
         $result = mysqli_affected_rows($conn);
 
         if($result == 1) { 
-             
+
             return true;
         } else {
             return false;
         }
 
-              
+        
     } 
 
     
@@ -162,13 +162,16 @@ class db_utente{
         if($result->num_rows == 1) {
             $utente = new db_utente(); 
             $row = $result->fetch_assoc();
-            if($oldpassword == $row['password']){
-                $utente->updatePassword($mail, $newpassword);   
-            }else{
-                echo "password sbagliata";
+            if($newpassword != $row['password']){
+                if($oldpassword == $row['password']) {
+                    $utente->updatePassword($mail, $newpassword);  
+                    return true; 
+                } else {
+                    return false;
+                }     
+            } else {
+                return false;
             }
-        }else{
-            echo "mail sbagliata";
         }
     }
 

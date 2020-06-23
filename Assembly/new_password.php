@@ -2,18 +2,31 @@
 
 session_start();
 
+$flag = true;
+
 if(empty($_SESSION)) {
     // session isn't started
 	header('Location: index.php');
 }
 
-echo $_POST['vecchiahash'];
-echo "<br>";
-echo $_POST['nuovahash'];
-echo "<br>";
-echo $_POST['confermaPasswordhash'];
+if(isset($_POST['invio'])) {
 
+	if($_POST['nuovahash'] == $_POST['confermaPasswordhash']) {
+		require 'BackEnd/db_utente.php';
 
+		$utente = new db_utente();
+		
+		if($utente->checkUtentePass($_SESSION['mail'], $_POST['vecchiahash'], $_POST['nuovahash'])) {
+			header('Location: homepage.php');
+		} else {
+			$flag = false;
+		}
+	} else {
+		$flag = false;
+	}
+	
+
+}
 
 ?>
 
@@ -46,11 +59,11 @@ echo $_POST['confermaPasswordhash'];
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 		<div class="container-fluid">
 			<div class="col-4"> 
-				<a class="navbar-brand" href="#">
+				<a class="navbar-brand" href="index.php">
 					<div class="titolo">
 						TeamUp
 					</div>
-				</a>
+				</a> 
 			</div>
 			<div class="col-6"> 
 				<form class="form-inline my-2 my-lg-0">
@@ -66,15 +79,15 @@ echo $_POST['confermaPasswordhash'];
 								
 								<div class="dropdown">
 									<br>
-									<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+									<a class="btn dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
 										<?php
 
-										echo $_SESSION['nome']." ".$_SESSION['cognome'];
+										echo $_SESSION['nome']." ".$_SESSION['cognome']."&nbsp;";
 
 										if(isset($_SESSION['img'])){
-											echo "<img src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
+											echo "<img style=\"float:right\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
 										} else {
-											echo "<img src=\"Img/profile.png\" class=\"imgprofile\">";
+											echo "<img style=\"float:right\"  src=\"Img/profile.png\" class=\"imgprofile\">";
 										}
 
 										
@@ -84,7 +97,6 @@ echo $_POST['confermaPasswordhash'];
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<a class="dropdown-item" href="profilo.php">Profilo</a>
 										<a class="dropdown-item" href="#">Progetti</a>
-										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="Logout.php">Logout</a>
 									</div>
 								</div>
@@ -126,47 +138,96 @@ echo $_POST['confermaPasswordhash'];
 						</td>
 					</tr>
 
-					<tr>
-						<td width="10rem"></td>
-						<td>
-							<label for="password" style="color: white;">vecchia password</label>
-							<input type="password" class="form-control" id="vecchia" name="vecchia" placeholder="Vecchia password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
-							<input type="hidden" name="vecchiahash" id="vecchiahash">
-						</td>
-						<td width="10rem"></td>
-					</tr>
+					<?php
 
-					<tr>
-						<td height="10rem">
+						if($flag) {
 
-						</td>
-					</tr>
+							echo "<tr>
+							<td width=\"10rem\"></td>
+							<td>
+							<label for=\"password\" style=\"color: white;\">vecchia password</label>
+							<input type=\"password\" class=\"form-control\" id=\"vecchia\" name=\"vecchia\" placeholder=\"Vecchia password\" pattern=\"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$\">
+							<input type=\"hidden\" name=\"vecchiahash\" id=\"vecchiahash\">
+							</td>
+							<td width=\"10rem\"></td>
+							</tr>
 
-					<tr>
-						<td width="10rem"></td>
-						<td>
-							<label for="password" style="color: white;">Password</label>
-							<input type="password" class="form-control" id="nuova" name="nuova" placeholder="Nuova password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
-							<input type="hidden" name="nuovahash" id="nuovahash">
-						</td>
-						<td width="10rem"></td>
-					</tr>
-					
-					<tr>
-						<td height="10rem">
+							<tr>
+							<td height=\"10rem\">
 
-						</td>
-					</tr>
+							</td>
+							</tr>
 
-					<tr>
-						<td width="10rem"></td>
-						<td>
-							<label for="password" style="color: white;">Conferma password</label>
-							<input type="password" class="form-control" id="confermaPassword" name="confermaPassword" placeholder="Conferma password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$">
-							<input type="hidden" name="confermaPasswordhash" id="confermaPasswordhash">
-						</td>
-						<td width="10rem"></td>
-					</tr>
+							<tr>
+							<td width=\"10rem\"></td>
+							<td>
+							<label for=\"password\" style=\"color: white;\">Password</label>
+							<input type=\"password\" class=\"form-control\" id=\"nuova\" name=\"nuova\" placeholder=\"Nuova password\" pattern=\"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$\">
+							<input type=\"hidden\" name=\"nuovahash\" id=\"nuovahash\">
+							</td>
+							<td width=\"10rem\"></td>
+							</tr>
+
+							<tr>
+							<td height=\"10rem\">
+
+							</td>
+							</tr>
+
+							<tr>
+							<td width=\"10rem\"></td>
+							<td>
+							<label for=\"password\" style=\"color: white;\">Conferma password</label>
+							<input type=\"password\" class=\"form-control\" id=\"confermaPassword\" name=\"confermaPassword\" placeholder=\"Conferma password\" pattern=\"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$\">
+							<input type=\"hidden\" name=\"confermaPasswordhash\" id=\"confermaPasswordhash\">
+							</td>
+							<td width=\"10rem\"></td>
+							</tr>";
+						} else {
+							echo "<tr>
+							<td width=\"10rem\"></td>
+							<td>
+							<label for=\"password\" style=\"color: white;\">vecchia password</label>
+							<input type=\"password\" class=\"form-control is-invalid\" id=\"vecchia\" name=\"vecchia\" placeholder=\"Vecchia password\" pattern=\"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$\">
+							<input type=\"hidden\" name=\"vecchiahash\" id=\"vecchiahash\">
+							</td>
+							<td width=\"10rem\"></td>
+							</tr>
+
+							<tr>
+							<td height=\"10rem\">
+
+							</td>
+							</tr>
+
+							<tr>
+							<td width=\"10rem\"></td>
+							<td>
+							<label for=\"password\" style=\"color: white;\">Password</label>
+							<input type=\"password\" class=\"form-control is-invalid\" id=\"nuova\" name=\"nuova\" placeholder=\"Nuova password\" pattern=\"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$\">
+							<input type=\"hidden\" name=\"nuovahash\" id=\"nuovahash\">
+							</td>
+							<td width=\"10rem\"></td>
+							</tr>
+							
+							<tr>
+							<td height=\"10rem\">
+
+							</td>
+							</tr>
+
+							<tr>
+							<td width=\"10rem\"></td>
+							<td>
+							<label for=\"password\" style=\"color: white;\">Conferma password</label>
+							<input type=\"password\" class=\"form-control is-invalid\" id=\"confermaPassword\" name=\"confermaPassword\" placeholder=\"Conferma password\" pattern=\"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,32}$\">
+							<input type=\"hidden\" name=\"confermaPasswordhash\" id=\"confermaPasswordhash\">
+							</td>
+							<td width=\"10rem\"></td>
+							</tr>";
+						}
+
+					?>
 					
 					<tr>
 						<td height="10rem">
@@ -177,7 +238,7 @@ echo $_POST['confermaPasswordhash'];
 					<tr>
 						<td colspan="5">
 							<div style="text-align: center;">
-								<button  type="submit" class="btn btn-primary" id="login_btn" onclick="hashlogin()">Cambia</button>
+								<button  type="submit" class="btn btn-primary" id="login_btn" onclick="hashlogin()" name="invio">Cambia</button>
 							</div>
 						</td>
 					</tr>

@@ -51,11 +51,11 @@ if(isset($_POST['hashedPassword'])){
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
     <div class="container-fluid">
       <div class="col-4"> 
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.php">
           <div class="titolo">
             TeamUp
           </div>
-        </a>
+        </a> 
       </div>
       <div class="col-6"> 
         <form class="form-inline my-2 my-lg-0">
@@ -68,18 +68,18 @@ if(isset($_POST['hashedPassword'])){
           <li>
             <a href="#">
               <div class="d-none d-sm-block">
-
+                
                 <div class="dropdown">
                   <br>
-                  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+                  <a class="btn dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
                     <?php
 
-                    echo $_SESSION['nome']." ".$_SESSION['cognome'];
+                    echo $_SESSION['nome']." ".$_SESSION['cognome']."&nbsp;";
 
                     if(isset($_SESSION['img'])){
-                      echo "<img src=\"".$_SESSION['img']."\" class=\"imgprofile\">"; 
+                      echo "<img style=\"float:right\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">"; 
                     } else {
-                      echo "<img src=\"Img/profile.png\" class=\"imgprofile\">";
+                      echo "<img style=\"float:right\"  src=\"Img/profile.png\" class=\"imgprofile\">";
                     }
 
                     
@@ -89,7 +89,6 @@ if(isset($_POST['hashedPassword'])){
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="profilo.php">Profilo</a>
                     <a class="dropdown-item" href="#">Progetti</a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="Logout.php">Logout</a>
                   </div>
                 </div>

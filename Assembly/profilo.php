@@ -17,6 +17,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 $query = "SELECT * FROM utente WHERE mail ='".$_SESSION['mail']."'";
 
+$result = $conn->query($query);
+
+$row = mysqli_fetch_assoc($result);
+
 if(isset($_POST['save'])) {
 
 	require 'BackEnd/db_utente.php';
@@ -60,10 +64,6 @@ if(isset($_POST['save'])) {
 		$utente->updateMail($utente->getUtente()->getMail(), $modifica->getMail());
 	}
 }
-
-$result = $conn->query($query);
-
-$row = mysqli_fetch_assoc($result);
 
 ?>
 
@@ -110,15 +110,15 @@ $row = mysqli_fetch_assoc($result);
 								
 								<div class="dropdown">
 									<br>
-									<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+									<a class="btn dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
 										<?php
 
-										echo $_SESSION['nome']." ".$_SESSION['cognome'];
+										echo $_SESSION['nome']." ".$_SESSION['cognome']."&nbsp;";
 
 										if(isset($_SESSION['img'])){
-											echo "<img src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
+											echo "<img style=\"float:right\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
 										} else {
-											echo "<img src=\"Img/profile.png\" class=\"imgprofile\">";
+											echo "<img style=\"float:right\"  src=\"Img/profile.png\" class=\"imgprofile\">";
 										}
 
 										
@@ -151,9 +151,9 @@ $row = mysqli_fetch_assoc($result);
 					<?php
 
 					if(isset($_SESSION['img'])){
-						echo "<img src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
+						echo "<img style=\"float:left\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">&nbsp;";	
 					} else {
-						echo "<img src=\"Img/profile.png\" class=\"imgprofile\">";
+						echo "<img style=\"float:left\" src=\"Img/profile.png\" class=\"imgprofile\">&nbsp;";
 					}
 					echo $_SESSION['nome']." ".$_SESSION['cognome'];
 
