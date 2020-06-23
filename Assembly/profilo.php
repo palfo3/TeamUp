@@ -7,23 +7,11 @@ if(empty($_SESSION)) {
 	header('Location: index.php');
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "db_ing";
-
-            // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-$query = "SELECT * FROM utente WHERE mail ='".$_SESSION['mail']."'";
-
-$result = $conn->query($query);
-
-$row = mysqli_fetch_assoc($result);
+require 'BackEnd/db_utente.php';
 
 if(isset($_POST['save'])) {
 
-	require 'BackEnd/db_utente.php';
+
 
 	$array = array(
 		"mail" => $_POST['mail'],
@@ -64,6 +52,10 @@ if(isset($_POST['save'])) {
 		$utente->updateMail($utente->getUtente()->getMail(), $modifica->getMail());
 	}
 }
+
+$row = new db_utente();
+
+$row->setUtente($_SESSION['mail']);
 
 ?>
 
@@ -184,23 +176,23 @@ if(isset($_POST['save'])) {
 				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
 					<div class="form-group">
 						<label for="Nome">Nome</label>
-						<input type="text" class="form-control" name="nome" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row['nome']."\""; ?>>
+						<input type="text" class="form-control" name="nome" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row->getUtente()->getNome()."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="Cognome">Cognome</label>
-						<input type="text" class="form-control" name="cognome" id="Cognome" <?php echo "value=\"".$row['cognome']."\""; ?>>
+						<input type="text" class="form-control" name="cognome" id="Cognome" <?php echo "value=\"".$row->getUtente()->getCognome()."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="Email">Email</label>
-						<input type="email" class="form-control" name ="mail" id="Email" <?php echo "value=\"".$row['mail']."\""; ?>>
+						<input type="email" class="form-control" name ="mail" id="Email" <?php echo "value=\"".$row->getUtente()->getMail()."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="data">Data di nascita</label>
-						<input type="date" class="form-control" name="nascita" id="data" <?php echo "value=\"".$row['nascita']."\""; ?>>
+						<input type="date" class="form-control" name="nascita" id="data" <?php echo "value=\"".$row->getUtente()->getNascita()."\""; ?>>
 					</div>
 					<div class="form-group">
 						<label for="descrizione">Descrizione</label>
-						<textarea class="form-control" id="descrizione" name="descrizione" rows="3" maxlength="255"><?php echo $row['descrizione']; ?></textarea>
+						<textarea class="form-control" id="descrizione" name="descrizione" rows="3" maxlength="255"><?php echo $row->getUtente()->getDescrizione(); ?></textarea>
 					</div>
 					<button type="submit" class="btn btn-primary" name="save">Salva</button>
 				</form>
