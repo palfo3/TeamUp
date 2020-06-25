@@ -96,7 +96,7 @@ if(isset($_POST['invio'])) {
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<a class="dropdown-item" href="profilo.php">Profilo</a>
-										<a class="dropdown-item" href="#">Progetti</a>
+										<a class="dropdown-item" href="myprogetti.php">Progetti</a>
 										<a class="dropdown-item" href="Logout.php">Logout</a>
 									</div>
 								</div>

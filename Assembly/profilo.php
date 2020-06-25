@@ -119,7 +119,7 @@ $row->setUtente($_SESSION['mail']);
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<a class="dropdown-item" href="#">Profilo</a>
-										<a class="dropdown-item" href="#">Progetti</a>
+										<a class="dropdown-item" href="myprogetti.php">Progetti</a>
 										<a class="dropdown-item" href="Logout.php">Logout</a>
 									</div>
 								</div>
@@ -133,8 +133,6 @@ $row->setUtente($_SESSION['mail']);
 
 	<br>
 	<br>
-	<br>
-
 
 	<div class="container">
 		<div class="row">
@@ -157,8 +155,8 @@ $row->setUtente($_SESSION['mail']);
 				<br>
 
 				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
-					<label for="password">Password</label><br>
-					<a href="new_password.php" class="btn btn-primary">password</a>
+					<label for="password">Cambia password</label><br>
+					<a href="new_password.php" class="btn btn-primary">cambia</a>
 				</div>
 				
 

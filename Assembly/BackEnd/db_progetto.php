@@ -126,6 +126,22 @@ class db_progetto{
 		
 	}
 
+	public function getMyProgetti($mail){
+		$conn = $this->getConnection();
+		$sql = "SELECT * FROM progetto WHERE leader = '".$mail."'";
+		$result = $conn->query($sql);
+
+		if ($result->num_rows >= 1) {
+		  // output data of each row
+			$conn->close();
+		  	return $result;
+		  
+		} else {
+			$conn->close();
+		 	return 0;
+		 }
+	}
+
 	public function getProgetto(){
 		return $this->progetto;
 	}

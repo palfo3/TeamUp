@@ -7,6 +7,12 @@
 		header('Location: index.php');
 	}
 
+	require "BackEnd/db_progetto.php";
+
+	$db_progetti = new db_progetto();
+
+	$result = $db_progetti->getMyProgetti($_SESSION['mail']);
+
 	?>
 
 	<!DOCTYPE html>
@@ -67,7 +73,7 @@
 										</a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 											<a class="dropdown-item" href="profilo.php">Profilo</a>
-											<a class="dropdown-item" href="myprogetti.php">Progetti</a>
+											<a class="dropdown-item" href="#">Progetti</a>
 											<a class="dropdown-item" href="Logout.php">Logout</a>
 										</div>
 									</div>
@@ -78,6 +84,70 @@
 				</div>
 			</div>
 		</nav>
+
+		<br>
+		<br>
+
+		<?php
+
+
+
+		for($i = 0; $i < $result->num_rows; $i++) {
+			$value = $result->fetch_assoc();
+
+
+			echo "
+			<br>
+			<center>
+			<div>
+			<a href=\"progetto.php?id=".$value['ID']."\" style=\"text-decoration: none;\">
+			<table style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;\">
+			<tr>
+			<td height=\"10rem\">
+
+			</td>
+			</tr>
+
+			<tr>
+			<td width=\"50rem\">
+			</td>
+			<td>
+			".$value['nome']."
+			</td>
+			<td width=\"500rem\">
+			</td>
+			<td>
+			".$value['data_scadenza']."
+			</td>
+			<td width=\"50rem\">
+			</td>
+			</tr>
+
+			<tr>
+			<td height=\"30rem\">
+			</td>
+			</tr>
+
+			<tr>
+			<td width=\"50rem\">
+			</td>
+			<td>
+			".$value['descrizione']."
+			</td>
+			<td width=\"50rem\">
+			</td>
+			</tr>
+
+			<tr>
+			<td height=\"10rem\">
+			</td>
+			</tr>
+			</table>
+			</a>
+			</div>
+			</center>";
+		}
+		?>
 
 
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

@@ -7,6 +7,9 @@
 		header('Location: index.php');
 	}
 
+	$id = $_GET['id'];
+
+
 	?>
 
 	<!DOCTYPE html>
