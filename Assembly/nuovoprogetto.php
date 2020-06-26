@@ -32,54 +32,56 @@
 	<body style="background-color: #9BA4AF;">
 
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
-			<div class="container-fluid">
-				<div class="col-4"> 
-					<a class="navbar-brand" href="index.php">
-						<div class="titolo">
-							TeamUp
-						</div>
-					</a> 
-				</div>
-				<div class="col-6"> 
-					<form class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Search">
-						<button class="btn btn-outline-light my-2 my-sm-0 btn-sm" type="submit">Cerca</button>
-					</form>
-				</div>
-				<div class="col-0">
-					<ul>
-						<li>
-							<a href="#">
-								<div class="d-none d-sm-block">
-									
-									<div class="dropdown">
-										<br>
-										<a class="btn dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
-											<?php
+		<div class="container-fluid">
+			<div class="col-4"> 
+				<a class="navbar-brand" href="index.php">
+					<div class="titolo">
+						TeamUp
+					</div>
+				</a> 
+			</div>
+			<div class="col-6"> 
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Search">
+					<button class="btn btn-outline-light my-2 my-sm-0 btn-sm" type="submit">Cerca</button>
+				</form>
+			</div>
+			<div class="col-0">
+				<ul>
+					<li>
+						<a href="#">
+							<div class="d-none d-sm-block">
+								
+								<div class="dropdown">
+									<br>
+									<a class="btn dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+										<?php
 
-											echo $_SESSION['nome']." ".$_SESSION['cognome']."&nbsp;";
+										echo $_SESSION['nome']." ".$_SESSION['cognome']."&nbsp;";
 
-											if(isset($_SESSION['img'])){
-												echo "<img style=\"float:right\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
-											} else {
-												echo "<img style=\"float:right\"  src=\"Img/profile.png\" class=\"imgprofile\">";
-											}
+										if(isset($_SESSION['img'])){
+											echo "<img style=\"float:right\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">";	
+										} else {
+											echo "<img style=\"float:right\"  src=\"Img/profile.png\" class=\"imgprofile\">";
+										}
 
-											?>
-										</a>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="profilo.php">Profilo</a>
+										
+
+										?>
+									</a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="profilo.php">Profilo</a>
 											<a class="dropdown-item" href="myprogetti.php">Progetti</a>
 											<a class="dropdown-item" href="Logout.php">Logout</a>
-										</div>
 									</div>
 								</div>
-							</a>						
-						</li>
-					</ul>	
-				</div>
+							</div>
+						</a>						
+					</li>
+				</ul>	
 			</div>
-		</nav>
+		</div>
+	</nav>
 
 		<br>
 		<br>
@@ -118,6 +120,11 @@
 					</td>	
 					<td width="5rem">
 					</td>
+				</tr>
+
+				<tr>
+					<td height="10rem">
+					</td>	
 				</tr>
 
 				<tr>
