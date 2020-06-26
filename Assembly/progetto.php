@@ -7,9 +7,11 @@
 		header('Location: index.php');
 	}
 
-	$id = $_GET['id'];
+	require "BackEnd/db_progetto.php";
 
+	$db_progetto = new db_progetto();
 
+	$progetto = $db_progetto->setProgetto($_GET['id']);
 	?>
 
 	<!DOCTYPE html>
@@ -81,6 +83,122 @@
 				</div>
 			</div>
 		</nav>
+
+		<br>
+		<br>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-5">
+					<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;">
+						<tr>
+							<td height="10rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10rem">
+
+							</td>
+							<td align="center" class="titolo" >
+								<?php
+								echo $progetto->getNome();
+								?>
+							</td>
+							<td width="10rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td height="100rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10rem">
+
+							</td>
+							<td>
+								data scadenza: 
+								<?php
+								echo $progetto->getData_scadenza();
+								?>
+							</td>
+							<td width="10rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td height="20rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10rem">
+
+							</td>
+							<td>
+								data scadenza: 
+								<?php
+								echo $progetto->getData_creazione();
+								?>
+							</td>
+							<td width="10rem">
+
+							</td>
+						</tr>
+						<?php
+						if($progetto->getLeader() == $_SESSION['mail']) {
+							echo "<tr>
+							<td height=\"100rem\">
+							
+							</td>
+							<td>Cancella progetto</td>
+							</tr>";
+						}
+						?>
+					</table>
+				</div>
+				<div class="col-7">
+					<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;">
+						<tr>
+							<td height="20rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10rem">
+
+							</td>
+							<td align="left">
+								<span style="display:block;width: 35rem;word-wrap: break-word;white-space: normal;">
+									<?php
+									echo $progetto->getDescrizione();
+									?>
+								</span>
+							</td>
+							<td width="10rem">
+
+							</td>
+
+							<tr>
+								<td height="20rem">
+
+								</td>
+							</tr>
+						</tr>
+
+					</table>
+				</div>
+			</div>
+		</div>
 
 
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

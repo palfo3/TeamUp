@@ -46,11 +46,6 @@ if(isset($_POST['save'])) {
 	{
 		$utente->updateNascita($utente->getUtente()->getMail(), $modifica->getNascita());
 	}
-
-	if($utente->getUtente()->getMail() != $modifica->getMail())
-	{
-		$utente->updateMail($utente->getUtente()->getMail(), $modifica->getMail());
-	}
 }
 
 $row = new db_utente();
@@ -182,7 +177,8 @@ $row->setUtente($_SESSION['mail']);
 					</div>
 					<div class="form-group">
 						<label for="Email">Email</label>
-						<input type="email" class="form-control" name ="mail" id="Email" <?php echo "value=\"".$row->getUtente()->getMail()."\""; ?>>
+						<br>
+						<label> <?php echo $row->getUtente()->getMail(); ?> </label>
 					</div>
 					<div class="form-group">
 						<label for="data">Data di nascita</label>

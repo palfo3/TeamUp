@@ -112,7 +112,7 @@ class db_progetto{
 
 	public function setProgetto($id){
 		$conn = $this->getConnection();
-		$sql = "SELECT * FROM progetto WHERE id = ".$id;
+		$sql = "SELECT * FROM progetto WHERE id = '".$id."'";
 		$result = $conn->query($sql);
 
 		if ($result->num_rows == 1) {
@@ -120,7 +120,11 @@ class db_progetto{
 		  $row = $result->fetch_assoc();
 		  
 		  $progetto = new progetto($row);
+
+		  return $progetto;
 		}
+
+		return new progetto();
 
 		$conn->close();
 		
