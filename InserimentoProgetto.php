@@ -28,24 +28,22 @@ if(isset($_POST['data_scadenza']))
 if(isset($_POST['data_creazione']))
    	$data_creazione = $_POST['data_creazione'];
 
+//time() mi restitusce i secondi a partire dal 1 gennaio 1970
+$var = date("d/m/y");
 
 //Strtotime converte la data passata come parametro in secondi. Quest'ultimi vengono assegnati ad un'altra variabile.
-$creazione_date = strtotime($data_creazione);
 $scadenza_date = strtotime($data_scadenza); 
-
 
 //Se i secondi di creazione_date sono maggiori dei secondi di scadenza_date allora re-inserire la data.
 //creazione_date e scadenza_date possono essere uguali.
-
-// Controllo che le i valori non siano vuoti  
-if($creazione_date > $scadenza_date){ 
+if($var < $scadenza_date){ 
   echo "ATTENZIONE! DATA CREAZIONE MAGGIORE DI DATA SCADENZA!!";   
 }else{
 
   require "BackEnd/db_progetto.php";
   $progetto = new db_progetto();
 
-  if($nome != "" && $descrizione != "" && $data_scadenza != "" && $data_creazione != ""){
+  if($nome != "" && $descrizione != "" && $data_scadenza != ""){
     //Registrazione progetto
     $array = array("leader" => $_SESSION['mail'],
             "nome" => $nome,
@@ -78,10 +76,6 @@ if($creazione_date > $scadenza_date){
              "tag" => $_POST["tag1"],
              "posizione" => "0");
 
-    echo "l'id progetto è: ".$array['progetto'];
-    echo "<br>il tag è: ".$array['tag'];
-    echo "<br>la posizione è: ".$array['posizione']."<br><br>";
-
     $associaTag->register($array);
 
     $array = array("progetto" =>$progetto->search_id($_SESSION['mail'], $data_creazione),
@@ -111,11 +105,8 @@ if($creazione_date > $scadenza_date){
               <input type="text" id="nome" name="nome" size="30" placeholder="Nome"> <br><br>
 
               <input type="text" id="descrizione" name="descrizione" size="30" placeholder="Descrizione"><br> <br>
-         		  data creazione del progetto
-              
-              <input type="date" id="date" name="data_creazione" min="" placeholder="Data scadenza"> <br><br>
-              data scadenza del progetto
-              
+    
+              data scadenza del progetto          
               <input type="date" id="date" name="data_scadenza" placeholder="Data creazione"> <br><br>
 
               <input type="text" id="tag1" name="tag1" placeholder="Tag1"> <br><br>
