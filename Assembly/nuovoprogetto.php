@@ -7,11 +7,6 @@
 		header('Location: index.php');
 	}
 
-	require "BackEnd/db_progetto.php";
-
-	$db_progetto = new db_progetto();
-
-	$progetto = $db_progetto->setProgetto($_GET['id']);
 	?>
 
 	<!DOCTYPE html>
@@ -23,6 +18,10 @@
 		<link rel="stylesheet" href= "Style.css">
 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,8 +65,6 @@
 												echo "<img style=\"float:right\"  src=\"Img/profile.png\" class=\"imgprofile\">";
 											}
 
-											
-
 											?>
 										</a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -86,127 +83,131 @@
 
 		<br>
 		<br>
+		<br>
+
+		<center>
+			<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;width: 50rem;">
+				<tr>
+					<td height="10rem" colspan="3">
+					</td>
+				</tr>
+
+				<tr>
+					<td width="5rem">
+					</td>
+					<td colspan="3">
+						<center class="titolo" >Nuovo progetto</center>				
+					</td>
+					<td width="5rem">
+					</td>
+				</tr>
+
+				<tr>
+					<td height="20rem">
+					</td>
+				</tr>
+
+				<tr>
+					<td width="5rem">
+					</td>
+					<td colspan="3">
+						<center>
+							Nome progetto
+							<input type="text" id="nome" name="nome progetto" class="form-control" placeholder="Nome">
+						</center>
+					</td>	
+					<td width="5rem">
+					</td>
+				</tr>
+
+				<tr>
+					<td width="5rem">
+					</td>
+					<td colspan="3">
+						<center>
+							Descrizione progetto
+							<textarea class="form-control" id="descrizione" name="descrizione" rows="3" maxlength="255" placeholder="Descrizione progetto"></textarea>
+						</center>
+					</td>	
+					<td width="5rem">
+					</td>
+				</tr>
+
+				<tr>
+					<td height="10rem">
+					</td>	
+				</tr>
+
+				<tr>
+					<td width="5rem">
+					</td>
+					<td>
+						<center>
+							Data scadenza
+							<br>
+							<input type="date" class="form-control" id="date" name="data_creazione" min="" placeholder="Data scadenza">
+						</center>
+					</td>	
+					<td width="5rem">
+					</td>
+				</tr>
+
+				<tr>
+					<td height="10rem">
+					</td>	
+				</tr>
+
+				<tr>
+					<td width="5rem">
+					</td>
+					<td>
+						<center>
+							Tag
+							<br>
+							<input type="text" id="tag1" placeholder="Tag 1" data-role="tagsinput"></input>
+							<br><br>
+							<input type="text" id="tag2" placeholder="Tag 2" data-role="tagsinput"></input>
+							<br><br>
+							<input type="text" id="tag3" placeholder="Tag 3" data-role="tagsinput"></input>
+						</center>
+					</td>	
+					<td width="5rem">
+					</td>
+				</tr>
+
+				<tr>
+					<td height="10rem">
+					</td>	
+				</tr>
+
+				<tr>
+					<td height="5rem">
+					</td>	
+					<td colspan="3">
+						<center>
+							<button type="submit" class="btn btn-primary" name="Crea">Crea</button>
+						</center>
+					</td>	
+					<td height="5rem">
+					</td>	
+				</tr>
+
+				<tr>
+					<td height="10rem">
+					</td>	
+				</tr>
+			</table>
+		</center>
 
 
-		<div class="container">
-			<div class="row">
-				<div class="col-5">
-					<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;">
-						<tr>
-							<td height="10rem">
-
-							</td>
-						</tr>
-
-						<tr>
-							<td width="10rem">
-
-							</td>
-							<td align="center" class="titolo" >
-								<?php
-								echo $progetto->getNome();
-								?>
-							</td>
-							<td width="10rem">
-
-							</td>
-						</tr>
-
-						<tr>
-							<td height="100rem">
-
-							</td>
-						</tr>
-
-						<tr>
-							<td width="10rem">
-
-							</td>
-							<td>
-								data scadenza: 
-								<?php
-								echo $progetto->getData_scadenza();
-								?>
-							</td>
-							<td width="10rem">
-
-							</td>
-						</tr>
-
-						<tr>
-							<td height="20rem">
-
-							</td>
-						</tr>
-
-						<tr>
-							<td width="10rem">
-
-							</td>
-							<td>
-								data scadenza: 
-								<?php
-								echo $progetto->getData_creazione();
-								?>
-							</td>
-							<td width="10rem">
-
-							</td>
-						</tr>
-						<?php
-						if($progetto->getLeader() == $_SESSION['mail']) {
-							echo "<tr>
-							<td height=\"100rem\">
-							
-							</td>
-							<td>Cancella progetto</td>
-							</tr>";
-						}
-						?>
-					</table>
-				</div>
-				<div class="col-7">
-					<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;">
-						<tr>
-							<td height="20rem">
-
-							</td>
-						</tr>
-
-						<tr>
-							<td width="10rem">
-
-							</td>
-							<td align="left">
-								<span style="display:block;width: 35rem;word-wrap: break-word;white-space: normal;">
-									<?php
-									echo $progetto->getDescrizione();
-									?>
-								</span>
-							</td>
-							<td width="10rem">
-
-							</td>
-
-							<tr>
-								<td height="20rem">
-
-								</td>
-							</tr>
-						</tr>
-
-					</table>
-				</div>
-			</div>
-		</div>
-
-
+		
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 		</script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
 		</script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 		</script>
+		<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 
 	</body>
 
