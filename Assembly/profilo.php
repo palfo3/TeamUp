@@ -117,6 +117,7 @@ $row->setUtente($_SESSION['mail']);
 										<a class="dropdown-item" href="myprogetti.php">Progetti</a>
 										<a class="dropdown-item" href="Logout.php">Logout</a>
 									</div>
+									
 								</div>
 							</div>
 						</a>						
