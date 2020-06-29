@@ -175,6 +175,7 @@
 							</td>
 						</tr>
 
+						
 						<tr>
 							<td width="10rem">
 
@@ -186,6 +187,32 @@
 									echo $progetto->getData_scadenza();
 								}
 								?>
+							</td>
+							<td width="10rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td height="20rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10rem">
+
+							</td>
+							<td>
+								<center>
+								Mail leader
+								<br> 
+								<?php
+								if ($progetto != null) {
+									echo $progetto->getLeader();
+								}
+								?>
+								</center>
 							</td>
 							<td width="10rem">
 
