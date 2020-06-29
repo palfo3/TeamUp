@@ -139,10 +139,10 @@
 
 							</td>
 							<td>
-								data scadenza: 
+								data creazione: 
 								<?php
 								if ($progetto != null) {
-									echo $progetto->getData_scadenza();
+									echo $progetto->getData_creazione();
 								}
 								?>
 							</td>
@@ -165,11 +165,17 @@
 								data scadenza: 
 								<?php
 								if ($progetto != null) {
-									echo $progetto->getData_creazione();
+									echo $progetto->getData_scadenza();
 								}
 								?>
 							</td>
 							<td width="10rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td height="150rem">
 
 							</td>
 						</tr>
