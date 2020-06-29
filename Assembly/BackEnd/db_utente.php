@@ -132,6 +132,7 @@ class db_utente{
             $_SESSION['nome'] = $row['nome'];
             $_SESSION['cognome'] = $row['cognome'];
             $_SESSION['mail'] = $row['mail'];
+            $_SESSION['google'] = false;
             return true;
         }else{
             return false;

@@ -16,6 +16,7 @@ if(isset($_POST['google_mail'])) {
 		$_SESSION['cognome'] = $_POST['google_cognome'];
 		$_SESSION['mail'] = $_POST['google_mail'];
 		$_SESSION['img'] = $_POST['google_img'];
+		$_SESSION['google'] = true;
 
 
         //registrazione nel database

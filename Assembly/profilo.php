@@ -151,18 +151,26 @@ $row->setUtente($_SESSION['mail']);
 				<br>
 
 				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
+					<center>
 					<label for="password">Cambia password</label><br>
 					<a href="new_password.php" class="btn btn-primary">cambia</a>
+					</center>
 				</div>
 				
 
 				<br>
-
-				
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>				
 
 				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
+					<center>
 					<label for="password">Elimina profilo</label><br>
-					<a href="EliminaProfilo.php" class="btn btn-primary">Cancella</a>
+					<a href="EliminaProfilo.php" class="btn btn-danger">Cancella</a>
+					</center>
 				</form>
 			</div>
 			<div class="col-8">
