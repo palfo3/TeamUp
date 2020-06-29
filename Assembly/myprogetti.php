@@ -100,63 +100,64 @@
 
 		<?php
 
+		if ($result != null) {
 
+			for($i = 0; $i < $result->num_rows; $i++) {
+				
+				$value = $result->fetch_assoc();
 
-		for($i = 0; $i < $result->num_rows; $i++) {
-			$value = $result->fetch_assoc();
+				echo "
+				<br>
+				<center>
+				<div>
+				<a href=\"progetto.php?id=".$value['ID']."\" style=\"text-decoration: none;\">
+				<table style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;\">
+				<tr>
+				<td height=\"10rem\">
 
+				</td>
+				</tr>
 
-			echo "
-			<br>
-			<center>
-			<div>
-			<a href=\"progetto.php?id=".$value['ID']."\" style=\"text-decoration: none;\">
-			<table style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;\">
-			<tr>
-			<td height=\"10rem\">
+				<tr>
+				<td width=\"50rem\">
+				</td>
+				<td>
+				".$value['nome']."
+				</td>
+				<td width=\"500rem\">
+				</td>
+				<td>
+				".$value['data_scadenza']."
+				</td>
+				<td width=\"50rem\">
+				</td>
+				</tr>
 
-			</td>
-			</tr>
+				<tr>
+				<td height=\"30rem\">
+				</td>
+				</tr>
 
-			<tr>
-			<td width=\"50rem\">
-			</td>
-			<td>
-			".$value['nome']."
-			</td>
-			<td width=\"500rem\">
-			</td>
-			<td>
-			".$value['data_scadenza']."
-			</td>
-			<td width=\"50rem\">
-			</td>
-			</tr>
+				<tr>
+				<td width=\"50rem\">
+				</td>
+				<td>
+				<span style=\"display:block;text-overflow: ellipsis;width: 30rem;overflow: hidden; white-space: nowrap;\">
+				".$value['descrizione']."
+				</span>
+				</td>
 
-			<tr>
-			<td height=\"30rem\">
-			</td>
-			</tr>
+				</tr>
 
-			<tr>
-			<td width=\"50rem\">
-			</td>
-			<td>
-			<span style=\"display:block;text-overflow: ellipsis;width: 30rem;overflow: hidden; white-space: nowrap;\">
-			".$value['descrizione']."
-			</span>
-			</td>
-			
-			</tr>
-
-			<tr>
-			<td height=\"10rem\">
-			</td>
-			</tr>
-			</table>
-			</a>
-			</div>
-			</center>";
+				<tr>
+				<td height=\"10rem\">
+				</td>
+				</tr>
+				</table>
+				</a>
+				</div>
+				</center>";
+			}
 		}
 		?>
 

@@ -150,10 +150,10 @@ $row->setUtente($_SESSION['mail']);
 				<br>
 				<br>
 
-				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
+				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;" <?php if($_SESSION['google']) {echo "hidden=\"true\"";} ?>>
 					<center>
-					<label for="password">Cambia password</label><br>
-					<a href="new_password.php" class="btn btn-primary">cambia</a>
+						<label for="password">Cambia password</label><br>
+						<a href="new_password.php" class="btn btn-primary">cambia</a>
 					</center>
 				</div>
 				
@@ -168,8 +168,8 @@ $row->setUtente($_SESSION['mail']);
 
 				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
 					<center>
-					<label for="password">Elimina profilo</label><br>
-					<a href="EliminaProfilo.php" class="btn btn-danger">Cancella</a>
+						<label for="password">Elimina profilo</label><br>
+						<a href="EliminaProfilo.php" class="btn btn-danger">Cancella</a>
 					</center>
 				</form>
 			</div>
@@ -178,11 +178,11 @@ $row->setUtente($_SESSION['mail']);
 				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
 					<div class="form-group">
 						<label for="Nome">Nome</label>
-						<input type="text" class="form-control" name="nome" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row->getUtente()->getNome()."\""; ?>>
+						<input type="text" class="form-control" name="nome" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row->getUtente()->getNome()."\""; if($_SESSION['google']) {echo "disabled";} ?>>
 					</div>
 					<div class="form-group">
 						<label for="Cognome">Cognome</label>
-						<input type="text" class="form-control" name="cognome" id="Cognome" <?php echo "value=\"".$row->getUtente()->getCognome()."\""; ?>>
+						<input type="text" class="form-control" name="cognome" id="Cognome" <?php echo "value=\"".$row->getUtente()->getCognome()."\""; if($_SESSION['google']) {echo "disabled";} ?>>
 					</div>
 					<div class="form-group">
 						<label for="Email">Email</label>

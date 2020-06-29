@@ -9,14 +9,14 @@ class db_progetto{
 
 	//Definizione Metodi
 	private function getConnection(){
-			$servername = "localhost";
-			$username = "root";
-			$password = "";
-			$dbname = "db_ing";
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "db_ing";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);	
-			return $conn;
+		$conn = new mysqli($servername, $username, $password, $dbname);	
+		return $conn;
 	}
 
 	public function register($project){
@@ -152,7 +152,7 @@ class db_progetto{
 		  
 		} else {
 			$conn->close();
-		 	return 0;
+		 	return null;
 		 }
 	}
 

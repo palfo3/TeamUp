@@ -16,6 +16,24 @@
 		header('Location: myprogetti.php');
 	}
 
+	if(isset($_POST['Candidati'])) { 
+
+		require "BackEnd/db_candidato.php";
+		$candidato = new db_candidato();
+
+		require "BackEnd/db_progetto.php";
+		$progetto = new db_progetto();
+
+	    //Registrazione progetto
+		$array = array("mailUtente" => $_SESSION['mail'],
+			"progettoID" => $_POST['id'], 
+			"accettato" => "0");
+		$candidato->register($array); 
+
+		header('Location: myprogetti.php');
+
+	}
+
 	require "BackEnd/db_progetto.php";
 
 	$db_progetto = new db_progetto();
@@ -196,6 +214,24 @@
 							}
 						}
 						?>
+
+						<?php
+						if ($progetto != null) {
+							if($progetto->getLeader() != $_SESSION['mail']) {
+								echo "<tr>
+								<td height=\"100rem\">
+
+								</td>
+								<td>
+								<form align=\"center\" action =\"progetto.php\" method=\"POST\">
+								<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
+								<button type=\"submit\" class=\"btn btn-primary\" name=\"Candidati\">Candidati</button>
+								</form>
+								</td>
+								</tr>";
+							}
+						}
+						?>
 					</table>
 				</div>
 				<div class="col-7">
@@ -237,7 +273,7 @@
 
 		<center>
 			<p <?php if ($progetto != null) { echo "hidden=\"true\""; } ?> style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white; width: 20rem; height: 2rem;">
-				error 404 progetto non trovato
+				progetto non trovato
 			</p>
 		</center>
 
