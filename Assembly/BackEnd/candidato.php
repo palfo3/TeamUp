@@ -18,15 +18,15 @@ class candidato{
 
 
 	public function getMail(){
-		return $candidato->mailUtente;
+		return $this->mailUtente;
 	}
 
 	public function getID(){
-		return $candidato->progettoID;
+		return $this->progettoID;
 	}
 
 	public function getAccettato(){
-		return $candidato->accettato;
+		return $this->accettato;
 	}
 
 

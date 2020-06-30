@@ -11,6 +11,12 @@
 
 	$db_progetti = new db_progetto();
 
+	require "BackEnd/db_candidato.php";
+
+	$db_candidato = new db_candidato();
+
+	$resultp = $db_candidato->setAllProgetti($_SESSION['mail']);
+
 	$result = $db_progetti->getMyProgetti($_SESSION['mail']);
 
 	?>
@@ -100,16 +106,29 @@
 
 		<?php
 
+		
+
 		if ($result != null) {
+
+			echo "
+			<center>
+			
+			<div class=\"container-fluid\">
+			<div class=\"row\">
+			<div class =\"col-5\">
+			
+			<br>
+			
+			<b>Miei progetti</b>";
 
 			for($i = 0; $i < $result->num_rows; $i++) {
 				
 				$value = $result->fetch_assoc();
 
 				echo "
-				<br>
-				<center>
-				<div>
+				
+				
+				
 				<a href=\"progetto.php?id=".$value['ID']."\" style=\"text-decoration: none;\">
 				<table style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;\">
 				<tr>
@@ -155,9 +174,86 @@
 				</tr>
 				</table>
 				</a>
-				</div>
-				</center>";
+				<br>
+				";
 			}
+		}
+
+		echo "
+
+		</div>
+		<div class =\"col-2\">
+		</div>
+		<div class =\"col-5\">
+		<br>
+		<b>Progetti candidato</b>";
+
+		if ($resultp != null) {
+
+			for($i = 0; $i < $resultp->num_rows; $i++) {
+				
+				$value = $resultp->fetch_assoc();
+
+				$prog = $db_progetti->setProgetto($value['progetto']); 
+
+				echo "
+				<a href=\"progetto.php?id=".$value['progetto']."\" style=\"text-decoration: none;\">
+				<table style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;\">
+				<tr>
+				<td height=\"10rem\">
+
+				</td>
+				</tr>
+
+				<tr>
+				<td width=\"50rem\">
+				</td>
+				<td>
+				".$prog->getNome()."
+				</td>
+				<td width=\"500rem\">
+				</td>
+				<td>
+				".$prog->getData_scadenza()."
+				</td>
+				<td width=\"50rem\">
+				</td>
+				</tr>
+
+				<tr>
+				<td height=\"30rem\">
+				</td>
+				</tr>
+
+				<tr>
+				<td width=\"50rem\">
+				</td>
+				<td>
+				<span style=\"display:block;text-overflow: ellipsis;width: 30rem;overflow: hidden; white-space: nowrap;\">
+				".$prog->getDescrizione()."
+				</span>
+				</td>
+
+				</tr>
+
+				<tr>
+				<td height=\"10rem\">
+				</td>
+				</tr>
+				</table>
+				</a>
+				<br>
+
+				";
+
+			}
+			echo "</div>
+
+			</div>
+			</div>
+			</center>
+
+			";
 		}
 		?>
 

@@ -22,7 +22,7 @@ class db_candidato{
 	public function register($candidate){
 		$this->candidato = new candidato($candidate);
 		$conn = $this->getConnection();
-		$sql = "	";
+		$sql = "INSERT INTO candidato (utente, progetto) VALUES ('".$this->candidato->getMail()."', '".$this->candidato->getID()."')";
 		$conn->query($sql);
 
 		$conn->close();
@@ -75,6 +75,19 @@ class db_candidato{
 	public function setAllCandidati($id) {
 		$conn = $this->getConnection();
 		$sql = "SELECT * FROM candidato WHERE progetto = ".$id;
+		$result = $conn->query($sql);
+
+		if ($result->num_rows >= 1) {
+		  // output data of each row
+			return $result;
+		}
+
+		return null;
+	}
+
+	public function setAllProgetti($mail) {
+		$conn = $this->getConnection();
+		$sql = "SELECT * FROM candidato WHERE utente LIKE '".$mail."'";
 		$result = $conn->query($sql);
 
 		if ($result->num_rows >= 1) {
