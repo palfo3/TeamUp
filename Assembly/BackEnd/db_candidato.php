@@ -45,9 +45,9 @@ class db_candidato{
 		}
 	}
 
-	public function updateAccettato($mail, $newAccettato){
+	public function updateAccettato($mail, $id, $newAccettato){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET Accettato = '".$newAccettato."' WHERE utente LIKE '".$mail."'";
+		$sql = "UPDATE candidato SET accettato = '".$newAccettato."' WHERE utente LIKE '".$mail."' AND progetto = ".$id;
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
@@ -74,7 +74,20 @@ class db_candidato{
 
 	public function setAllCandidati($id) {
 		$conn = $this->getConnection();
-		$sql = "SELECT * FROM candidato WHERE progetto = ".$id;
+		$sql = "SELECT * FROM candidato WHERE progetto = ".$id." AND accettato = '0'";
+		$result = $conn->query($sql);
+
+		if ($result->num_rows >= 1) {
+		  // output data of each row
+			return $result;
+		}
+
+		return null;
+	}
+
+	public function setAllAccettati($id) {
+		$conn = $this->getConnection();
+		$sql = "SELECT * FROM candidato WHERE progetto = ".$id." AND accettato = '1'";
 		$result = $conn->query($sql);
 
 		if ($result->num_rows >= 1) {

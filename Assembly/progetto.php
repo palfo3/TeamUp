@@ -34,11 +34,25 @@
 
 	}
 
+	if (isset($_POST['accetta'])) {
+		$progetto = $_POST['id'];
+		$mail = $_POST['mail'];
+
+		require 'BackEnd/db_candidato.php';
+		$candidato = new db_candidato();
+		$candidato->updateAccettato($mail, $progetto, 1);
+		header('Location: progetto.php?id='.$_POST['id']);
+	}
+
 	require "BackEnd/db_progetto.php";
 
 	$db_progetto = new db_progetto();
 
 	$progetto = $db_progetto->setProgetto($_GET['id']);
+
+		require "BackEnd/db_candidato.php";
+
+							$db_progetto = new db_candidato();
 
 
 
@@ -299,6 +313,63 @@
 					<br>
 					<br>
 					<br>
+					<?php
+					if ($progetto != null) {
+						if($progetto->getLeader() == $_SESSION['mail']) {
+
+							$row = $db_progetto->setAllAccettati($_GET['id']);
+
+							if($row != null) {
+
+								echo "<table style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;width: 36rem;\">
+								<tr>
+								<td height=\"20rem\">
+
+								</td>
+								</tr>";
+
+								for($i = 0; $i < $row->num_rows; $i++) {
+									$value = $row->fetch_assoc();
+
+									echo "
+									<form action=\"progetto.php\" method=\"POST\">
+									<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\">
+									<input type=\"hidden\" name=\"mail\" value=\"".$value['utente']."\">
+									<tr>
+									<td width=\"10rem\">
+
+									</td>
+									<td>
+									<a href=\"profilo.php?mail=".$value['utente']."\">".$value['utente']."</a>
+									</td>
+									<td width=\"20rem\">
+
+									</td>
+									<td>
+									<button type=\"submit\" class=\"btn btn-success\" name=\"accetta\" disabled>Accettato</button>
+									</td>
+									<td width=\"10rem\">
+
+									</td>
+									
+									</tr>
+									</form>";
+								}
+
+								
+
+								echo "
+								<tr>
+								<td height=\"20rem\">
+
+								</td>
+								</tr>
+								</table>";
+							}
+
+						}
+					}
+					?>
 					<br>
 					<br>
 					<br>
@@ -308,9 +379,6 @@
 					if ($progetto != null) {
 						if($progetto->getLeader() == $_SESSION['mail']) {
 
-							require "BackEnd/db_candidato.php";
-
-							$db_progetto = new db_candidato();
 
 							$row = $db_progetto->setAllCandidati($_GET['id']);
 
@@ -327,7 +395,9 @@
 									$value = $row->fetch_assoc();
 
 									echo "
-
+									<form action=\"progetto.php\" method=\"POST\">
+									<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\">
+									<input type=\"hidden\" name=\"mail\" value=\"".$value['utente']."\">
 									<tr>
 									<td width=\"10rem\">
 
@@ -350,7 +420,8 @@
 									<td width=\"10rem\">
 
 									</td>
-									</tr>";
+									</tr>
+									</form>";
 								}
 
 								
@@ -367,9 +438,6 @@
 						}
 					}
 					?>
-
-					
-
 				</div>
 			</div>
 		</div>
