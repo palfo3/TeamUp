@@ -31,7 +31,7 @@ class db_candidato{
 	//UPDATE QUERIES
 	public function updateMail($oldMail, $newMail){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET utente = '".$newMail."' WHERE utente LIKE '".$oldMail."'";
+		$sql = "UPDATE candidato SET utente = '".$newMail."' WHERE utente LIKE '".$oldMail.'"";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}

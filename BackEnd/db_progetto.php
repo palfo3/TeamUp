@@ -144,5 +144,24 @@ class db_progetto{
 	public function getProgetto(){
 		return $this->progetto;
 	}
+
+	public function getArrayProgetti($ricerca){
+		$conn = $this->getConnection();
+		if($limit <= 0)	$limit = 20;
+		$sql = "SELECT DISTINCT id, nome, descrizione, data_scadenza FROM progetto LEFT OUTER JOIN associatag on id = progetto WHERE ricercabile=1 AND (nome LIKE '%".$ricerca."%' OR tag LIKE '%".$ricerca."%') ORDER BY data_creazione DESC";
+		$result = $conn->query($sql);
+		$array = array();
+
+
+		for($i=0; $i < $result->num_rows; $i++){
+			$row = $result->fetch_assoc();
+			$project = new progetto($row);
+			$array[] = $project;
+		}
+
+		$conn->close();
+		return $array;
+
+	}
 }
 ?>
