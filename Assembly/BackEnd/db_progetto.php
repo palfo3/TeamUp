@@ -9,14 +9,14 @@ class db_progetto{
 
 	//Definizione Metodi
 	private function getConnection(){
-			$servername = "localhost";
-			$username = "root";
-			$password = "";
-			$dbname = "db_ing";
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "db_ing";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);	
-			return $conn;
+		$conn = new mysqli($servername, $username, $password, $dbname);	
+		return $conn;
 	}
 
 	public function register($project){
@@ -29,9 +29,17 @@ class db_progetto{
 		$conn->close();
 	}
 
+	public function search_id($mail, $data_creazione){
+		$conn = $this->getConnection();
+		$sql = "SELECT id FROM progetto WHERE leader LIKE '".$mail."' AND data_creazione = '".$data_creazione."' ORDER BY id DESC";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['id'];
+	}
+
 	public function delete($id){
 		$conn = $this->getConnection();
-		$sql = "DELETE FROM progetto WHERE id = ".$id;
+		$sql = "DELETE FROM progetto WHERE id = \"".$id."\"";
 		$conn->query($sql);
 		$conn->close();
 	}
@@ -122,6 +130,8 @@ class db_progetto{
 		  $progetto = new progetto($row);
 
 		  return $progetto;
+		} else {
+			return null;
 		}
 
 		return new progetto();
@@ -142,7 +152,7 @@ class db_progetto{
 		  
 		} else {
 			$conn->close();
-		 	return 0;
+		 	return null;
 		 }
 	}
 

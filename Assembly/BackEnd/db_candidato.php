@@ -9,21 +9,20 @@ class db_candidato{
 
 	//Definizione Metodi
 	private function getConnection(){
-			$servername = "localhost";
-			$username = "root";
-			$password = "Admin";
-			$dbname = "db_ing";
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "db_ing";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
-			return $conn;
+		$conn = new mysqli($servername, $username, $password, $dbname);	
+		return $conn;
 	}
 
 	public function register($candidate){
 		$this->candidato = new candidato($candidate);
 		$conn = $this->getConnection();
-		$sql = "INSERT INTO candidato (MailUtente, ProgettoID) VALUES ".
-		"('".$this->candidato->mailUtente."', '".$this->candidato->progettoID."')";
+		$sql = "INSERT INTO candidato (utente, Progetto) VALUES ('".$this->candidato->mailUtente."', '".$this->candidato->progettoID."')";
 		$conn->query($sql);
 
 		$conn->close();
@@ -70,9 +69,9 @@ class db_candidato{
 
 		if ($result->num_rows == 1) {
 		  // output data of each row
-		  $row = $result->fetch_assoc();
-		  
-		  $candidato = new candidato($row);
+			$row = $result->fetch_assoc();
+
+			$candidato = new candidato($row);
 		}
 
 		$candidato = new candidato($row);
@@ -88,12 +87,6 @@ class db_candidato{
 
 }
 
-	
-	$array = array( "mailUtente" => "gaetaano@mail.it",
-					"progettoID" => "2");
-
-	$interface = new db_candidato();
-	$interface->register($array);
 
 
 

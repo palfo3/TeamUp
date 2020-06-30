@@ -7,11 +7,41 @@
 		header('Location: index.php');
 	}
 
+
+	if(isset($_POST['delete'])) {
+		require "BackEnd/db_progetto.php"; 
+
+		$progetto = new db_progetto();
+		$progetto->delete($_POST['id']);
+		header('Location: myprogetti.php');
+	}
+
+	if(isset($_POST['Candidati'])) { 
+
+		require "BackEnd/db_candidato.php";
+		$candidato = new db_candidato();
+
+		require "BackEnd/db_progetto.php";
+		$progetto = new db_progetto();
+
+	    //Registrazione progetto
+		$array = array("mailUtente" => $_SESSION['mail'],
+			"progettoID" => $_POST['id'], 
+			"accettato" => "0");
+		$candidato->register($array); 
+
+		header('Location: myprogetti.php');
+
+	}
+
 	require "BackEnd/db_progetto.php";
 
 	$db_progetto = new db_progetto();
 
 	$progetto = $db_progetto->setProgetto($_GET['id']);
+
+
+
 	?>
 
 	<!DOCTYPE html>
@@ -88,7 +118,8 @@
 		<br>
 
 
-		<div class="container">
+
+		<div class="container" <?php if ($progetto == null) { echo "hidden=\"true\""; } ?> >
 			<div class="row">
 				<div class="col-5">
 					<table style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;">
@@ -104,7 +135,10 @@
 							</td>
 							<td align="center" class="titolo" >
 								<?php
-								echo $progetto->getNome();
+								if ($progetto != null) {
+									echo $progetto->getNome();
+								}
+								
 								?>
 							</td>
 							<td width="10rem">
@@ -123,9 +157,35 @@
 
 							</td>
 							<td>
+								data creazione: 
+								<?php
+								if ($progetto != null) {
+									echo $progetto->getData_creazione();
+								}
+								?>
+							</td>
+							<td width="10rem">
+
+							</td>
+						</tr>
+
+						<tr>
+							<td height="20rem">
+
+							</td>
+						</tr>
+
+						
+						<tr>
+							<td width="10rem">
+
+							</td>
+							<td>
 								data scadenza: 
 								<?php
-								echo $progetto->getData_scadenza();
+								if ($progetto != null) {
+									echo $progetto->getData_scadenza();
+								}
 								?>
 							</td>
 							<td width="10rem">
@@ -144,23 +204,59 @@
 
 							</td>
 							<td>
-								data scadenza: 
+								<center>
+								Mail leader
+								<br> 
 								<?php
-								echo $progetto->getData_creazione();
+								if ($progetto != null) {
+									echo $progetto->getLeader();
+								}
 								?>
+								</center>
 							</td>
 							<td width="10rem">
 
 							</td>
 						</tr>
-						<?php
-						if($progetto->getLeader() == $_SESSION['mail']) {
-							echo "<tr>
-							<td height=\"100rem\">
-							
+
+						<tr>
+							<td height="150rem">
+
 							</td>
-							<td>Cancella progetto</td>
-							</tr>";
+						</tr>
+						<?php
+						if ($progetto != null) {
+							if($progetto->getLeader() == $_SESSION['mail']) {
+								echo "<tr>
+								<td height=\"100rem\">
+
+								</td>
+								<td>
+								<form align=\"center\" action =\"progetto.php\" method=\"POST\">
+								<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
+								<button type=\"submit\" class=\"btn btn-danger\" name=\"delete\">cancella</button>
+								</form>
+								</td>
+								</tr>";
+							}
+						}
+						?>
+
+						<?php
+						if ($progetto != null) {
+							if($progetto->getLeader() != $_SESSION['mail']) {
+								echo "<tr>
+								<td height=\"100rem\">
+
+								</td>
+								<td>
+								<form align=\"center\" action =\"progetto.php\" method=\"POST\">
+								<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
+								<button type=\"submit\" class=\"btn btn-primary\" name=\"Candidati\">Candidati</button>
+								</form>
+								</td>
+								</tr>";
+							}
 						}
 						?>
 					</table>
@@ -180,7 +276,9 @@
 							<td align="left">
 								<span style="display:block;width: 35rem;word-wrap: break-word;white-space: normal;">
 									<?php
-									echo $progetto->getDescrizione();
+									if ($progetto != null) {
+										echo $progetto->getDescrizione();
+									}
 									?>
 								</span>
 							</td>
@@ -199,6 +297,13 @@
 				</div>
 			</div>
 		</div>
+
+		<center>
+			<p <?php if ($progetto != null) { echo "hidden=\"true\""; } ?> style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white; width: 20rem; height: 2rem;">
+				progetto non trovato
+			</p>
+		</center>
+
 
 
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

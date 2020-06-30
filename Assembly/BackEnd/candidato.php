@@ -5,7 +5,6 @@ class candidato{
 	private $mailUtente;
 	private $progettoID;
 	private $accettato;
-	private $curriculum;
 
 
 
@@ -15,9 +14,6 @@ class candidato{
 		$this->progettoID = $array['progettoID'];
 		if(array_key_exists('accettato', $array))
 			$this->accettato = $array['accettato'];
-
-		if(array_key_exists('curriculum', $array))
-			$this->curriculum = $array['curriculum'];
 	}
 
 
@@ -33,9 +29,6 @@ class candidato{
 		return $candidato->accettato;
 	}
 
-	public function getCurriculum(){
-		return $candidato->curriculum;
-	}
 
 }
 
