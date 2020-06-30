@@ -205,13 +205,13 @@
 							</td>
 							<td>
 								<center>
-								Mail leader
-								<br> 
-								<?php
-								if ($progetto != null) {
-									echo $progetto->getLeader();
-								}
-								?>
+									Mail leader
+									<br> 
+									<?php
+									if ($progetto != null) {
+										echo $progetto->getLeader();
+									}
+									?>
 								</center>
 							</td>
 							<td width="10rem">
@@ -282,18 +282,94 @@
 									?>
 								</span>
 							</td>
-							<td width="10rem">
+							<td width="0rem">
 
 							</td>
+							
+						</tr>
+						<tr>
+							<td height="20rem">
 
-							<tr>
-								<td height="20rem">
-
-								</td>
-							</tr>
+							</td>
 						</tr>
 
 					</table>
+
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+
+					<?php
+					if ($progetto != null) {
+						if($progetto->getLeader() == $_SESSION['mail']) {
+
+							require "BackEnd/db_candidato.php";
+
+							$db_progetto = new db_candidato();
+
+							$row = $db_progetto->setAllCandidati($_GET['id']);
+
+							if($row != null) {
+
+								echo "<table style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;width: 36rem;\">
+								<tr>
+								<td height=\"20rem\">
+
+								</td>
+								</tr>";
+
+								for($i = 0; $i < $row->num_rows; $i++) {
+									$value = $row->fetch_assoc();
+
+									echo "
+
+									<tr>
+									<td width=\"10rem\">
+
+									</td>
+									<td>
+									<a href=\"profilo.php?mail=".$value['utente']."\">".$value['utente']."</a>
+									</td>
+									<td width=\"20rem\">
+
+									</td>
+									<td>
+									<button type=\"submit\" class=\"btn btn-success\" name=\"accetta\">Accetta</button>
+									</td>
+									<td width=\"10rem\">
+
+									</td>
+									<td>
+									<button type=\"submit\" class=\"btn btn-danger\" name=\"rifiuta\">Rifiuta</button>
+									</td>
+									<td width=\"10rem\">
+
+									</td>
+									</tr>";
+								}
+
+								
+
+								echo "
+								<tr>
+								<td height=\"20rem\">
+
+								</td>
+								</tr>
+								</table>";
+							}
+
+						}
+					}
+					?>
+
+					
+
 				</div>
 			</div>
 		</div>
@@ -316,4 +392,5 @@
 	</body>
 
 	</html>
+
 

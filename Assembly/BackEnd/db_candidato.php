@@ -22,7 +22,7 @@ class db_candidato{
 	public function register($candidate){
 		$this->candidato = new candidato($candidate);
 		$conn = $this->getConnection();
-		$sql = "INSERT INTO candidato (utente, Progetto) VALUES ('".$this->candidato->mailUtente."', '".$this->candidato->progettoID."')";
+		$sql = "	";
 		$conn->query($sql);
 
 		$conn->close();
@@ -31,7 +31,7 @@ class db_candidato{
 	//UPDATE QUERIES
 	public function updateMail($oldMail, $newMail){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET mail = '".$newMail."' WHERE mail LIKE '".$oldMail."'";
+		$sql = "UPDATE candidato SET utente = '".$newMail."' WHERE utente LIKE '".$oldMail."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
@@ -39,7 +39,7 @@ class db_candidato{
 
 	public function updateID($mail, $newID){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET ID = '".$newID."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE candidato SET ID = '".$newID."' WHERE utente LIKE '".$mail."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
@@ -47,24 +47,17 @@ class db_candidato{
 
 	public function updateAccettato($mail, $newAccettato){
 		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET Accettato = '".$newAccettato."' WHERE mail LIKE '".$mail."'";
+		$sql = "UPDATE candidato SET Accettato = '".$newAccettato."' WHERE utente LIKE '".$mail."'";
 		if($conn->query($sql) === TRUE){
 			//successfully updated
 		}
 	}
 
-	public function updateCurriculum($mail, $newCurriculum){
-		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET Curriculum = '".$newCurriculum."' WHERE mail LIKE '".$mail."'";
-		if($conn->query($sql) === TRUE){
-			//successfully updated
-		}
-	}
 	//END UPDATE QUERIES
 
 	public function setCandidato($mail, $id){
 		$conn = $this->getConnection();
-		$sql = "SELECT * FROM candidato WHERE mailutente LIKE \'".$mail."\' AND progettoid = ".$id;
+		$sql = "SELECT * FROM candidato WHERE utente LIKE \'".$mail."\' AND progetto = ".$id;
 		$result = $conn->query($sql);
 
 		if ($result->num_rows == 1) {
@@ -77,6 +70,19 @@ class db_candidato{
 		$candidato = new candidato($row);
 		$conn->close();
 		
+	}
+
+	public function setAllCandidati($id) {
+		$conn = $this->getConnection();
+		$sql = "SELECT * FROM candidato WHERE progetto = ".$id;
+		$result = $conn->query($sql);
+
+		if ($result->num_rows >= 1) {
+		  // output data of each row
+			return $result;
+		}
+
+		return null;
 	}
 
 	public function getCandidato(){
