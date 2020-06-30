@@ -50,9 +50,9 @@
 
 	$progetto = $db_progetto->setProgetto($_GET['id']);
 
-		require "BackEnd/db_candidato.php";
+	require "BackEnd/db_candidato.php";
 
-							$db_progetto = new db_candidato();
+	$db_progetto = new db_candidato();
 
 
 
@@ -273,6 +273,26 @@
 							}
 						}
 						?>
+
+					<?php
+					if ($progetto != null) {
+						if($progetto->getLeader() != $_SESSION['mail']) {
+							if($db_progetto->checkCandidato($_SESSION['mail'], $_GET['id'])){
+								echo "<tr>
+								<td height=\"100rem\">
+
+								</td>
+								<td>
+								<form align=\"center\" action =\"progetto.php\" method=\"POST\">
+								<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
+								<button type=\"submit\" class=\"btn btn-danger\" name=\"Elimina\">Cancella Candidatura</button>
+								</form>
+								</td>
+								</tr>";
+							}
+						}
+					}
+					?>
 					</table>
 				</div>
 				<div class="col-7">

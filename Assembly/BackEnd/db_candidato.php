@@ -19,6 +19,20 @@ class db_candidato{
 		return $conn;
 	}
 
+	//Controllo che l'utente sia candidato
+    public function checkCandidato($mail, $id){
+        $conn = $this->getConnection();
+        $sql = "SELECT * FROM candidato WHERE utente LIKE '".$mail."' AND progetto LIKE '".$id."'";
+        $result = $conn->query($sql);
+
+        if($result->num_rows == 1) {
+          // output data of each row
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 	public function register($candidate){
 		$this->candidato = new candidato($candidate);
 		$conn = $this->getConnection();
