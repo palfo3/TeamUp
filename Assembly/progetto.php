@@ -7,11 +7,14 @@
 		header('Location: index.php');
 	}
 
+	if(isset($_POST['modify'])){
+		header('Location: Modificaprogetto.php?id='.$_GET['id']);
+	}
 
 	if(isset($_POST['delete'])) {
 		require "BackEnd/db_progetto.php"; 
-
 		$progetto = new db_progetto();
+		
 		$progetto->delete($_POST['id']);
 		header('Location: myprogetti.php');
 	}
@@ -35,13 +38,38 @@
 	}
 
 	if (isset($_POST['accetta'])) {
-		$progetto = $_POST['id'];
-		$mail = $_POST['mail'];
-
 		require 'BackEnd/db_candidato.php';
 		$candidato = new db_candidato();
-		$candidato->updateAccettato($mail, $progetto, 1);
+
+		$candidato->updateAccettato($_POST['mail'], $_POST['id'], 1);
 		header('Location: progetto.php?id='.$_POST['id']);
+	}
+
+	if(isset($_POST['Elimina'])) {
+
+		require "BackEnd/db_candidato.php";
+		$candidato = new db_candidato();
+
+		$candidato->EliminaCandidatura($_SESSION['mail'], $_GET['id']);
+		header('Location: myprogetti.php');
+	}
+
+	if (isset($_POST['esplelli'])) {
+		require "BackEnd/db_candidato.php";
+		$candidato = new db_candidato();
+
+		$candidato->EliminaCandidatura($_POST['mail'], $_GET['id']);
+
+		header('Location: progetto.php?id='.$_GET['id']);
+	}
+
+	if (isset($_POST['rifiuta'])) {
+		require "BackEnd/db_candidato.php";
+		$candidato = new db_candidato();
+
+		$candidato->EliminaCandidatura($_POST['mail'], $_GET['id']);
+
+		header('Location: progetto.php?id='.$_GET['id']);
 	}
 
 	require "BackEnd/db_progetto.php";
@@ -234,24 +262,31 @@
 						</tr>
 
 						<tr>
-							<td height="150rem">
+							<td height="100rem">
 
 							</td>
 						</tr>
 						<?php
 						if ($progetto != null) {
 							if($progetto->getLeader() == $_SESSION['mail']) {
-								echo "<tr>
+								echo "
+								<form align=\"center\" action =\"progetto.php?id=".$_GET['id']."\" method=\"POST\">
+								<tr>
 								<td height=\"100rem\">
-
 								</td>
-								<td>
-								<form align=\"center\" action =\"progetto.php\" method=\"POST\">
+								<td align=\"center\">
+								<button type=\"submit\" class=\"btn btn-primary\" name=\"modify\">Modifica</button>
+								</td>
+								</tr>
+								<tr>
+								<td height=\"100rem\">
+								</td>
+								<td align=\"center\">
 								<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
 								<button type=\"submit\" class=\"btn btn-danger\" name=\"delete\">cancella</button>
-								</form>
 								</td>
-								</tr>";
+								</tr>
+								</form>";
 							}
 						}
 						?>
@@ -259,40 +294,34 @@
 						<?php
 						if ($progetto != null) {
 							if($progetto->getLeader() != $_SESSION['mail']) {
-								echo "<tr>
-								<td height=\"100rem\">
+								if($db_progetto->checkCandidato($_SESSION['mail'], $_GET['id'])){
+									echo "<tr>
+									<td height=\"100rem\">
 
-								</td>
-								<td>
-								<form align=\"center\" action =\"progetto.php\" method=\"POST\">
-								<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
-								<button type=\"submit\" class=\"btn btn-primary\" name=\"Candidati\">Candidati</button>
-								</form>
-								</td>
-								</tr>";
+									</td>
+									<td>
+									<form align=\"center\" action =\"progetto.php?id=".$_GET['id']."\" method=\"POST\">
+									<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
+									<button type=\"submit\" class=\"btn btn-danger\" name=\"Elimina\">Cancella Candidatura</button>
+									</form>
+									</td>
+									</tr>";
+								} else {
+									echo "<tr>
+									<td height=\"100rem\">
+
+									</td>
+									<td>
+									<form align=\"center\" action =\"progetto.php?id=".$_GET['id']."\" method=\"POST\">
+									<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
+									<button type=\"submit\" class=\"btn btn-primary\" name=\"Candidati\">Candidati</button>
+									</form>
+									</td>
+									</tr>";
+								}
 							}
 						}
 						?>
-
-					<?php
-					if ($progetto != null) {
-						if($progetto->getLeader() != $_SESSION['mail']) {
-							if($db_progetto->checkCandidato($_SESSION['mail'], $_GET['id'])){
-								echo "<tr>
-								<td height=\"100rem\">
-
-								</td>
-								<td>
-								<form align=\"center\" action =\"progetto.php\" method=\"POST\">
-								<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\"\>
-								<button type=\"submit\" class=\"btn btn-danger\" name=\"Elimina\">Cancella Candidatura</button>
-								</form>
-								</td>
-								</tr>";
-							}
-						}
-					}
-					?>
 					</table>
 				</div>
 				<div class="col-7">
@@ -352,8 +381,7 @@
 									$value = $row->fetch_assoc();
 
 									echo "
-									<form action=\"progetto.php\" method=\"POST\">
-									<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\">
+									<form action=\"progetto.php?id=".$_GET['id']."\" method=\"POST\">
 									<input type=\"hidden\" name=\"mail\" value=\"".$value['utente']."\">
 									<tr>
 									<td width=\"10rem\">
@@ -366,8 +394,16 @@
 
 									</td>
 									<td>
-									<button type=\"submit\" class=\"btn btn-success\" name=\"accetta\" disabled>Accettato</button>
+									<button type=\"submit\" class=\"btn btn-success\" disabled>Accettato</button>
 									</td>
+									<td width=\"10rem\">
+
+									</td>
+
+									<td>
+									<button type=\"submit\" class=\"btn btn-danger\" name=\"esplelli\">Espelli</button>
+									</td>
+
 									<td width=\"10rem\">
 
 									</td>
@@ -415,7 +451,7 @@
 									$value = $row->fetch_assoc();
 
 									echo "
-									<form action=\"progetto.php\" method=\"POST\">
+									<form action=\"progetto.php?id=".$_GET['id']."\" method=\"POST\">
 									<input type=\"hidden\" name=\"id\" value=\"".$_GET['id']."\">
 									<input type=\"hidden\" name=\"mail\" value=\"".$value['utente']."\">
 									<tr>

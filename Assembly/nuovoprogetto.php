@@ -252,7 +252,7 @@
 								Tag
 								<a href="#" data-toggle="tooltip" style="color: white;" title="l'aggiunta di tag rende più semplice la ricerca del progetto dal sistema [massimo 5]"><ion-icon name="information-circle-outline"></ion-icon></a>
 								<br>
-								<input type="text" name="tag" data-role="tagsinput"/>
+								<input type="text" class="form-control" name="tag" data-role="tagsinput"/>
 
 								<input type="hidden" id="tag1" name="tag1">
 								<input type="hidden" id="tag2" name="tag2">

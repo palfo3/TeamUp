@@ -91,7 +91,7 @@ class db_candidato{
 
 	public function EliminaTeammate($utente, $id){
 		$conn = $this->getConnection();
-		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto = '".$id."'";
+		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND progetto = '".$id."'";
 		$result = $conn->query($sql);
 	
 		$conn->close();		

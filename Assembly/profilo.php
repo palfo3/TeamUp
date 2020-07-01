@@ -7,50 +7,58 @@ if(empty($_SESSION)) {
 	header('Location: index.php');
 }
 
-require 'BackEnd/db_utente.php';
+$flag = true;
 
-if(isset($_POST['save'])) {
+if(isset($_GET['mail'])) {
+	$flag = false;
+} else {
+	require 'BackEnd/db_utente.php';
 
-
-
-	$array = array(
-		"mail" => $_POST['mail'],
-		"nome" => $_POST['nome'],
-		"cognome" => $_POST['cognome'],
-		"nascita" => $_POST['nascita'],
-		"password" => "NULL",
-		"descrizione" => $_POST['descrizione']);
-
-	$modifica = new utente($array);
-
-	$utente = new db_utente();
-	$utente->setUtente($_SESSION['mail']);
+	if(isset($_POST['save'])) {
 
 
-	if($utente->getUtente()->getNome() != $modifica->getNome())
-	{
-		$utente->updateNome($utente->getUtente()->getMail(), $modifica->getNome());
+
+		$array = array(
+			"mail" => $_POST['mail'],
+			"nome" => $_POST['nome'],
+			"cognome" => $_POST['cognome'],
+			"nascita" => $_POST['nascita'],
+			"password" => "NULL",
+			"descrizione" => $_POST['descrizione']);
+
+		$modifica = new utente($array);
+
+		$utente = new db_utente();
+		$utente->setUtente($_SESSION['mail']);
+
+
+		if($utente->getUtente()->getNome() != $modifica->getNome())
+		{
+			$utente->updateNome($utente->getUtente()->getMail(), $modifica->getNome());
+		}
+
+		if($utente->getUtente()->getCognome() != $modifica->getCognome())
+		{
+			$utente->updateCognome($utente->getUtente()->getMail(), $modifica->getCognome());
+		}
+
+		if($utente->getUtente()->getDescrizione() != $modifica->getDescrizione())
+		{
+			$utente->updateDescrizione($utente->getUtente()->getMail(), $modifica->getDescrizione());
+		}
+
+		if($utente->getUtente()->getNascita() != $modifica->getNascita())
+		{
+			$utente->updateNascita($utente->getUtente()->getMail(), $modifica->getNascita());
+		}
 	}
 
-	if($utente->getUtente()->getCognome() != $modifica->getCognome())
-	{
-		$utente->updateCognome($utente->getUtente()->getMail(), $modifica->getCognome());
-	}
+	$row = new db_utente();
 
-	if($utente->getUtente()->getDescrizione() != $modifica->getDescrizione())
-	{
-		$utente->updateDescrizione($utente->getUtente()->getMail(), $modifica->getDescrizione());
-	}
-
-	if($utente->getUtente()->getNascita() != $modifica->getNascita())
-	{
-		$utente->updateNascita($utente->getUtente()->getMail(), $modifica->getNascita());
-	}
+	$row->setUtente($_SESSION['mail']);
 }
 
-$row = new db_utente();
 
-$row->setUtente($_SESSION['mail']);
 
 ?>
 
@@ -113,7 +121,7 @@ $row->setUtente($_SESSION['mail']);
 										?>
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">Profilo</a>
+										<a class="dropdown-item" href="profilo.php">Profilo</a>
 										<a class="dropdown-item" href="myprogetti.php">Progetti</a>
 										<a class="dropdown-item" href="Logout.php">Logout</a>
 									</div>
@@ -130,81 +138,146 @@ $row->setUtente($_SESSION['mail']);
 	<br>
 	<br>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-4">
-				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
-					<?php
+	<?php
 
-					if(isset($_SESSION['img'])){
-						echo "<img style=\"float:left\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">&nbsp;";	
-					} else {
-						echo "<img style=\"float:left\" src=\"Img/profile.png\" class=\"imgprofile\">&nbsp;";
-					}
-					echo $_SESSION['nome']." ".$_SESSION['cognome'];
+	if($flag) {
 
-					?>
-				</div>
-				<br>
-				<br>
-				<br>
-				<br>
+		echo "
+		<div class=\"container\">
+		<div class=\"row\">
+		<div class=\"col-4\">
+		<div style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;\">
+		";
 
-				<div style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;" <?php if($_SESSION['google']) {echo "hidden=\"true\"";} ?>>
-					<center>
-						<label for="password">Cambia password</label><br>
-						<a href="new_password.php" class="btn btn-primary">cambia</a>
-					</center>
-				</div>
-				
+		if(isset($_SESSION['img'])){
+			echo "<img style=\"float:left\" src=\"".$_SESSION['img']."\" class=\"imgprofile\">&nbsp;";	
+		} else {
+			echo "<img style=\"float:left\" src=\"Img/profile.png\" class=\"imgprofile\">&nbsp;";
+		}
+		echo $_SESSION['nome']." ".$_SESSION['cognome'];
 
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>				
+		echo "
 
-				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
-					<center>
-						<label for="password">Elimina profilo</label><br>
-						<a href="EliminaProfilo.php" class="btn btn-danger">Cancella</a>
-					</center>
-				</form>
-			</div>
-			<div class="col-8">
-				
-				<form action="profilo.php" method="POST" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
-					<div class="form-group">
-						<label for="Nome">Nome</label>
-						<input type="text" class="form-control" name="nome" id="Nome" aria-describedby="Nome" <?php echo "value=\"".$row->getUtente()->getNome()."\""; if($_SESSION['google']) {echo "disabled";} ?>>
-					</div>
-					<div class="form-group">
-						<label for="Cognome">Cognome</label>
-						<input type="text" class="form-control" name="cognome" id="Cognome" <?php echo "value=\"".$row->getUtente()->getCognome()."\""; if($_SESSION['google']) {echo "disabled";} ?>>
-					</div>
-					<div class="form-group">
-						<label for="Email">Email</label>
-						<br>
-						<label> <?php echo $row->getUtente()->getMail(); ?> </label>
-					</div>
-					<div class="form-group">
-						<label for="data">Data di nascita</label>
-						<input type="date" class="form-control" name="nascita" id="data" <?php echo "value=\"".$row->getUtente()->getNascita()."\""; ?>>
-					</div>
-					<div class="form-group">
-						<label for="descrizione">Descrizione</label>
-						<textarea class="form-control" id="descrizione" name="descrizione" rows="3" maxlength="255"><?php echo $row->getUtente()->getDescrizione(); ?></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary" name="save">Salva</button>
-				</form>
-			</div>
 		</div>
-	</div>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<div style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;\" "; if($_SESSION['google']) {echo "hidden=\"true\"";} echo ">
+		<center>
+		<label for=\"password\">Cambia password</label><br>
+		<a href=\"new_password.php\" class=\"btn btn-primary\">cambia</a>
+		</center>
+		</div>
+
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>				
+
+		<form action=\"profilo.php\" method=\"POST\" style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;\">
+		<center>
+		<label for=\"password\">Elimina profilo</label><br>
+		<a href=\"EliminaProfilo.php\" class=\"btn btn-danger\">Cancella</a>
+		</center>
+		</form>
+		</div>
+		<div class=\"col-8\">
+
+		<form action=\"profilo.php\" method=\"POST\" style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;\">
+		<div class=\"form-group\">
+		<label for=\"Nome\">Nome</label>
+		<input type=\"text\" class=\"form-control\" name=\"nome\" id=\"Nome\" aria-describedby=\"Nome\" "; echo "value=\"".$row->getUtente()->getNome()."\""; if($_SESSION['google']) {echo "disabled";} echo ">
+		</div>
+		<div class=\"form-group\">
+		<label for=\"Cognome\">Cognome</label>
+		<input type=\"text\" class=\"form-control\" name=\"cognome\" id=\"Cognome\""; echo "value=\"".$row->getUtente()->getCognome()."\""; if($_SESSION['google']) {echo "disabled";} echo ">
+		</div>
+		<div class=\"form-group\">
+		<label for=\"Email\">Email</label>
+		<br>
+		<label> ";  echo $row->getUtente()->getMail(); echo "</label>
+		</div>
+		<div class=\"form-group\">
+		<label for=\"data\">Data di nascita</label>
+		<input type=\"date\" class=\"form-control\" name=\"nascita\" id=\"data\" "; echo "value=\"".$row->getUtente()->getNascita()."\""; echo ">
+		</div>
+		<div class=\"form-group\">
+		<label for=\"descrizione\">Descrizione</label>
+		<textarea class=\"form-control\" id=\"descrizione\" name=\"descrizione\" rows=\"3\" maxlength=\"255\">"; echo $row->getUtente()->getDescrizione(); echo "</textarea>
+		</div>
+		<button type=\"submit\" class=\"btn btn-primary\" name=\"save\">Salva</button>
+		</form>
+		</div>
+		</div>
+		</div>
+		";
+	} else {
+
+		require 'BackEnd/db_utente.php';
+		$db_utente = new db_utente();
+
+		$db_utente->setUtente($_GET['mail']);
+
+		$utente = $db_utente->getUtente();
+
+		echo "
+		<div class=\"container\">
+		<div class=\"row\">
+		<div class=\"col-4\">
+		<div style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;\">
+		";
+
+			echo "<img style=\"float:left\" src=\"Img/profile.png\" class=\"imgprofile\">&nbsp;";
+		
+		echo $utente->getNome()." ".$utente->getCognome();
+
+		echo "
+
+		</div>			
+		</div>
+		<div class=\"col-8\">
+
+		<div style=\"background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;\">
+		<div class=\"form-group\">
+		<label for=\"Nome\">Nome</label>
+		<br> 
+		<b><h5><label>".$utente->getNome()."</label></h5></b>
+		</div>
+		<div class=\"form-group\">
+		<label for=\"Cognome\">Cognome</label>
+		<b><h5><label>".$utente->getCognome()."</label></h5></b>
+		</div>
+		<div class=\"form-group\">
+		<label for=\"Email\">Email</label>
+		<br>
+		<b><h5><label>".$utente->getMail()."</label></h5></b>
+		</div>
+		<div class=\"form-group\">
+		<label for=\"data\">Data di nascita</label>
+		<b><h5><label>".$utente->getNascita()."</label></h5></b>
+		</div>
+		<div class=\"form-group\">
+		<label for=\"descrizione\">Descrizione</label>
+		<b><h5><label>".$utente->getDescrizione()."</label></h5></b>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		";
+	}
+	?>
 
 	<br>
 	<br>
+
+
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

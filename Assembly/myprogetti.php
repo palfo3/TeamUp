@@ -177,18 +177,21 @@
 				<br>
 				";
 			}
-		}
+			echo "</div>";
+		} 
 
-		echo "
+		
 
-		</div>
+		if ($resultp != null) {
+
+			echo "
+
+		
 		<div class =\"col-2\">
 		</div>
 		<div class =\"col-5\">
 		<br>
 		<b>Progetti candidato</b>";
-
-		if ($resultp != null) {
 
 			for($i = 0; $i < $resultp->num_rows; $i++) {
 				

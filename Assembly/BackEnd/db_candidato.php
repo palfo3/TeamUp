@@ -125,6 +125,14 @@ class db_candidato{
 		return null;
 	}
 
+	public function EliminaCandidatura($utente, $id){
+		$conn = $this->getConnection();
+		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND progetto = '".$id."'";
+		$result = $conn->query($sql);
+
+		$conn->close();		
+	}
+
 	public function getCandidato(){
 		return $this->candidato;
 	}
