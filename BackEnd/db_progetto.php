@@ -152,16 +152,13 @@ class db_progetto{
 		$result = $conn->query($sql);
 		$array = array();
 
-
 		for($i=0; $i < $result->num_rows; $i++){
 			$row = $result->fetch_assoc();
 			$project = new progetto($row);
 			$array[] = $project;
 		}
-
 		$conn->close();
 		return $array;
-
 	}
 }
 ?>
