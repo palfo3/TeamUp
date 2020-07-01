@@ -160,19 +160,20 @@ class db_progetto{
 		return $this->progetto;
 	}
 
+	public function getArrayProgetti($ricerca){
+		$conn = $this->getConnection();
+		$sql = "SELECT DISTINCT id, nome, descrizione, data_scadenza, leader, data_creazione FROM progetto LEFT OUTER JOIN associatag on id = progetto WHERE ricercabile=1 AND (nome LIKE '%".$ricerca."%' OR tag LIKE '%".$ricerca."%') ORDER BY data_creazione DESC";
+		$result = $conn->query($sql);
+		$array = array();
+
+		for($i=0; $i < $result->num_rows; $i++){
+			$row = $result->fetch_assoc();
+			$project = new progetto($row);
+			$array[] = $project;
+		}
+		$conn->close();
+		return $array;
+	}
+
 }
-
-/*	Testing della classe
-
-	$array = array( "leader" => "gaetano@mail.it",
-					"nome" => "The simp king",
-					"descrizione" => "sciam a femmn",
-					"data_scadenza" => "2020-05-29",
-					"data_creazione" => "2020-05-24");
-
-	$interface = new db_progetto();
-	$interface->register($array);
-
-*/
-
 ?>

@@ -7,6 +7,12 @@
 		header('Location: index.php');
 	}
 
+	require "BackEnd\db_progetto.php";
+
+	$progetti = new db_progetto();
+
+	$array = $progetti->getArrayProgetti($_POST['cerca']);
+
 	?>
 
 	<!DOCTYPE html>
@@ -30,15 +36,15 @@
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 			<div class="container-fluid">
 				<div class="col-4"> 
-					<a class="navbar-brand" href="index.php">
+					<a class="navbar-brand" href="index.php" hei>
 						<div class="titolo">
 							TeamUp
 						</div>
 					</a> 
 				</div>
 				<div class="col-6"> 
-					<form class="form-inline my-2 my-lg-0" action="cerca.php" method="POST">
-						<input class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Search" name="cerca">
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Search">
 						<button class="btn btn-outline-light my-2 my-sm-0 btn-sm" type="submit">Cerca</button>
 					</form>
 				</div>
@@ -46,7 +52,7 @@
 					<ul>
 						<li>
 							<a href="#">
-								<div class="d-none d-sm-block">
+								<div class="d-none d-sm-block" >
 									
 									<div class="dropdown">
 										<br>
@@ -82,16 +88,61 @@
 		<br>
 		<br>
 		<br>
-		<br>
+		<br >
 
+		<?php
 
-		<center>
-			<b>Benvenuto in Teamup</b>
-			<br>
-
+		foreach ($array as $value) {
 			
-		</center>
 
+		echo "<a href=\"progetto.php?id=".$value->getID()."\" style=\"text-decoration: none;\"><table align=\"center\" style=\"color: white;background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;\">
+		<tr>
+			<td width=\"50rem\">
+				
+			</td>
+			<td align=\"center\">
+				".$value->getNome()."
+			</td>
+			<td width=\"50rem\">
+				
+			</td>
+		</tr>
+		<tr>
+		<td height=\"10rem\">
+		</td>
+		</tr>			
+		<tr>
+			<td width=\"50rem\">
+				
+			</td>
+			<td align=\"center\">
+				".$value->getDescrizione()."
+			</td>
+			<td width=\"50rem\">
+				
+			</td>
+		</tr>
+		<tr>
+		<td height=\"10rem\">
+		</td>
+		</tr>			
+		<tr>
+			<td width=\"50rem\">
+				
+			</td>
+			<td align=\"center\">
+				".$value->getData_Scadenza()."
+			</td>
+			<td width=\"50rem\">
+				
+			</td>
+		</tr>		
+		</table></a>
+		<br><br><br>";
+		
+	}
+
+		?>
 
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 		</script>
