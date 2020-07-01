@@ -62,7 +62,6 @@ class db_candidato{
 	}
 	//END UPDATE QUERIES
 
-
 	public function setCandidato($mail, $id){
 		$conn = $this->getConnection();
 		$sql = "SELECT * FROM candidato WHERE utente LIKE '".$mail."' AND progetto = ".$id;
@@ -71,7 +70,6 @@ class db_candidato{
 		if ($result->num_rows == 1) {
 		  // output data of each row
 		  $row = $result->fetch_assoc();
-		  
 		  $candidato = new candidato($row);
 		}
 		$conn->close();		
@@ -82,24 +80,20 @@ class db_candidato{
 		$sql = "SELECT utente FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '1' AND progetto = ".$id;
 		$result = $conn->query($sql);
 		
-		if($result->num_rows == 1){
-		  $row = $result->fetch_assoc();
-		  echo $row['utente'];
-		  return TRUE;
+		if($result->num_rows >= 1){
+			$conn->close();	
+		  	return TRUE;
+		}else{
+			$conn->close();	
+		  	return FALSE;
 		}
-		$conn->close();		
 	}
 
 	public function EliminaTeammate($utente, $id){
 		$conn = $this->getConnection();
 		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto = '".$id."'";
 		$result = $conn->query($sql);
-		
-		if($result->num_rows == 1){
-		  $row = $result->fetch_assoc();
-		  echo $row['utente'];
-		  return TRUE;
-		}
+	
 		$conn->close();		
 	}
 
