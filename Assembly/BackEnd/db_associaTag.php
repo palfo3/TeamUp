@@ -61,6 +61,31 @@ class db_associaTag{
 		}
 	}
 
+	public function getTag($id)
+	{
+		$conn = $this->getConnection();
+		$sql = "SELECT * FROM associaTag where progetto = '".$id."'";
+
+		$result = $conn->query($sql);
+		$array = array();
+
+		for($i=0; $i < $result->num_rows; $i++){
+			$row = $result->fetch_assoc();
+			$tags = new associaTag($row);
+			$array[] = $tags;
+		}
+		$conn->close();
+		return $array;
+
+	}
+
+	public function deleteAllTags($id){
+		$conn = $this->getConnection();
+		$sql = "DELETE FROM associaTag WHERE progetto = '".$id."'";
+		$conn->query($sql);
+		$conn->close();
+	}
+
 
 }
 
