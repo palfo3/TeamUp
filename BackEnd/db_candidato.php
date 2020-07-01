@@ -77,7 +77,7 @@ class db_candidato{
 		$conn->close();		
 	}
 
-    /*public function RicercaTeammate($utente, $id){
+    public function RicercaTeammate($utente, $id){
 		$conn = $this->getConnection();
 		$sql = "SELECT utente FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '1' AND progetto = ".$id;
 		$result = $conn->query($sql);
@@ -88,21 +88,9 @@ class db_candidato{
 		  return TRUE;
 		}
 		$conn->close();		
-	}*/
-
-	public function RicercaTeammate($utente){
-		$conn = $this->getConnection();
-		$sql = "SELECT utente FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '1'";
-		$result = $conn->query($sql);
-		
-		if($result->num_rows == 1){
-		  $row = $result->fetch_assoc();
-		  return TRUE;
-		}
-		$conn->close();		
 	}
 
-	/*public function EliminaTeammate($utente, $id){
+	public function EliminaTeammate($utente, $id){
 		$conn = $this->getConnection();
 		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto = '".$id."'";
 		$result = $conn->query($sql);
@@ -113,23 +101,12 @@ class db_candidato{
 		  return TRUE;
 		}
 		$conn->close();		
-	}*/
-
-	// Abbandono progetto o Espulsione teammate
-	// Viene modificato il campo accettato nella tabaella candidato (uguale a 1) e modificato a 0
-	public function EliminaTeammate($utente){
-		$conn = $this->getConnection();
-		$sql = "UPDATE candidato SET accettato = '0' WHERE utente LIKE '".$utente."'";
-		$result = $conn->query($sql);
-		
-		//$result = mysqli_query($conn, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($conn), E_USER_ERROR);
 	}
 
-
 	// Controllo che il campo accettato sia 0, se è uguale a 
-	public function EliminaCandidatura($utente){
+	public function EliminaCandidatura($utente, $id){
 		$conn = $this->getConnection();
-		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0'";
+		$sql = "DELETE FROM candidato WHERE utente LIKE '".$utente."' AND accettato = '0' AND progetto = '".$id."'";
 		$result = $conn->query($sql);
 
 		$conn->close();		
