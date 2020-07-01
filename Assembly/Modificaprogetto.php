@@ -8,12 +8,13 @@
 	}
 
 	if(isset($_POST['save'])) {
-		require 'BackEnd/db_progetto.php';
+		require "BackEnd/db_progetto.php";
 		require "BackEnd/db_tag.php";
 		require "BackEnd/db_associaTag.php";
 
 		$db_progetto = new db_progetto();
 		$db_associatag = new db_associatag();
+		$db_tag = new db_tag();
 
 		$db_progetto->updateNome($_GET['id'], $_POST['nome']);
 
@@ -22,8 +23,6 @@
 		$db_progetto->updateData_scadenza($_GET['id'], $_POST['scadenza']);
 
 		$db_associatag->deleteAllTags($_GET['id']);
-
-		$db_tag = new db_tag();
 
 			if($_POST["tag1"] != "")
 				$db_tag->register($_POST["tag1"]);
@@ -40,10 +39,10 @@
 			if($_POST["tag5"] != "")
 				$db_tag->register($_POST["tag5"]);
 
+
 			$array = array("progetto" => $_GET['id'],
 				"tag" => $_POST["tag1"],
 				"posizione" => "0");
-
 			$db_associatag->register($array);
 
 			$array = array("progetto" => $_GET['id'],
@@ -171,7 +170,7 @@
 		<br>
 		<br>
 
-		<form <?php echo " action=\"Modificaprogetto.php?id=".$_GET['id']."\""; ?> method="POST">
+		<form <?php echo " action=\"Modificaprogetto.php?id=".$_GET['id']."\""; ?> method="POST" onsubmit = "loadtag()">
 		<table align="center" style="background-color: #343a40;box-shadow: 20px 20px 20px 0px #495057;color: white;padding: 20px;">
 			<tr>
 				<td height="10rem">
