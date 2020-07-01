@@ -227,11 +227,11 @@
 								<br>
 								<input type="date"  class="form-control" id="scadenza" name="scadenza" 
 								<?php
-								 $date = date("Y-m-d");
-								 echo "min=\"".$date."\"";
-								 #date_add($date,date_interval_create_from_date_string("1 year"));
-								 #echo "max=\"".date_format($date,"Y-m-d")."\"";
-								 ?> 
+								$date=date_create(date("Y-m-d"));
+								echo "min=\"".date_format($date,"Y-m-d")."\" ";
+								date_add($date,date_interval_create_from_date_string("1 year"));
+								echo "max=\"".date_format($date,"Y-m-d")."\"";
+								?>
 								 required>
 							</center>
 						</td>	
