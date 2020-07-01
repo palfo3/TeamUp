@@ -6,4 +6,5 @@ $progetti = new db_progetto();
 
 $array = $progetti->getArrayProgetti("");
 
+
 ?>

@@ -32,7 +32,7 @@
 
 	</head>
 
-	<body style="background-color: #9BA4AF;">
+	<body style="background-color: #9BA4AF;" onload="start()">
 
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0 5px 20px 13px #545b62 !important;">
 			<div class="container-fluid">
@@ -143,11 +143,11 @@
 
 				<td align="center">
 
-					Descrizione
+					Tag
 
 					<br>
 
-					<input type="text" name="tag" data-role="tagsinput"/>
+					<input type="text" class="form-control" name="tag" data-role="tagsinput"/>
 					
 				</td>
 				<td width="50rem">
@@ -161,6 +161,43 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
 		</script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+		</script>
+		<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+		<script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+		<script type="text/javascript">
+			
+			function start() {
+				$('input[name="tag"]').tagsinput('add', 'some tag');
+				$('input[name="tag"]').tagsinput('add', 'some tag');
+				$('input[name="tag"]').tagsinput('add', 'some tag');
+				$('input[name="tag"]').tagsinput('add', 'some tag');
+				$('input[name="tag"]').tagsinput('add', 'some tag');
+			}
+
+
+			function loadtag() {
+
+				var array = $('input[name="tag"]').val().split(',');
+				document.getElementById("tag1").value = array[0];
+				document.getElementById("tag2").value = array[1];
+				document.getElementById("tag3").value = array[2];
+				document.getElementById("tag4").value = array[3];
+				document.getElementById("tag5").value = array[4];
+
+			}
+
+			
+
+
+			$('input[name="tag"]').tagsinput({
+				maxTags: 5,
+				maxChars: 20
+			});
+
+			$(document).ready(function(){
+				$('[data-toggle="tooltip"]').tooltip();   
+			});
 		</script>
 
 	</body>
