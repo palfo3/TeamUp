@@ -84,7 +84,10 @@
 	$string = "";
 
 	foreach ($tags as $value) {
-		$string .= $value->getTag().",";
+		if($value != "undefined"){
+			$string .= $value->getTag().",";
+		}
+		
 	}
 
 	?>
