@@ -88,10 +88,25 @@
 		<div align="center">
 			<strong>Benvenuto in Teamup</strong>
 			<br>
-
-			
 		</div>
 
+		<br>
+		<br>
+
+		<div align="right" style="padding-right: 5rem;">
+			<a href="https://www.amazon.it/Apple-AirPods-custodia-ricarica-Modello/dp/B07PYMK77Y?ref_=s9_apbd_otopr_hd_bw_bTTLGx&pf_rd_r=YN1GVZ540G0G21EHWD9N&pf_rd_p=0fbe64fe-af59-550b-9ce2-9f4c7eefb954&pf_rd_s=merchandised-search-11&pf_rd_t=BROWSE&pf_rd_i=435507031"><img style="border: 2px solid #555;" src="https://images-na.ssl-images-amazon.com/images/I/71NTi82uBEL._AC_SL1500_.jpg" height="100rem" width="100rem"></a>
+
+			<br><br>
+
+			<a href="https://www.amazon.it/amazon-echo-dot-3-generazione-altoparlante-intelligente-con-integrazione-alexa-tessuto-antracite/dp/B07PHPXHQS/ref=sr_1_1?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=echo+dot&qid=1593705638&sr=8-1"><img style="border: 2px solid #555;" src="https://images-na.ssl-images-amazon.com/images/I/61u48FEs0rL._AC_SL1000_.jpg" height="100rem" width="100rem"></a>
+			<br><br>
+
+			<a href="https://www.amazon.it/SNAPTAIN-Compatibile-Quadricottero-Atterraggio-Principianti/dp/B07Y65S63B/ref=sr_1_1_sspa?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=drone&qid=1593705419&s=electronics&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyQ0QxSlBHWVBJNFVHJmVuY3J5cHRlZElkPUEwNDk3MTg4MUczSDdVV1BTMEEwVyZlbmNyeXB0ZWRBZElkPUEwMTA0ODM1M1NUUFFISTg5SlQ5VyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU="><img style="border: 2px solid #555;" src="https://images-na.ssl-images-amazon.com/images/I/81QYjjB6ZWL._AC_SL1500_.jpg" height="100rem" width="100rem"></a>
+			<br><br>
+
+			<a href="https://www.amazon.it/KAWELL-Applique-Industriale-dellacqua-Ristorante/dp/B078K2ZT6B?pf_rd_r=YGTM4QEEZ58S3GE42MQZ&pf_rd_p=d784cf19-4f23-480a-a82d-a9e87a688e6c&pd_rd_r=940d7695-4227-43d1-a52e-2a8cb9e9e73c&pd_rd_w=jYKqP&pd_rd_wg=Gq9pZ&ref_=pd_gw_trq_rep_sims_gw"><img style="border: 2px solid #555;" src="https://images-na.ssl-images-amazon.com/images/I/71tHYN5wG%2BL._AC_SL1200_.jpg" height="100rem" width="100rem"></a>
+		</div>
+<br><br><br>
 
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 		</script>
