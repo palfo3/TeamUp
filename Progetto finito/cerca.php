@@ -43,8 +43,8 @@
 					</a> 
 				</div>
 				<div class="col-6"> 
-					<form class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Search">
+					<form class="form-inline my-2 my-lg-0" action="cerca.php" method="POST">
+						<input class="form-control mr-sm-2" type="search" placeholder="Cerca" aria-label="Search" name="cerca">
 						<button class="btn btn-outline-light my-2 my-sm-0 btn-sm" type="submit">Cerca</button>
 					</form>
 				</div>
