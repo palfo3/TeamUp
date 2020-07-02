@@ -17,7 +17,7 @@ class db_utente{
         $dbname = "db_ing";
 
             // Create connection
-        $conn = new mysqli($servername, $username, define("Password", "admin"), $dbname);
+        $conn = new mysqli($servername, $username, $password, $dbname);
         return $conn;
     }
 

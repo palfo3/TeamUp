@@ -22,50 +22,7 @@
 
 		$db_progetto->updateData_scadenza($_GET['id'], $_POST['scadenza']);
 
-		$db_associatag->deleteAllTags($_GET['id']);
-
-			if($_POST["tag1"] != "")
-				$db_tag->register($_POST["tag1"]);
-
-			if($_POST["tag2"] != "")
-				$db_tag->register($_POST["tag2"]);
-
-			if($_POST["tag3"] != "")
-				$db_tag->register($_POST["tag3"]);
-
-			if($_POST["tag4"] != "")
-				$db_tag->register($_POST["tag4"]);
-
-			if($_POST["tag5"] != "")
-				$db_tag->register($_POST["tag5"]);
-
-
-			$array = array("progetto" => $_GET['id'],
-				"tag" => $_POST["tag1"],
-				"posizione" => "0");
-			$db_associatag->register($array);
-
-			$array = array("progetto" => $_GET['id'],
-				"tag" => $_POST["tag2"],
-				"posizione" => "1");
-			$db_associatag->register($array); 
-
-			$array = array("progetto" => $_GET['id'],
-				"tag" => $_POST["tag3"],
-				"posizione" => "2");
-			$db_associatag->register($array); 
-
-			$array = array("progetto" => $_GET['id'],
-				"tag" => $_POST["tag4"],
-				"posizione" => "3");
-			$db_associatag->register($array); 
-
-			$array = array("progetto" => $_GET['id'],
-				"tag" => $_POST["tag5"],
-				"posizione" => "4");
-			$db_associatag->register($array);
-
-			header('Location: progetto.php?id='.$_GET['id']);
+		header('Location: progetto.php?id='.$_GET['id']);
 
 	}
 
@@ -264,24 +221,6 @@
 			</tr>
 			<tr>
 				<td width="50rem">
-				</td>
-
-				<td align="center">
-
-					Tag
-
-					<br>
-
-					<input type="text" class="form-control" name="tag" data-role="tagsinput" <?php echo"value=\"".$string."\""; ?>/>
-					
-					<input type="hidden" id="tag1" name="tag1">
-					<input type="hidden" id="tag2" name="tag2">
-					<input type="hidden" id="tag3" name="tag3">
-					<input type="hidden" id="tag4" name="tag4">
-					<input type="hidden" id="tag5" name="tag5">
-
-				</td>
-				<td width="50rem">
 				</td>		
 			</tr>
 			<tr>
@@ -317,30 +256,6 @@
 		<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 		<script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
 
-		<script type="text/javascript">
-			function loadtag() {
-
-				var array = $('input[name="tag"]').val().split(',');
-				document.getElementById("tag1").value = array[0];
-				document.getElementById("tag2").value = array[1];
-				document.getElementById("tag3").value = array[2];
-				document.getElementById("tag4").value = array[3];
-				document.getElementById("tag5").value = array[4];
-
-			}
-
-			
-
-
-			$('input[name="tag"]').tagsinput({
-				maxTags: 5,
-				maxChars: 20
-			});
-
-			$(document).ready(function(){
-				$('[data-toggle="tooltip"]').tooltip();   
-			});
-		</script>
 
 	</body>
 
